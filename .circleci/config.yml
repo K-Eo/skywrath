@@ -1,0 +1,45 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/circleci-skywrath
+    docker:
+      - image: circleci/ruby:2.4.2-node
+      - image: circleci/postgres:9.6-alpine
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ arch }}-{{ .Branch }}
+            - gem-cache
+
+      - run: bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ arch }}-{{ .Branch }}
+            - yarn-cache
+
+      - run: yarn install
+
+      - save_cache:
+          key: yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # Run tests
+      - type: shell
+        command: |
+          bundle exec rails test
