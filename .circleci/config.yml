@@ -40,6 +40,5 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       # Run tests
-      - type: shell
-        command: |
-          bundle exec rails test
+      - run: bundle exec rails test
+      - run: bundle exec rubocop
