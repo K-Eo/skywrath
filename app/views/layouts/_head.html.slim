@@ -1,0 +1,9 @@
+- site_name = "Skywrath"
+head
+  meta charset="utf-8"
+  title = site_name
+  = csrf_meta_tags
+  = stylesheet_pack_tag 'application'
+
+  - if content_for?(:page_stylesheets)
+    = yield :page_stylesheets
