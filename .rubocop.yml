@@ -12,6 +12,7 @@ AllCops:
     - 'Guardfile'
     - 'config.ru'
     - 'Rakefile'
+    - '**/node_modules/**/*'
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
