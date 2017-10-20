@@ -47,3 +47,16 @@
 .field_error_message {
   color: #9F3A38;
 }
+
+.field.helper {
+  color: #586069;
+  font-size: 13px;
+}
+
+.ui.checkbox label, .ui.checkbox + label {
+  color: #586069;
+}
+
+.ui.form .field > label {
+  font-weight: 500;
+}

@@ -13,7 +13,7 @@
       = f.password_field :password, autocomplete: "off"
       = field_error_message(resource, :password, :em)
       - if @minimum_password_length && !field_has_error?(resource, :password)
-        em = "#{@minimum_password_length} caracteres mínimo"
+        em.field.helper = "#{@minimum_password_length} caracteres mínimo"
 
     .field class=field_error(resource, :password_confirmation)
       = f.label :password_confirmation, "Confirmar contraseña"
