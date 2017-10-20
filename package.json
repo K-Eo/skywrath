@@ -1,18 +1,8 @@
 {
   "name": "skywrath",
   "private": true,
-  "dependencies": {
-    "@rails/webpacker": "^3.0.2",
-    "babel-preset-react": "^6.24.1",
-    "coffeescript": "1.12.7",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "semantic-ui": "^2.2.13",
-    "semantic-ui-react": "^0.75.1"
-  },
   "devDependencies": {
-    "webpack-dev-server": "^2.9.2"
+    "semantic-ui": "^2.2.13"
   },
   "engines": {
     "node": "8.7.0",
