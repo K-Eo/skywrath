@@ -3,21 +3,22 @@
 
 .ui.segment
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f|
-    = devise_error_messages!
-
-    .field
+    .field class=field_error(resource, :email)
       = f.label :email, "Correo electrónico"
       = f.email_field :email, autofocus: true
+      = field_error_message(resource, :email, :em)
 
-    .field
+    .field class=field_error(resource, :password)
       = f.label :password, "Contraseña"
       = f.password_field :password, autocomplete: "off"
-      - if @minimum_password_length
+      = field_error_message(resource, :password, :em)
+      - if @minimum_password_length && !field_has_error?(resource, :password)
         em = "#{@minimum_password_length} caracteres mínimo"
 
-    .field
+    .field class=field_error(resource, :password_confirmation)
       = f.label :password_confirmation, "Confirmar contraseña"
       = f.password_field :password_confirmation, autocomplete: "off"
+      = field_error_message(resource, :password_confirmation, :em)
 
     .field
       = f.submit "Crear mi cuenta" , class: "ui fluid positive button"
