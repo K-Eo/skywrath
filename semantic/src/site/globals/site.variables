@@ -1,3 +1,23 @@
 /*******************************
      User Global Variables
 *******************************/
+
+@fontName: -apple-system;
+@headerFont: Roboto, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+@pageFont: @fontName, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+@importGoogleFonts: false;
+
+@emSize: 15px;
+
+@primaryColor: @blue;
+
+@linkColor: @blue;
+
+@blue: #007aff;
+@green: #2fcb53;
+@orange: #ff9500;
+@pink: #ff2d55;
+@purple: #5856d6;
+@red: #ff3b30;
+@teal: #5ac8fa;
+@yellow: #ffcc00;
