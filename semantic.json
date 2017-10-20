@@ -8,10 +8,10 @@
       "themes": "src/themes/"
     },
     "output": {
-      "packaged": "../app/assets/stylesheets/",
-      "uncompressed": "../app/assets/stylesheets/components/",
-      "compressed": "../app/assets/stylesheets/components/",
-      "themes": "../app/assets/stylesheets/themes/"
+      "packaged": "../vendor/assets/stylesheets/",
+      "uncompressed": "../vendor/assets/stylesheets/components/",
+      "compressed": "../vendor/assets/stylesheets/components/",
+      "themes": "../vendor/assets/stylesheets/themes/"
     },
     "clean": "dist/"
   },
