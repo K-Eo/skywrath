@@ -1,0 +1,26 @@
+= render partial: "devise/title",
+         object: "Crear cuenta en Skywrath"
+
+.ui.segment
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f|
+    = devise_error_messages!
+
+    .field
+      = f.label :email, "Correo electrónico"
+      = f.email_field :email, autofocus: true
+
+    .field
+      = f.label :password, "Contraseña"
+      = f.password_field :password, autocomplete: "off"
+      - if @minimum_password_length
+        em = "#{@minimum_password_length} caracteres mínimo"
+
+    .field
+      = f.label :password_confirmation, "Confirmar contraseña"
+      = f.password_field :password_confirmation, autocomplete: "off"
+
+    .field
+      = f.submit "Crear mi cuenta" , class: "ui fluid positive button"
+
+  .auth-links
+    = render "devise/shared/links"

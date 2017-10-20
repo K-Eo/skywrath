@@ -1,0 +1,16 @@
+= render partial: "devise/title",
+         object: "Desbloquear mi cuenta"
+
+.ui.segment
+  = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
+    = devise_error_messages!
+
+    .field
+      = f.label :email, "Correo electrónico"
+      = f.email_field :email, autofocus: true
+
+    .field
+      = f.submit "Reenviar instrucciones de desbloqueo", class: "ui fluid positive button"
+
+  .auth-links
+    = render "devise/shared/links"

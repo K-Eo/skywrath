@@ -1,0 +1,16 @@
+= render partial: "devise/title",
+         object: "Confirmar mi cuenta"
+
+.ui.segment
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
+    = devise_error_messages!
+
+    .field
+      = f.label :email, "Correo electrónico"
+      = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+    .field
+      = f.submit "Reenviar instrucciones de confirmación", class: "ui fluid positive button"
+
+  .auth-links
+    = render "devise/shared/links"
