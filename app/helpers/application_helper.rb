@@ -12,6 +12,14 @@ module ApplicationHelper
   end
 
   def field_error_message(resource, key, tag, options = nil)
+    options ||= {}
+    classes = options[:class] || ""
+
+    options[:class] = classes
+                      .split(" ")
+                      .push("field_error_message")
+                      .join(" ")
+
     if field_has_error?(resource, key)
       content_tag tag, resource.errors[key].first, options
     end
