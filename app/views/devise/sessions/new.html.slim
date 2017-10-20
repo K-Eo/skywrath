@@ -4,21 +4,21 @@
 .ui.segment
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form" }) do |f|
     .field
-      = f.label :email, "Correo electrónico"
+      = f.label :email
       = f.email_field :email, autofocus: true
 
     .field
-      = f.label :password, "Contraseña"
+      = f.label :password
       = f.password_field :password, autocomplete: "off"
 
     - if devise_mapping.rememberable?
       .field
         .ui.checkbox
           = f.check_box :remember_me
-          = f.label :remember_me, "Recordarme"
+          = f.label :remember_me
 
     .field
-      = f.submit "Iniciar sesión", class: 'ui fluid positive button'
+      = f.submit t("devise.sessions.submit"), class: 'ui fluid positive button'
 
   .auth-links
     = render "devise/shared/links"

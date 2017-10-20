@@ -4,24 +4,24 @@
 .ui.segment
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f|
     .field class=field_error(resource, :email)
-      = f.label :email, "Correo electrónico"
+      = f.label :email
       = f.email_field :email, autofocus: true
       = field_error_message(resource, :email, :em)
 
     .field class=field_error(resource, :password)
-      = f.label :password, "Contraseña"
+      = f.label :password
       = f.password_field :password, autocomplete: "off"
       = field_error_message(resource, :password, :em)
       - if @minimum_password_length && !field_has_error?(resource, :password)
         em.field.helper = "#{@minimum_password_length} caracteres mínimo"
 
     .field class=field_error(resource, :password_confirmation)
-      = f.label :password_confirmation, "Confirmar contraseña"
+      = f.label :password_confirmation
       = f.password_field :password_confirmation, autocomplete: "off"
       = field_error_message(resource, :password_confirmation, :em)
 
     .field
-      = f.submit "Crear mi cuenta" , class: "ui fluid positive button"
+      = f.submit t("devise.registrations.submit"), class: "ui fluid positive button"
 
   .auth-links
     = render "devise/shared/links"

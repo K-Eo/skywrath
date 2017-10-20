@@ -6,11 +6,11 @@
     = devise_error_messages!
 
     .field
-      = f.label :email, "Correo electrónico"
+      = f.label :email
       = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
 
     .field
-      = f.submit "Reenviar instrucciones de confirmación", class: "ui fluid positive button"
+      = f.submit t("devise.confirmations.submit"), class: "ui fluid positive button"
 
   .auth-links
     = render "devise/shared/links"

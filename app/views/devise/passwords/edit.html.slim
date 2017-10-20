@@ -18,7 +18,7 @@
       = field_error_message(resource, :password_confirmation, :em)
 
     .field
-      = f.submit "Cambiar mi contraseña", class: "ui fluid positive button"
+      = f.submit t("devise.passwords.submit_edit"), class: "ui fluid positive button"
 
   .auth-links
     = render "devise/shared/links"

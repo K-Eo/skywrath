@@ -6,11 +6,11 @@
     = devise_error_messages!
 
     .field
-      = f.label :email, "Correo electrónico"
+      = f.label :email
       = f.email_field :email, autofocus: true
 
     .field
-      = f.submit "Recuperar contraseña", class: "ui fluid positive button"
+      = f.submit t("devise.passwords.submit_new"), class: "ui fluid positive button"
 
   .auth-links
     = render "devise/shared/links"
