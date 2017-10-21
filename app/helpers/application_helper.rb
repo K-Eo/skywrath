@@ -1,4 +1,16 @@
 module ApplicationHelper
+  def gravatar(object, args = {})
+    options = {
+      d: args.fetch(:d, "retro"),
+      s: args.fetch(:height, "80")
+    }
+
+    args.delete(:d)
+
+    hash = Digest::MD5.hexdigest(object.email)
+    image_tag "https://www.gravatar.com/avatar/#{hash}?#{options.to_query}", args
+  end
+
   def field_has_error?(resource, key)
     if resource.nil? || resource.errors.nil?
       return false

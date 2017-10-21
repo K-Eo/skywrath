@@ -12,4 +12,10 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery3
+//= require semantic
 //= require_tree .
+
+$(document).ready(function() {
+  $('.ui.dropdown').dropdown()
+})

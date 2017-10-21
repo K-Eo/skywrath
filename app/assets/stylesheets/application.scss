@@ -1,6 +1,20 @@
 @import "semantic";
 @import "errors";
 
+.ui.menu .item {
+  padding: 0.733em 1.133em !important;
+}
+
+.ui.menu {
+  .header.item {
+    padding-left: 0 !important;
+  }
+
+  .user.item {
+    padding-right: 0 !important;
+  }
+}
+
 .home {
   align-items: center;
   display: flex;
