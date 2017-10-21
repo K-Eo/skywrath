@@ -1,0 +1,16 @@
+= render partial: "devise/title",
+         object: "Recuperar contraseña"
+
+.ui.segment
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
+    = devise_error_messages!
+
+    .field
+      = f.label :email
+      = f.email_field :email, autofocus: true
+
+    .field
+      = f.submit t("devise.passwords.submit_new"), class: "ui fluid positive button"
+
+  .auth-links
+    = render "devise/shared/links"
