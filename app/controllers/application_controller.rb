@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     render_404
   end
 
+  def after_sign_in_path_for(resource_or_scope)
+    dashboard_path
+  end
+
 private
 
   def render_404
