@@ -1,1 +1,18 @@
-h1 Dashboard
+.twelve.wide.column
+  .ui.secondary.pointing.menu
+    = link_to 'Actividad', dashboard_path, class: 'active item'
+    = link_to 'Noticias', dashboard_path, class: 'item'
+
+.four.wide.column
+  .ui.card
+    .image
+      = gravatar current_user, height: 290
+    .content
+      .header = current_user.email
+      .meta
+        span.date Joined in 2013
+      .description Kristy is a director living in New York
+    .extra.content
+      = link_to dashboard_path do
+        i.user.icon
+        ' 22 Friends
