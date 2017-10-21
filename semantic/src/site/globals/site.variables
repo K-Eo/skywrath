@@ -2,9 +2,9 @@
      User Global Variables
 *******************************/
 
-@fontName: -apple-system;
+@fontName: Arimo;
 @headerFont: Roboto, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-@pageFont: @fontName, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+@pageFont: @fontName, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 @importGoogleFonts: false;
 
 @emSize: 15px;
@@ -21,3 +21,11 @@
 @red: #ff3b30;
 @teal: #5ac8fa;
 @yellow: #ffcc00;
+
+
+@pageMinWidth  : 1057px;
+@pageOverflowX : visible;
+
+@largeMonitorBreakpoint: 1057px;
+@computerBreakpoint: @largeMonitorBreakpoint;
+@tabletBreakpoint: @largeMonitorBreakpoint;

@@ -1,12 +1,12 @@
-.twelve.wide.column
+.eleven.wide.column
   .ui.secondary.pointing.menu
     = link_to 'Actividad', dashboard_path, class: 'active item'
     = link_to 'Noticias', dashboard_path, class: 'item'
 
-.four.wide.column
+.five.wide.column
   .ui.card
     .image
-      = gravatar current_user, height: 290
+      = gravatar current_user, height: 300
     .content
       .header = current_user.email
       .meta
