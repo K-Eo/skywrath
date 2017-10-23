@@ -1,0 +1,22 @@
+.ui.card
+  .image
+    = gravatar current_user, height: 300
+  .content
+    .header = current_user.email
+    .meta
+      span.date Se unío en
+      span.date mayo 2017
+    .description
+      p
+        i.user.icon
+        span Lorem Ipsum
+      p
+        i.at.icon
+        = current_user.email
+      p
+        i.phone.icon
+        span 9530001234
+      p
+        i.suitcase.icon
+        = link_to dashboard_path do
+          span Skywrath, Inc.
