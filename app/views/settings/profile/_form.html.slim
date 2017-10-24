@@ -9,5 +9,10 @@
     = f.text_field :last_name
     = field_error_message(@user, :last_name, :em)
 
+  .field class=field_error(@user, :phone)
+    = f.label :phone
+    = f.phone_field :phone
+    = field_error_message(@user, :phone, :em)
+
   .field
     = f.submit t("user.forms.update_profile"), class: "ui positive button"

@@ -11,6 +11,8 @@ class User < ApplicationRecord
   validates_presence_of :last_name, on: :update_profile
   validates_length_of :last_name, maximum: 50, on: :update_profile
 
+  validates_length_of :phone, maximum: 24, on: :update_profile
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end

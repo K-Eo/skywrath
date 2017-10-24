@@ -48,6 +48,7 @@ class UserTest < ActiveSupport::TestCase
       @user.save
       @user.first_name = "foo"
       @user.last_name = "bar"
+      @user.phone = "1230006789"
     end
 
     test "is valid" do
@@ -72,6 +73,16 @@ class UserTest < ActiveSupport::TestCase
     test "invalid if last name is too long" do
       @user.last_name = "bar" * 51
       assert @user.invalid?(:update_profile)
+    end
+
+    test "invalid if phone is too long" do
+      @user.phone = "1" * 25
+      assert @user.invalid?(:update_profile)
+    end
+
+    test "valid if not phone" do
+      @user.phone = ""
+      assert @user.valid?(:update_profile)
     end
   end
 

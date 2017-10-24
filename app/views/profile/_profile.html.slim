@@ -11,9 +11,10 @@
         p
           i.at.icon
           = current_user.email
-      p
-        i.phone.icon
-        span 9530001234
+      - if current_user.phone.present?
+        p
+          i.phone.icon
+          span = current_user.phone
       p
         i.suitcase.icon
         = link_to dashboard_path do
