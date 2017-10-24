@@ -46,8 +46,7 @@ class UserTest < ActiveSupport::TestCase
     def setup
       super
       @user.save
-      @user.first_name = "foo"
-      @user.last_name = "bar"
+      @user.name = "foo"
       @user.phone = "1230006789"
     end
 
@@ -55,28 +54,23 @@ class UserTest < ActiveSupport::TestCase
       assert @user.valid?(:update_profile)
     end
 
-    test "invalid if not first name" do
-      @user.first_name = ""
+    test "invalid if not name" do
+      @user.name = ""
       assert @user.invalid?(:update_profile)
     end
 
-    test "invalid if not last name" do
-      @user.last_name = ""
-      assert @user.invalid?(:update_profile)
-    end
-
-    test "invalid if first name is too long" do
-      @user.first_name = "foo" * 51
-      assert @user.invalid?(:update_profile)
-    end
-
-    test "invalid if last name is too long" do
-      @user.last_name = "bar" * 51
+    test "invalid if name is too long" do
+      @user.name = "f" * 121
       assert @user.invalid?(:update_profile)
     end
 
     test "invalid if phone is too long" do
       @user.phone = "1" * 25
+      assert @user.invalid?(:update_profile)
+    end
+
+    test "invalid if wrong phone format" do
+      @user.phone = "!@#$%^&*()-=_+[]{};':"
       assert @user.invalid?(:update_profile)
     end
 
