@@ -1,4 +1,15 @@
 module ApplicationHelper
+  def active_link_to(name, path, options = nil)
+    options ||= {}
+    controller = options[:controller] || path
+
+    classes = (options[:class] || "").split(" ")
+    classes.push("active") if controller.include?(controller_name)
+    options[:class] = classes.join(" ")
+
+    link_to(name, path, options)
+  end
+
   def gravatar(object, args = {})
     options = {
       d: args.fetch(:d, "retro"),
@@ -61,6 +72,8 @@ module ApplicationHelper
       return "error"
     when :error
       return "error"
+    else
+      return key.to_s
     end
   end
 end

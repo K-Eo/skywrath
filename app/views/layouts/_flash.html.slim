@@ -1,0 +1,5 @@
+.flash.messages
+  - flash.each do |key, value|
+    .ui.message class=normalize_flash(key)
+      .ui.container
+        p = value

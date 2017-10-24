@@ -1,0 +1,35 @@
+.twelve.wide.column
+
+  h2.ui.header.form Cambiar contraseña
+  .ui.divider
+
+  = form_for(@user, url: settings_account_path, html: { class: "ui form" }) do |f|
+    .field class=field_error(@user, :current_password)
+      = f.label :current_password
+      = f.password_field :current_password
+      = field_error_message(@user, :current_password, :em)
+
+    .field class=field_error(@user, :password)
+      = f.label :password, t("user.model.new_password")
+      = f.password_field :password
+      = field_error_message(@user, :password, :em)
+
+    .field class=field_error(@user, :password_confirmation)
+      = f.label :password_confirmation,
+                t("user.model.new_password_confirmation")
+      = f.password_field :password_confirmation
+      = field_error_message(@user, :password_confirmation, :em)
+
+    .field
+      = f.submit t("user.forms.update_password"), class: "ui button"
+
+  h2.ui.header.form Eliminar cuenta
+  .ui.divider
+
+  p = t("user.helpers.account_destroy")
+
+  = button_to t("user.forms.account_destroy"),
+              settings_account_path,
+              class: "ui button negative",
+              data: { confirm: "¿Eliminar?" },
+              method: :delete

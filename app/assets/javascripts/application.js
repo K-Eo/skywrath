@@ -5,3 +5,4 @@
 //= require timeago.js/src/timeago.js
 //= require init
 //= require app.timeago
+//= require app.flash

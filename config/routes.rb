@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  resource :dashboard, only: :show, controller: 'dashboard'
 
+  get 'sudo/edit', to: redirect('/settings/profile')
   devise_for :users, path: 'sudo', controllers: {
     registrations: 'users/registrations'
   }
+
+  resource :dashboard, only: :show, controller: 'dashboard'
+
+  namespace :settings do
+    resource :profile, only: [:show, :update], controller: 'profile'
+    resource :account, only: [:show, :update, :destroy], controller: 'account'
+  end
 
   root to: 'pages#index'
 

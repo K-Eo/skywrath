@@ -1,2 +1,10 @@
 es:
-  hello: "Hola mundo"
+  user:
+    model:
+      new_password: Nueva contraseña
+      new_password_confirmation: Confirmar nueva contraseña
+    forms:
+      update_password: Actualizar contraseña
+      account_destroy: Eliminar mi cuenta
+    helpers:
+      account_destroy: Una vez que se elimina la cuenta, todos sus datos asociados también son removidos y no hay forma de recuperarlos. Por favor, tenga precaución.

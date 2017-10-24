@@ -1,0 +1,7 @@
+= render "layouts/flash"
+.ui.container#content-body
+  .ui.grid
+    - if @sidebar
+      .four.wide.column
+        = render "layouts/sidebar/#{@sidebar}"
+    = yield

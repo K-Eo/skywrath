@@ -1,10 +1,17 @@
-.ui.borderless.menu
+nav.ui.borderless.menu
   .ui.container
     .header.item Skywrath
     .ui.right.dropdown.user.item
       = gravatar current_user, class: 'ui avatar image'
       i.dropdown.icon
       .menu
+        = link_to 'Perfil',
+                  dashboard_path,
+                  class: 'item'
+        .divider
+        = link_to 'Opciones',
+                  settings_profile_path,
+                  class: 'item'
         = link_to 'Salir',
                   destroy_user_session_path,
                   class: 'item',
