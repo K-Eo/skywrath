@@ -49,8 +49,8 @@ es:
       updated: "Actualizaste tu cuenta correctamente."
       submit: Crear mi cuenta
     sessions:
-      signed_in: "Iniciaste sesión correctamente."
-      signed_out: "Cerraste sesión correctamente."
+      signed_in: ""
+      signed_out: ""
       already_signed_out: "Se cerró sesión correctamente."
       submit: "Iniciar sesión"
     unlocks:
