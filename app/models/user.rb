@@ -5,11 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable,
          :confirmable, :lockable, :validatable
 
-  validates_presence_of :first_name, on: :update_profile
-  validates_length_of :first_name, maximum: 50, on: :update_profile
-
-  validates_presence_of :last_name, on: :update_profile
-  validates_length_of :last_name, maximum: 50, on: :update_profile
+  validates_presence_of :name, on: :update_profile
+  validates_length_of :name, maximum: 120, on: :update_profile
 
   validates_length_of :phone, maximum: 24, on: :update_profile
 
@@ -18,14 +15,14 @@ class User < ApplicationRecord
   end
 
   def has_name?
-    self.first_name.present? && self.last_name.present?
-  end
-
-  def full_name
-    [self.first_name, self.last_name].compact.join(" ")
+    self.name.present?
   end
 
   def update_profile(params)
+    if params[:name].present?
+      params[:name] = params[:name].squish
+    end
+
     self.assign_attributes(params)
     self.save(context: :update_profile)
   end

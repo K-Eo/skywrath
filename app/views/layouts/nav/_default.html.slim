@@ -7,11 +7,7 @@ nav.ui.borderless.menu
       .menu
         .header
           i.lock.icon
-          = current_user.has_name? ? current_user.full_name : current_user.email
-        .divider
-        = link_to "Perfil",
-                  dashboard_path,
-                  class: "item"
+          = current_user.has_name? ? current_user.name : current_user.email
         .divider
         = link_to "Opciones",
                   settings_profile_path,
