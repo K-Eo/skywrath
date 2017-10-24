@@ -14,7 +14,7 @@ private
   def render_404
     respond_to do |format|
       format.html do
-        render "layouts/404", status: "404"
+        render "errors/404", status: "404", layout: "errors"
       end
       format.any { head :not_found }
     end

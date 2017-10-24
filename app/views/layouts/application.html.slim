@@ -2,5 +2,6 @@ doctype html
 html lang=I18n.locale
   = render "layouts/head"
   body
-    = render "layouts/header/default"
+    - if defined?(@nav) && @nav
+      = render "layouts/nav/#{@nav}"
     = render "layouts/page"
