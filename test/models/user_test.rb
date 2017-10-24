@@ -70,7 +70,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     test "invalid if last name is too long" do
-      @user.last_name = "bar"* 51
+      @user.last_name = "bar" * 51
       assert @user.invalid?(:update_profile)
     end
   end

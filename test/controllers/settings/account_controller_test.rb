@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Settings::AccountControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
