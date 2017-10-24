@@ -20,6 +20,7 @@ class Settings::AccountController < Settings::ApplicationController
       redirect_to root_url
     else
       flash.now[:warning] = "En este momento no se puede procesar la acción solicitada"
+      render "show"
     end
   end
 
