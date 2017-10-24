@@ -2,8 +2,10 @@
   h2.ui.header.form Actualizar perfil
   .ui.divider
   .ui.grid
-    .ten.wide.column
-    .six.wide.column
+    .eleven.wide.column
+      = render "settings/profile/form"
+
+    .five.wide.column
       .ui.card
         .image
           = gravatar current_user, width: 300, height: 300

@@ -6,5 +6,6 @@ es:
     forms:
       update_password: Actualizar contraseña
       account_destroy: Eliminar mi cuenta
+      update_profile: Actualizar perfil
     helpers:
       account_destroy: Una vez que se elimina la cuenta, todos sus datos asociados también son removidos y no hay forma de recuperarlos. Por favor, tenga precaución.

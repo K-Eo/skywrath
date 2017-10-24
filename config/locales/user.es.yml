@@ -9,3 +9,5 @@ es:
         password_confirmation: Confirmar contraseña
         current_password: Contraseña actual
         remember_me: Recordarme
+        first_name: Nombre
+        last_name: Apellido

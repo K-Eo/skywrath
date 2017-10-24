@@ -2,17 +2,15 @@
   .image
     = gravatar current_user, height: 300
   .content
-    .header = current_user.email
+    .header = current_user.has_name? ? current_user.full_name : current_user.email
     .meta
       span.date Se unío
       span.date.timeago datetime=current_user.created_at
     .description
-      p
-        i.user.icon
-        span Lorem Ipsum
-      p
-        i.at.icon
-        = current_user.email
+      - if current_user.has_name?
+        p
+          i.at.icon
+          = current_user.email
       p
         i.phone.icon
         span 9530001234

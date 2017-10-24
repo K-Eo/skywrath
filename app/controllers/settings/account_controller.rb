@@ -5,11 +5,7 @@ class Settings::AccountController < Settings::ApplicationController
 
   def update
     @user = current_user
-
-    if account_params[:password].blank?
-      @user.errors.add(:password, "no puede estar en blanco")
-      render "show"
-    elsif @user.update_with_password(account_params)
+    if @user.update_password(user_params)
       flash[:success] = "Contraseña actualizada"
       bypass_sign_in(@user)
       redirect_to(settings_account_path)
@@ -29,7 +25,7 @@ class Settings::AccountController < Settings::ApplicationController
 
 private
 
-  def account_params
+  def user_params
     params.require("user").permit(:current_password,
                                   :password,
                                   :password_confirmation)
