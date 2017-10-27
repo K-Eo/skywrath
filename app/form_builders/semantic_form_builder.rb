@@ -1,7 +1,7 @@
 class SemanticFormBuilder < ActionView::Helpers::FormBuilder
   delegate :content_tag, :concat, to: :@template
 
-  %w[text_field text_area password_field email_field].each do |method_name|
+  %w[text_field text_area password_field email_field phone_field].each do |method_name|
     define_method(method_name) do |name, *args|
       content_tag :div, class: field_classes(name) do
         concat field_label(name, *args)
@@ -23,10 +23,14 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
 
   def submit(*args)
     options = args.extract_options!
-    options[:class] ||= ""
-    options[:class] = options[:class].split(" ")
-                                     .push("ui fluid positive button")
-                                     .join(" ")
+    options[:fluid] ||= false
+    classes = options[:class] || ""
+
+    classes = classes.split(" ")
+    classes.push("ui positive button")
+    classes.push("fluid") if options[:fluid]
+    options[:class] = classes.join(" ")
+
     args.push(options)
     content_tag :div, class: "field" do
       super(*args)
@@ -66,6 +70,6 @@ private
   end
 
   def objectify_options(options)
-    super.except(:label, :helper)
+    super.except(:label, :helper, :fluid)
   end
 end

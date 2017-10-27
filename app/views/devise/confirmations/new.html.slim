@@ -6,7 +6,7 @@
 
     = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
 
-    = f.submit t("devise.confirmations.submit")
+    = f.submit t("devise.confirmations.submit"), fluid: true
 
   .auth-links
     = render "devise/shared/links"

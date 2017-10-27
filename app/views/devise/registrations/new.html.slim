@@ -12,7 +12,7 @@
 
     = f.password_field :password_confirmation, autocomplete: "off"
 
-    = f.submit t("devise.registrations.submit")
+    = f.submit t("devise.registrations.submit"), fluid: true
 
   .auth-links
     = render "devise/shared/links"

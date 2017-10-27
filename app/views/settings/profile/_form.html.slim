@@ -1,17 +1,8 @@
-= form_for(@user, url: settings_profile_path, html: { class: "ui form" }) do |f|
-  .field class=field_error(@user, :name)
-    = f.label :name
-    = f.text_field :name
-    = field_error_message(@user, :name, :em)
-    - unless field_has_error?(@user, :name)
-      span.field.helper = t("user.forms.helpers.name")
+= semantic_form_for(@user, url: settings_profile_path) do |f|
+  = f.text_field :name,
+                 autofocus: true,
+                 helper: t("user.forms.helpers.name")
 
-  .field class=field_error(@user, :phone)
-    = f.label :phone
-    = f.phone_field :phone
-    = field_error_message(@user, :phone, :em)
-    - unless field_has_error?(@user, :phone)
-      span.field.helper = t("user.forms.helpers.phone")
+  = f.phone_field :phone, helper: t("user.forms.helpers.phone")
 
-  .field
-    = f.submit t("user.forms.update_profile"), class: "ui positive button"
+  = f.submit t("user.forms.update_profile")
