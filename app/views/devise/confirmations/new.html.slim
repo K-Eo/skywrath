@@ -3,11 +3,11 @@
 
 .ui.segment
   = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
-    = devise_error_messages!
 
-    .field
+    .field class=field_error(resource, :email)
       = f.label :email
       = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+      = field_error_message(resource, :email, :em)
 
     .field
       = f.submit t("devise.confirmations.submit"), class: "ui fluid positive button"
