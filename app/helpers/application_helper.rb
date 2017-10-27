@@ -1,4 +1,16 @@
 module ApplicationHelper
+  def semantic_form_for(object, options = {}, &block)
+    options[:builder] = SemanticFormBuilder
+
+    if options[:html].present?
+      options[:html][:class] = "ui form"
+    else
+      options[:html] = { class: "ui form" }
+    end
+
+    form_for(object, options, &block)
+  end
+
   def active_link_to(name, path, options = nil)
     options ||= {}
     controller = options[:controller] || path
@@ -20,36 +32,6 @@ module ApplicationHelper
 
     hash = Digest::MD5.hexdigest(object.email)
     image_tag "https://www.gravatar.com/avatar/#{hash}?#{options.to_query}", args
-  end
-
-  def field_has_error?(resource, key)
-    if resource.nil? || resource.errors.nil?
-      return false
-    end
-
-    unless resource.errors.key?(key)
-      return false
-    end
-
-    resource.errors[key].any?
-  end
-
-  def field_error_message(resource, key, tag, options = nil)
-    options ||= {}
-    classes = options[:class] || ""
-
-    options[:class] = classes
-                      .split(" ")
-                      .push("field_error_message")
-                      .join(" ")
-
-    if field_has_error?(resource, key)
-      content_tag tag, resource.errors[key].first, options
-    end
-  end
-
-  def field_error(resource, key)
-    return "error" if field_has_error?(resource, key)
   end
 
   def normalize_flash(key)

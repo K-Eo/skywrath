@@ -2,15 +2,11 @@
          object: "Desbloquear mi cuenta"
 
 .ui.segment
-  = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
+  = semantic_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
 
-    .field class=field_error(resource, :email)
-      = f.label :email
-      = f.email_field :email, autofocus: true
-      = field_error_message(resource, :email, :em)
+    = f.email_field :email, autofocus: true
 
-    .field
-      = f.submit t("devise.unlocks.submit"), class: "ui fluid positive button"
+    = f.submit t("devise.unlocks.submit")
 
   .auth-links
     = render "devise/shared/links"

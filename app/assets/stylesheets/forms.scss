@@ -4,15 +4,17 @@
       font-weight: 600 !important;
       color: rgba(0, 0, 0, 0.8);
     }
-  }
 
-  .field_error_message {
-    color: #9F3A38;
-  }
+    .block.error {
+      color: #9F3A38;
+      font-size: 14px;
+      font-style: italic;
+    }
 
-  .field.helper {
-    color: #586069;
-    font-size: 13px;
+    .block.helper {
+      color: #586069;
+      font-size: 14px;
+    }
   }
 
   .ui.checkbox label, .ui.checkbox + label {

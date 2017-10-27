@@ -2,24 +2,20 @@
          object: "Cambiar contraseña"
 
 .ui.segment
-  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "ui form" }) do |f|
+  = semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
     = f.hidden_field :reset_password_token
 
-    .field class=field_error(resource, :password)
-      = f.label :password, t("user.model.new_password")
-      = f.password_field :password, autofocus: true, autocomplete: "off"
-      = field_error_message(resource, :password, :em)
-      - if @minimum_password_length && !field_has_error?(resource, :password)
-        em.field.helper = "#{@minimum_password_length} caracteres mínimo"
+    = f.password_field :password,
+                       autofocus: true,
+                       autocomplete: "off",
+                       label: t("user.model.new_password"),
+                       helper: "#{@minimum_password_length} caracteres mínimo"
 
-    .field class=field_error(resource, :password_confirmation)
-      = f.label :password_confirmation,
-                t("user.model.new_password_confirmation")
-      = f.password_field :password_confirmation, autocomplete: "off"
-      = field_error_message(resource, :password_confirmation, :em)
+    = f.password_field :password_confirmation,
+                       autocomplete: "off",
+                       label: t("user.model.new_password_confirmation")
 
-    .field
-      = f.submit t("devise.passwords.submit_edit"), class: "ui fluid positive button"
+    = f.submit t("devise.passwords.submit_edit")
 
   .auth-links
     = render "devise/shared/links"
