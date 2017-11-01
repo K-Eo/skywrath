@@ -46,8 +46,15 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'rubocop', require: false
   gem 'pry-byebug'
-  gem 'guard'
-  gem 'guard-minitest'
+  gem 'guard', require: false
+  gem 'guard-spinach', require: false
+  gem 'guard-minitest', require: false
+  gem 'guard-rspec', require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'spinach-rails'
+  gem 'database_cleaner'
+  gem 'capybara-screenshot'
 end
 
 group :development do
