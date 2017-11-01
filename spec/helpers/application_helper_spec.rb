@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe "#active_link_to" do
@@ -14,7 +14,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     describe "active" do
       before do
-        allow(helper).to receive(:controller_name) { 'foo' }
+        allow(helper).to receive(:controller_name) { "foo" }
       end
 
       it { is_expected.to match(%{<a class="active" href="/foo">Home</a>}) }
@@ -82,7 +82,7 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
 
       context "when is given" do
-        let(:options) { { alt: "Alt text"} }
+        let(:options) { { alt: "Alt text" } }
 
         it { is_expected.to match(%{<img alt="Alt text" width="80" height="80" src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?d=retro&amp;s=80" />}) }
       end

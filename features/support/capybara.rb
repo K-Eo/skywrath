@@ -1,4 +1,4 @@
-require 'capybara-screenshot/spinach'
+require "capybara-screenshot/spinach"
 
 Capybara.javascript_driver = :selenium
 

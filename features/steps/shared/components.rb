@@ -2,7 +2,7 @@ module Shared
   module Components
     include Spinach::DSL
 
-    step 'I should see default nav' do
+    step "I should see default nav" do
       assert_selector "nav#default"
       assert_selector "nav#default .header.item[href='/dashboard']"
       user_menu("nav#default", @user.name, @user.email)
@@ -19,15 +19,15 @@ module Shared
       assert_selector "#{user_dropdown} #{menu} a.item[href='#{destroy_user_session_path}']"
     end
 
-    step 'I should see my profile card' do
+    step "I should see my profile card" do
       profile_card(@user.name, @user.email, @user.phone)
     end
 
-    step 'I should see my minimal profile card' do
+    step "I should see my minimal profile card" do
       profile_card(@user.name, @user.email, @user.phone, true)
     end
 
-    step 'I should see settings sidebar' do
+    step "I should see settings sidebar" do
       assert_selector "#settings-sidebar"
       assert_selector "#settings-sidebar .header", text: "Opciones personales"
       assert_selector "#settings-sidebar .item.active", count: 1

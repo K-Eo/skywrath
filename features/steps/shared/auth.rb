@@ -6,7 +6,7 @@ module Shared
       @user = create(:user, name: "Mia Volkova")
     end
 
-    step 'I sign in as user' do
+    step "I sign in as user" do
       @user = create(:user, name: nil, phone: nil) if @user.nil?
       sign_as(@user)
     end

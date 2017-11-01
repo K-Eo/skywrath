@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 class SemanticModelTest
   include ActiveModel::Model
@@ -86,7 +86,7 @@ RSpec.describe FormHelper, type: :helper do
       it { is_expected.to match(%{<div class="field">}) }
       it { is_expected.to match(%{<div class="ui checkbox">}) }
       it { is_expected.to match(%q{input name="semantic\[tos\]"}) }
-      it { is_expected.to match(%q{label for="semantic_tos"}) }
+      it { is_expected.to match(%{label for="semantic_tos"}) }
     end
   end
 

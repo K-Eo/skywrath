@@ -1,4 +1,4 @@
-require 'database_cleaner'
+require "database_cleaner"
 
 DatabaseCleaner[:active_record].strategy = :truncation
 

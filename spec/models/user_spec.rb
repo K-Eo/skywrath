@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
     end
 
     context "email taken" do
-      before { create(:user, email: "foo@bar.com" ) }
+      before { create(:user, email: "foo@bar.com") }
 
       it { is_expected.to be_invalid }
     end
@@ -93,7 +93,7 @@ RSpec.describe User, type: :model do
         end
 
         context "wrong format" do
-          let(:phone) { "!@$%^&*()"}
+          let(:phone) { "!@$%^&*()" }
 
           it { is_expected.not_to be_valid(:update_profile) }
         end

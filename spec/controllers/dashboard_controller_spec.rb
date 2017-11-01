@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe DashboardController, type: :controller do
   let(:user) { create(:user) }
@@ -10,11 +10,11 @@ RSpec.describe DashboardController, type: :controller do
       get :show
     end
 
-    context 'when logged in' do
+    context "when logged in" do
       it { is_expected.to have_http_status(:ok) }
     end
 
-    context 'when logged out' do
+    context "when logged out" do
       let(:user) { nil }
 
       it { is_expected.to redirect_to(new_user_session_path) }
