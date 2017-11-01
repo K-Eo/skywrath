@@ -5,9 +5,9 @@
     "semantic-ui": "^2.2.13"
   },
   "engines": {
-    "node": "8.7.0",
+    "node": ">=8.7.0",
     "npm": "5.5.1",
-    "yarn": "^1.2.0"
+    "yarn": ">=1.2.0"
   },
   "dependencies": {
     "timeago.js": "^3.0.2"
