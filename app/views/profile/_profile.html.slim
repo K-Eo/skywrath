@@ -1,6 +1,6 @@
 .ui.card
   .image
-    = gravatar current_user, height: 300
+    = gravatar current_user, size: 300
   .content
     .header = current_user.has_name? ? current_user.name : current_user.email
     .meta

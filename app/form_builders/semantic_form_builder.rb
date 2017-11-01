@@ -23,12 +23,12 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
 
   def submit(*args)
     options = args.extract_options!
-    options[:fluid] ||= false
+    fluid = options.delete(:fluid) || false
     classes = options[:class] || ""
 
     classes = classes.split(" ")
-    classes.push("ui positive button")
-    classes.push("fluid") if options[:fluid]
+    classes.push("ui", "positive", "button")
+    classes.push("fluid") if fluid
     options[:class] = classes.join(" ")
 
     args.push(options)
@@ -40,9 +40,9 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
 private
 
   def field_classes(name)
-    classes = "field"
-    classes << " error" if has_error?(name)
-    classes
+    classes = ["field"]
+    classes << "error" if has_error?(name)
+    classes.join(" ")
   end
 
   def errors(name)
