@@ -1,0 +1,18 @@
+nav.ui.borderless.menu#default
+  .ui.container
+    = link_to "Skywrath", dashboard_path, class: "header item"
+    .ui.right.dropdown.pointing.top.user.item#user_links
+      = gravatar current_user, class: "ui avatar image"
+      i.dropdown.icon
+      .menu
+        .header
+          i.lock.icon
+          = current_user.has_name? ? current_user.name : current_user.email
+        .divider
+        = link_to "Opciones",
+                  settings_profile_path,
+                  class: "item"
+        = link_to "Salir",
+                  destroy_user_session_path,
+                  class: "item",
+                  method: :delete

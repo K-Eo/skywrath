@@ -1,0 +1,25 @@
+.twelve.wide.column
+
+  h2.ui.header.form Cambiar contraseña
+  .ui.divider
+
+  = semantic_form_for(@user, url: settings_account_path) do |f|
+    = f.password_field :current_password
+
+    = f.password_field :password, label: t("user.model.new_password")
+
+    = f.password_field :password_confirmation,
+                       label: t("user.model.new_password_confirmation")
+
+    = f.submit t("user.forms.update_password")
+
+  h2.ui.header.form Eliminar cuenta
+  .ui.divider
+
+  p = t("user.helpers.account_destroy")
+
+  = button_to t("user.forms.account_destroy"),
+              settings_account_path,
+              class: "ui button negative",
+              data: { confirm: "¿Eliminar?" },
+              method: :delete

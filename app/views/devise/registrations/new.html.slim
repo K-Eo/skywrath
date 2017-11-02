@@ -2,26 +2,17 @@
          object: "Crear cuenta en Skywrath"
 
 .ui.segment
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f|
-    .field class=field_error(resource, :email)
-      = f.label :email
-      = f.email_field :email, autofocus: true
-      = field_error_message(resource, :email, :em)
+  = semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
 
-    .field class=field_error(resource, :password)
-      = f.label :password
-      = f.password_field :password, autocomplete: "off"
-      = field_error_message(resource, :password, :em)
-      - if @minimum_password_length && !field_has_error?(resource, :password)
-        em.field.helper = "#{@minimum_password_length} caracteres mínimo"
+    = f.text_field :email, autofocus: true
 
-    .field class=field_error(resource, :password_confirmation)
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, autocomplete: "off"
-      = field_error_message(resource, :password_confirmation, :em)
+    = f.password_field :password,
+                       autocomplete: "off",
+                       helper: "#{@minimum_password_length} caracteres mínimo"
 
-    .field
-      = f.submit t("devise.registrations.submit"), class: "ui fluid positive button"
+    = f.password_field :password_confirmation, autocomplete: "off"
+
+    = f.submit t("devise.registrations.submit"), fluid: true
 
   .auth-links
     = render "devise/shared/links"

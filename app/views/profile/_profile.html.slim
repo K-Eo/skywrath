@@ -1,0 +1,23 @@
+.ui.card
+  .image
+    = gravatar current_user, size: 300
+  .content
+    .header = current_user.has_name? ? current_user.name : current_user.email
+    .meta
+      span.date Se unío
+      span.date.timeago datetime=current_user.created_at
+    .description
+      - if current_user.has_name?
+        p
+          i.at.icon
+          = current_user.email
+
+      - if current_user.phone.present?
+        p
+          i.phone.icon
+          span = current_user.phone
+
+      p
+        i.suitcase.icon
+        = link_to dashboard_path do
+          span Skywrath, Inc.

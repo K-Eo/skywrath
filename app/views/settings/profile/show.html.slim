@@ -1,0 +1,16 @@
+.twelve.wide.column
+  h2.ui.header.form Actualizar perfil
+  .ui.divider
+  .ui.grid
+    .eleven.wide.column
+      = render "settings/profile/form"
+
+    .five.wide.column
+      .ui.card
+        .image
+          = gravatar current_user, size: 300
+        .content
+          = link_to 'Cambiar imagen',
+                    'http://es.gravatar.com/emails/',
+                    class: 'ui basic fluid black button',
+                    target: '_blank'

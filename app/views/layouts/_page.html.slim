@@ -1,0 +1,8 @@
+- if defined?(@flash) && @flash
+  = render "layouts/flash"
+.ui.container#content-body
+  .ui.grid
+    - if defined?(@sidebar) && @sidebar
+      .four.wide.column
+        = render "layouts/sidebar/#{@sidebar}"
+    = yield

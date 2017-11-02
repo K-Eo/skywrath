@@ -2,15 +2,11 @@
          object: "Confirmar mi cuenta"
 
 .ui.segment
-  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "ui form" }) do |f|
-    = devise_error_messages!
+  = semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
 
-    .field
-      = f.label :email
-      = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+    = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
 
-    .field
-      = f.submit t("devise.confirmations.submit"), class: "ui fluid positive button"
+    = f.submit t("devise.confirmations.submit"), fluid: true
 
   .auth-links
     = render "devise/shared/links"

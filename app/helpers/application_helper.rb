@@ -1,54 +1,29 @@
 module ApplicationHelper
-  def field_has_error?(resource, key)
-    if resource.nil? || resource.errors.nil?
-      return false
-    end
-
-    unless resource.errors.key?(key)
-      return false
-    end
-
-    resource.errors[key].any?
-  end
-
-  def field_error_message(resource, key, tag, options = nil)
+  def active_link_to(name, path, options = nil)
     options ||= {}
-    classes = options[:class] || ""
+    controller = options.delete(:controller) || path
 
-    options[:class] = classes
-                      .split(" ")
-                      .push("field_error_message")
-                      .join(" ")
+    classes = (options[:class] || "").split(" ")
+    classes.push("active") if controller.include?(controller_name)
+    options[:class] = classes.join(" ") if classes.any?
 
-    if field_has_error?(resource, key)
-      content_tag tag, resource.errors[key].first, options
-    end
+    link_to(name, path, options)
   end
 
-  def field_error(resource, key)
-    return "error" if field_has_error?(resource, key)
-  end
+  def gravatar(user, args = {})
+    return "" if user.nil?
 
-  def normalize_flash(key)
-    if key.nil?
-      return "info"
-    end
+    options = {
+      d: args.delete(:display) || "retro",
+      s: args.delete(:size) || "80"
+    }
 
-    if key.is_a?(String)
-      key = key.to_sym
-    elsif !key.is_a?(Symbol)
-      return "info"
-    end
+    args[:alt] = args.delete(:alt) ||
+                 (user.name || user.email)[0, 1].upcase
+    args[:width] = options[:s]
+    args[:height] = options[:s]
 
-    case key
-    when :notice
-      return "success"
-    when :success
-      return "success"
-    when :alert
-      return "error"
-    when :error
-      return "error"
-    end
+    hash = Digest::MD5.hexdigest(user.email)
+    image_tag "https://www.gravatar.com/avatar/#{hash}?#{options.to_query}", args
   end
 end

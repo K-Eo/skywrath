@@ -6,7 +6,7 @@ es:
       confirmed: "Tu correo electrónico ha sido confirmado exitosamente."
       send_instructions: "Recibirás un email con las instrucciones para confirmar tu correo electrónico en unos minutos."
       send_paranoid_instructions: "Si tu correo electrónico existe en nuestra base de datos, recibirás un email con las instrucciones para confirmar tu correo electrónico en unos minutos."
-      submit: Reenviar instrucciones de confirmación
+      submit: Enviar instrucciones de confirmación
     failure:
       already_authenticated: "Ya iniciaste sesión."
       inactive: "Tu cuenta aún no ha sido activada."
@@ -49,15 +49,15 @@ es:
       updated: "Actualizaste tu cuenta correctamente."
       submit: Crear mi cuenta
     sessions:
-      signed_in: "Iniciaste sesión correctamente."
-      signed_out: "Cerraste sesión correctamente."
+      signed_in: ""
+      signed_out: ""
       already_signed_out: "Se cerró sesión correctamente."
       submit: "Iniciar sesión"
     unlocks:
       send_instructions: "Recibirás un email con instrucciones para desbloquear tu cuenta en unos minutos"
       send_paranoid_instructions: "Si tu cuenta existe, recibirás un email con instrucciones para desbloquear tu cuenta en unos minutos"
       unlocked: "Tu cuenta ha sido desbloqueada. Inicia sesión para continuar."
-      submit: Reenviar instrucciones de desbloqueo
+      submit: Enviar instrucciones de desbloqueo
   errors:
     messages:
       already_confirmed: "ya fue confirmada. Intenta ingresar."
