@@ -55,6 +55,7 @@ group :development, :test do
   gem 'spinach-rails'
   gem 'database_cleaner'
   gem 'capybara-screenshot'
+  gem 'rails-controller-testing'
 end
 
 group :development do
