@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   def update_profile(params)
     if params[:name].present?
-      params[:name] = params[:name].squish
+      params[:name] = params[:name].squish.titleize
     end
 
     self.assign_attributes(params)
