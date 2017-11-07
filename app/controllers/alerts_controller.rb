@@ -22,6 +22,6 @@ class AlertsController < ApplicationController
 private
 
   def load_alerts
-    @alerts = Alert.newest.includes(:author).all
+    @alerts = Alert.newest.includes(:author).page(params[:page]).per(24)
   end
 end
