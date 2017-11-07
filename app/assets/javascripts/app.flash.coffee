@@ -3,5 +3,5 @@ App.Flash =
     console.log "Removing flash message: #{el.className}"
     $(el).remove()
 
-$(document).on "click", ".ui.message", (el) =>
+$(document).on "click", ".ui.message.closeable", (el) =>
   App.Flash.remove(el.currentTarget)

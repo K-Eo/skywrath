@@ -41,6 +41,10 @@ module Shared
       assert_selector ".flash.messages .ui.message.#{type}", text: message
     end
 
+    def assert_message(message, type = "success")
+      assert_selector ".ui.message.#{type}", text: message
+    end
+
     def avatar(email)
       hash = Digest::MD5.hexdigest(email)
       "https://www.gravatar.com/avatar/#{hash}"

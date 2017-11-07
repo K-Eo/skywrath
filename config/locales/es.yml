@@ -7,6 +7,7 @@ es:
       update_password: Actualizar contraseña
       account_destroy: Eliminar mi cuenta
       update_profile: Actualizar perfil
+      change_email: Cambiar mi correo electrónico
       helpers:
         name: Puedes agregar tu nombre completo.
         phone: Asegurate de ingresar solo números. Por ejemplo 1234445678.

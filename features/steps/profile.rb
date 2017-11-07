@@ -69,6 +69,36 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
     user_menu("nav#default", @user.email, @user.email)
   end
 
+  step "I change my email" do
+    within "#edit_user_#{@user.id}" do
+      fill_in "user_email", with: "foo@bar.com"
+
+      click_on "Cambiar mi correo electrónico"
+    end
+  end
+
+  step "I should see email change alert" do
+    assert_alert("Recibirás un email con las instrucciones para confirmar tu correo")
+  end
+
+  step "I should see email pending reconfirmation" do
+    assert_message("Esperando la confirmación del correo electrónico: #{@user.unconfirmed_email}", "info")
+  end
+
+  step "I unsuccessfully change my email" do
+    within "#edit_user_#{@user.id}" do
+      fill_in "user_email", with: ""
+
+      click_on "Cambiar mi correo electrónico"
+    end
+  end
+
+  step "I should see email error message" do
+    within "#edit_user_#{@user.id}" do
+      assert_selector "span.error.block", text: "no puede estar en blanco"
+    end
+  end
+
   step "I click on delete my account" do
     accept_confirm do
       click_on "Eliminar mi cuenta"
