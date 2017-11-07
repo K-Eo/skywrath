@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resource :dashboard, only: :show, controller: 'dashboard'
 
   namespace :settings do
-    resource :profile, only: [:show, :update], controller: 'profile'
     resource :account, only: [:show, :update, :destroy], controller: 'account'
+    resource :email, only: [:show, :update], controller: 'email'
+    resource :profile, only: [:show, :update], controller: 'profile'
   end
 
   root to: 'pages#index'

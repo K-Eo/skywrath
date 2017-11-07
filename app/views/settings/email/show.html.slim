@@ -1,0 +1,11 @@
+.twelve.wide.column
+  h2.ui.header.form Cambiar correo electrónico
+  .ui.divider
+
+  = semantic_form_for(@user, url: settings_email_path) do |f|
+    = f.text_field :email,
+                   autofocus: true
+    - if @user.pending_reconfirmation?
+      .ui.info.message
+        p Esperando la confirmación del correo electrónico: <b>#{@user.unconfirmed_email}</b>
+    = f.submit t("user.forms.change_email")

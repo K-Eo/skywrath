@@ -21,5 +21,9 @@ module Shared
     step "I visit account settings page" do
       visit settings_account_path
     end
+
+    step "I visit email settings page" do
+      visit settings_email_path
+    end
   end
 end

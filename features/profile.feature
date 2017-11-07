@@ -29,6 +29,17 @@ Feature: Profile
     When I unsuccessfully change my password
     Then I should see a password error message
 
+  Scenario: I change my email
+    Given I visit email settings page
+    When I change my email
+    Then I should see email change alert
+    And I should see email pending reconfirmation
+
+  Scenario: I unsuccessfully change my email
+    Given I visit email settings page
+    When I unsuccessfully change my email
+    Then I should see email error message
+
   @javascript
   Scenario: I close my account
     Given I visit account settings page
