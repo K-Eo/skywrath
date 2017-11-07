@@ -3,5 +3,12 @@
     = active_link_to "Alertas", alerts_path, class: "item"
 
 .sixteen.wide.column
-  .ui.three.stackable.cards
-    = render @alerts
+  - if @alerts && @alerts.any?
+    .ui.three.stackable.cards
+      = render @alerts
+  - else
+    h2.ui.center.aligned.icon.header
+      i.circular.child.icon
+      .content
+        ' No hay alertas
+        .sub.header Cuando un usuario envie una alerta se va a mostrar aquí.

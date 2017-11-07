@@ -37,8 +37,10 @@ module Shared
                       text: "Cuenta"
     end
 
-    def assert_alert(message, type = "success")
-      assert_selector ".flash.messages .ui.message.#{type}", text: message
+    def assert_flash(message, type = "success")
+      within ".flash.messages" do
+        assert_message message, type
+      end
     end
 
     def assert_message(message, type = "success")

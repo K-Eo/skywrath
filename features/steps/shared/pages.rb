@@ -33,5 +33,9 @@ module Shared
     step "I visit email settings page" do
       visit settings_email_path
     end
+
+    step "I visit alerts page" do
+      visit alerts_path
+    end
   end
 end
