@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
-
-  get 'sudo/edit', to: redirect('/settings/profile')
-  devise_for :users, path: 'sudo', controllers: {
-    registrations: 'users/registrations'
-  }
-
-  resource :dashboard, only: :show, controller: 'dashboard'
+  get '/dashboard', to: 'dashboard#root'
   resource :profile, only: :show, controller: 'users/profile'
 
   scope 'dashboard' do
@@ -17,6 +11,11 @@ Rails.application.routes.draw do
     resource :email, only: [:show, :update], controller: 'email'
     resource :profile, only: [:show, :update], controller: 'profile'
   end
+
+  get 'sudo/edit', to: redirect('/settings/profile')
+  devise_for :users, path: 'sudo', controllers: {
+    registrations: 'users/registrations'
+  }
 
   root to: 'pages#index'
 

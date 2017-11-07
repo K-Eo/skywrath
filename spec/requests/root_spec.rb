@@ -1,8 +1,8 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe DashboardController, type: :controller do
+RSpec.describe "Root", type: :request do
   let(:user) { create(:user) }
-  let(:action) { get :root }
+  let(:action) { get dashboard_path }
 
   subject { response }
 
@@ -11,7 +11,7 @@ RSpec.describe DashboardController, type: :controller do
     action
   end
 
-  describe "#GET show" do
+  describe "GET /dashboard" do
     context "when logged in" do
       it { is_expected.to redirect_to(alerts_path) }
     end
