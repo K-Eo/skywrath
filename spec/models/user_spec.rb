@@ -97,11 +97,11 @@ RSpec.describe User, type: :model do
     context "when params are invalid" do
       let(:params) { { name: "", phone: "qwerty" } }
 
-      it { is_expected.to be_falsey}
+      it { is_expected.to be_falsey }
     end
 
     describe "name" do
-      let(:params) { { name: "  qwerty   asdfg    "} }
+      let(:params) { { name: "  qwerty   asdfg    " } }
       subject { user.name }
 
       context "squishes name" do
@@ -109,7 +109,7 @@ RSpec.describe User, type: :model do
       end
 
       context "Titleizes name" do
-        let(:params) { { name: "foo bar"} }
+        let(:params) { { name: "foo bar" } }
         it { is_expected.to eq("Foo Bar") }
       end
     end
@@ -221,7 +221,7 @@ RSpec.describe User, type: :model do
 
         context "taken" do
           it "should not be valid" do
-            user =  build(:user, email: "foo@bar.com")
+            user = build(:user, email: "foo@bar.com")
             user.save
             expect(user).to be_invalid
           end
