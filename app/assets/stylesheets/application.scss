@@ -6,6 +6,10 @@
 @import "header";
 @import "nav";
 
+body {
+  overflow-y: scroll;
+}
+
 #content-body {
   margin-top: 1.6em;
 }
