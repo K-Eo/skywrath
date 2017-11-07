@@ -3,15 +3,16 @@ Feature: Profile
     Given I sign in as user
 
   Scenario: I look at my profile
-    When I visit dashboard page
+    When I visit profile page
     Then I should see my minimal profile card
+    And I should see default nav
     And I should see user menu with email
 
   Scenario: I edit my profile
     Given I visit profile settings page
     Then I change my profile info
     And I should see "Perfil actualizado" alert
-    And I visit dashboard page
+    And I visit profile page
     And I should see my new profile card
 
   Scenario: I unsuccessfully edit my profile

@@ -6,23 +6,23 @@ nav.ui.borderless.menu#default
       = link_to dashboard_path, class: "item", title: "Nueva Alerta" do
         i.plus.icon
 
-    .ui.dropdown.pointing.top.user.item#user_links
-      = gravatar current_user, class: "ui avatar image"
-      i.dropdown.icon
-      .menu
-        .header
-          i.lock.icon
-          = current_user.has_name? ? current_user.name : current_user.email
-        .divider
-        = link_to "Perfil",
-                  profile_path,
-                  class: "item"
+      .ui.right.dropdown.pointing.top.user.item#user_links
+        = gravatar current_user, class: "ui avatar image"
+        i.dropdown.icon
+        .menu
+          .header
+            i.lock.icon
+            = current_user.has_name? ? current_user.name : current_user.email
+          .divider
+          = link_to "Perfil",
+                    profile_path,
+                    class: "item"
 
-        .divider
-        = link_to "Opciones",
-                  settings_profile_path,
-                  class: "item"
-        = link_to "Salir",
-                  destroy_user_session_path,
-                  class: "item",
-                  method: :delete
+          .divider
+          = link_to "Opciones",
+                    settings_profile_path,
+                    class: "item"
+          = link_to "Salir",
+                    destroy_user_session_path,
+                    class: "item",
+                    method: :delete

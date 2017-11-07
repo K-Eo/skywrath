@@ -1,0 +1,8 @@
+.sixteen.wide.column
+  .ui.tabular.menu
+    = active_link_to "Alertas", alerts_path, class: "item"
+
+.sixteen.wide.column
+  .ui.three.stackable.cards
+    - 10.times do
+      = render "alerts/alert"

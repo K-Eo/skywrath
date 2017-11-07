@@ -1,0 +1,8 @@
+.ui.card
+  .content
+    = gravatar current_user, class: "right floated ui avatar image"
+    .header
+      = current_user.name
+    .meta
+      ' envío una alerta
+      span.timeago datetime=current_user.created_at

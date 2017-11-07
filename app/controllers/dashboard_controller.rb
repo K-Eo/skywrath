@@ -3,5 +3,6 @@ class DashboardController < ApplicationController
   layout "default"
 
   def show
+    redirect_to alerts_path
   end
 end

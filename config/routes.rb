@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   resource :dashboard, only: :show, controller: 'dashboard'
   resource :profile, only: :show, controller: 'users/profile'
 
+  scope 'dashboard' do
+    resources :alerts, only: [:index, :create]
+  end
+
   namespace :settings do
     resource :account, only: [:show, :update, :destroy], controller: 'account'
     resource :email, only: [:show, :update], controller: 'email'

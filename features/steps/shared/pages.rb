@@ -10,8 +10,16 @@ module Shared
       expect(page.current_path).to eq(dashboard_path)
     end
 
+    step "I should be redirected to alerts" do
+      expect(page.current_path).to eq(alerts_path)
+    end
+
     step "I should be redirected to home page" do
       expect(page.current_path).to eq(root_path)
+    end
+
+    step "I visit profile page" do
+      visit profile_path
     end
 
     step "I visit profile settings page" do
