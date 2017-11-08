@@ -52,6 +52,17 @@ module Shared
       "https://www.gravatar.com/avatar/#{hash}"
     end
 
+    def assert_paginator(id, present = true)
+      selector = "nav.ui.pagination.menu"
+      within(id) do
+        if present
+          assert_selector selector
+        else
+          assert_no_selector selector
+        end
+      end
+    end
+
     def profile_card(name, email, phone, new_user = false)
       assert_selector ".ui.card .image img[src^='#{avatar(email)}']"
       if new_user
