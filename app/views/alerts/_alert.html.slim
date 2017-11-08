@@ -5,5 +5,5 @@
       = alert.author.name
     .meta
       ' envío una alerta
-      span.timeago datetime=alert.created_at
+      = timeago(alert.created_at)
       p = "##{alert.id} "

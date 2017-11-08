@@ -5,7 +5,7 @@
     .header = current_user.has_name? ? current_user.name : current_user.email
     .meta
       span.date Se unío
-      span.date.timeago datetime=current_user.created_at
+      = timeago current_user.created_at, class: "date"
     .description
       - if current_user.has_name?
         p
