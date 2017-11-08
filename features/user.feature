@@ -4,9 +4,8 @@ Feature: User
     And I sign in as user
 
   Scenario: Sign in
-    Then I should be redirected to dashboard
+    Then I should be redirected to alerts
     And I should see default nav
-    And I should see my profile card
 
   Scenario: Visiting profile settings
     When I visit profile settings page

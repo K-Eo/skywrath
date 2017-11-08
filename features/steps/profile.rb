@@ -13,7 +13,7 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step 'I should see "Perfil actualizado" alert' do
-    assert_alert("Perfil actualizado")
+    assert_flash("Perfil actualizado")
   end
 
   step "I unsuccessfully change my profile info" do
@@ -46,7 +46,7 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step "I should see password change alert" do
-    assert_alert("Contraseña actualizada")
+    assert_flash("Contraseña actualizada")
   end
 
   step "I unsuccessfully change my password" do
@@ -78,7 +78,7 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step "I should see email change alert" do
-    assert_alert("Recibirás un email con las instrucciones para confirmar tu correo")
+    assert_flash("Recibirás un email con las instrucciones para confirmar tu correo")
   end
 
   step "I should see email pending reconfirmation" do

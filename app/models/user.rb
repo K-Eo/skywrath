@@ -11,6 +11,8 @@ class User < ApplicationRecord
   validates_length_of :phone, maximum: 24, on: :update_profile
   validates_format_of :phone, with: /\A[0-9]*\z/, on: :update_profile
 
+  has_many :alerts, foreign_key: "author_id"
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end

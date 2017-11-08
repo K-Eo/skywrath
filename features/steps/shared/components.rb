@@ -37,8 +37,10 @@ module Shared
                       text: "Cuenta"
     end
 
-    def assert_alert(message, type = "success")
-      assert_selector ".flash.messages .ui.message.#{type}", text: message
+    def assert_flash(message, type = "success")
+      within ".flash.messages" do
+        assert_message message, type
+      end
     end
 
     def assert_message(message, type = "success")
@@ -48,6 +50,17 @@ module Shared
     def avatar(email)
       hash = Digest::MD5.hexdigest(email)
       "https://www.gravatar.com/avatar/#{hash}"
+    end
+
+    def assert_paginator(id, present = true)
+      selector = "nav.ui.pagination.menu"
+      within(id) do
+        if present
+          assert_selector selector
+        else
+          assert_no_selector selector
+        end
+      end
     end
 
     def profile_card(name, email, phone, new_user = false)

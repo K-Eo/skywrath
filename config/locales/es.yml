@@ -1,4 +1,11 @@
 es:
+  views:
+    pagination:
+      first: "Primero"
+      last: "Último"
+      previous: "Anterior"
+      next: "Siguiente"
+      truncate: "&hellip;"
   user:
     model:
       new_password: Nueva contraseña

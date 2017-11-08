@@ -1,9 +1,8 @@
 require "rails_helper"
 
-RSpec.describe DashboardController, type: :controller do
+RSpec.describe Users::ProfileController, type: :controller do
   let(:user) { create(:user) }
-  let(:action) { get :root }
-
+  let(:action) { get :show }
   subject { response }
 
   before do
@@ -11,9 +10,9 @@ RSpec.describe DashboardController, type: :controller do
     action
   end
 
-  describe "#GET show" do
+  describe "GET #root" do
     context "when logged in" do
-      it { is_expected.to redirect_to(alerts_path) }
+      it { is_expected.to have_http_status(:ok) }
     end
 
     context "when logged out" do

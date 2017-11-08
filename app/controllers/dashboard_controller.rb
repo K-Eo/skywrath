@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
-  layout "dashboard"
 
-  def show
+  def root
+    redirect_to alerts_path
   end
 end
