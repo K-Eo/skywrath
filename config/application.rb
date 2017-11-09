@@ -25,8 +25,6 @@ module Skywrath
       origins = "localhost:3000"
     end
 
-    puts "$$$$$$$$$"
-    puts origins
     origins
   end
 
@@ -45,7 +43,6 @@ module Skywrath
     # Allow access from other domains
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
-        # TODO: Add dinamyc host
         origins Skywrath::skywrath_url
         resource '/api/*',
           credentials: true,
