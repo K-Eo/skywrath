@@ -17,6 +17,19 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module Skywrath
+  def self.skywrath_url
+    if ENV['RAILS_ENV'] == 'production' || ENV['HEROKU_APP_NAME']
+      app_name = ENV['HEROKU_APP_NAME'] || 'skywrath'
+      origins = "https://#{app_name}.herokuapp.com/*"
+    else
+      origins = "localhost:3000"
+    end
+
+    puts "$$$$$$$$$"
+    puts origins
+    origins
+  end
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
@@ -33,7 +46,7 @@ module Skywrath
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         # TODO: Add dinamyc host
-        origins 'localhost:3000'
+        origins Skywrath::skywrath_url
         resource '/api/*',
           credentials: true,
           headers: :any,
