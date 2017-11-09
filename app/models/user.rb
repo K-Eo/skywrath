@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates_format_of :phone, with: /\A[0-9]*\z/, on: :update_profile
 
   has_many :alerts, foreign_key: "author_id"
+  has_secure_token :access_token
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
@@ -28,6 +29,12 @@ class User < ApplicationRecord
 
     self.assign_attributes(params)
     self.save(context: :update_profile)
+  end
+
+  def is_valid_access_token?(token)
+    ActiveSupport::SecurityUtils
+      .secure_compare(::Digest::SHA256.hexdigest(token),
+                      ::Digest::SHA256.hexdigest(self.access_token))
   end
 
   def update_password(params)

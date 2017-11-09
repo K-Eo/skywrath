@@ -26,5 +26,30 @@ module Skywrath
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :sidekiq
     config.i18n.default_locale = :es
+
+    config.eager_load_paths.push(*%W[#{config.root}/lib])
+
+    # Allow access from other domains
+    config.middleware.insert_before Warden::Manager, Rack::Cors do
+      allow do
+        # TODO: Add dinamyc host
+        origins 'localhost:3000'
+        resource '/api/*',
+          credentials: true,
+          headers: :any,
+          methods: :any,
+          expose: ['X-Total', 'X-Total-Pages', 'X-Per-Page', 'X-Page', 'X-Next-Page', 'X-Prev-Page']
+      end
+
+      # Cross-origin requests must not have the session cookie available
+      allow do
+        origins '*'
+        resource '/api/*',
+          credentials: false,
+          headers: :any,
+          methods: :any,
+          expose: ['X-Total', 'X-Total-Pages', 'X-Per-Page', 'X-Page', 'X-Next-Page', 'X-Prev-Page']
+      end
+    end
   end
 end

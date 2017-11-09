@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update], controller: 'profile'
   end
 
+  mount API::Root => '/'
+
   get 'sudo/edit', to: redirect('/settings/profile')
   devise_for :users, path: 'sudo', controllers: {
     registrations: 'users/registrations'

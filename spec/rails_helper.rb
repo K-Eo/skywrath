@@ -7,8 +7,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "devise"
 require "database_cleaner"
-require "support/factory_bot"
-require "support/request_spec_helper"
+
+# Requires supporting files in support directory
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -34,6 +36,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include RequestSpecHelper, type: :request
+  config.include ApiHelpers, type: :request
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
