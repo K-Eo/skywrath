@@ -40,6 +40,7 @@ gem 'kaminari'
 gem 'grape'
 gem 'grape-entity'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'graphql'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -60,6 +61,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara-screenshot'
   gem 'rails-controller-testing'
+  gem 'graphiql-rails'
 end
 
 group :development do

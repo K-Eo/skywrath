@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
+  end
+  post '/graphql', to: 'graphql#execute'
+  post '/graphql/sign_in', to: 'graphql#sign_in'
+  delete '/graphql/sign_out', to: 'graphql#sign_out'
+
   get '/dashboard', to: 'dashboard#root'
   resource :profile, only: :show, controller: 'users/profile'
 
