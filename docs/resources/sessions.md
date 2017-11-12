@@ -8,6 +8,11 @@ Retrieves access token as JSON response.
 POST /sessions
 ```
 
+Attribute | Type | Required | Description
+--- | --- | --- | ---
+email | string | yes | User email.
+password | string | yes | User password.
+
 Example response:
 
 ```JSON
@@ -15,11 +20,6 @@ Example response:
   "access_token": "AheJpvBs5tK9koXpg98e"
 }
 ```
-
-Attribute | Type | Required | Description
---- | --- | --- | ---
-email | string | yes | User email.
-password | string | yes | User password.
 
 ## Logout
 Logout from Skywrath.
