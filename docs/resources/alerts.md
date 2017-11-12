@@ -25,3 +25,16 @@ Example response:
   }
 ]
 ```
+
+## Create new alert
+```sh
+POST /alerts
+```
+
+Example response:
+
+```json
+{
+  "created_at": "2017-11-08T06:57:16.915Z"
+}
+```
