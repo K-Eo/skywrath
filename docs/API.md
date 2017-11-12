@@ -12,7 +12,7 @@ API requests should be prefixed with `api` and the API versión. For example, th
 
 Example of a valid API request using cURL:
 ```sh
-curl "https://skywrath.herokuapp.com/api/v1/alerts
+curl "https://skywrath.herokuapp.com/api/v1/alerts"
 ```
 The API uses JSON to serialize data. You don't need to specify `.json` at the end of an API URL.
 
@@ -36,11 +36,11 @@ You ca user a personal access token to authenticate with the API by passing it i
 
 Example of using the personal access token in a parameter:
 ```sh
-curl "https://skywrath.herokuapp.com/api/v1/alerts?access_token=AheJpvBs5tK9koXpg98e
+curl "https://skywrath.herokuapp.com/api/v1/alerts?access_token=AheJpvBs5tK9koXpg98e"
 ```
 Example using the personal access token in a header:
 ```sh
-curl --header "X-Access-Token: AheJpvBs5tK9koXpg98e" https://skywrath.herokuapp.com/api/v1/alerts
+curl --header "X-Access-Token: AheJpvBs5tK9koXpg98e" "https://skywrath.herokuapp.com/api/v1/alerts"
 ```
 
 ## Session cookie
@@ -84,7 +84,7 @@ Parameter | Description
 In the example below, we list 50 alerts per page.
 
 ```sh
-curl --header "X-Access-Token: AheJpvBs5tK9koXpg98e" https://skywrath.herokuapp.com/api/v1/alerts?per_page=50
+curl --header "X-Access-Token: AheJpvBs5tK9koXpg98e" "https://skywrath.herokuapp.com/api/v1/alerts?per_page=50"
 ```
 
 ## Pagination Link Header
@@ -93,7 +93,7 @@ Link headers are sent back with each response. Theay have rel set to pre/next/fi
 In the cURL example below, we use default params:
 
 ```sh
-curl --head --header "X-Access-Token: AheJpvBs5tK9koXpg98e" skywrath.herokuapp.com/api/v1/alerts
+curl --head --header "X-Access-Token: AheJpvBs5tK9koXpg98e" "https://skywrath.herokuapp.com/api/v1/alerts"
 ```
 The response will then be:
 
