@@ -7,7 +7,12 @@ RSpec.describe API::V1::Alerts, type: :request do
   let(:factory) {}
 
   subject { response }
-  before { factory; action; }
+  before do |example|
+    unless example.metadata[:skip_before]
+      factory
+      action
+    end
+  end
 
   describe "GET /alerts" do
     context "when logged in" do
@@ -28,6 +33,33 @@ RSpec.describe API::V1::Alerts, type: :request do
       let(:user) { nil }
 
       it { is_expected.to have_http_status(:unauthorized) }
+    end
+  end
+
+  describe "POST /alerts" do
+    let(:action) { post api("/alerts", user) }
+
+    context "when logged in" do
+      it { is_expected.to have_content_type("application/json") }
+      it { is_expected.to have_http_status(:created) }
+
+      it "persists object", :skip_before do
+        expect { action }.to change { Alert.count }.by(1)
+      end
+
+      it "alert has current user as author" do
+        expect(Alert.last.author).to eq(user)
+      end
+    end
+
+    context "when logged out" do
+      let(:user) { nil }
+
+      it { is_expected.to have_http_status(:unauthorized) }
+
+      it "does not persists object", :skip_before do
+        expect { action }.to change { Alert.count }.by(0)
+      end
     end
   end
 end
