@@ -47,6 +47,10 @@ RSpec.describe API::V1::Alerts, type: :request do
         expect { action }.to change { Alert.count }.by(1)
       end
 
+      it "returns object" do
+        expect(json_response["created_at"]).not_to be_nil
+      end
+
       it "alert has current user as author" do
         expect(Alert.last.author).to eq(user)
       end
