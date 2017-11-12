@@ -4,11 +4,11 @@ Every API call to alerts must be authenticated.
 ## Alerts pagination
 By default, `GET` requests 20 results at a time because the API results are paginated.
 
-## List issues
-Get all issues.
+## List alerts
+Get all alerts.
 
 ```sh
-GET /issues
+GET /alerts
 ```
 
 Example response:
@@ -24,4 +24,17 @@ Example response:
     }
   }
 ]
+```
+
+## Create new alert
+```sh
+POST /alerts
+```
+
+Example response:
+
+```json
+{
+  "created_at": "2017-11-08T06:57:16.915Z"
+}
 ```
