@@ -32,7 +32,7 @@ If authentication information is invalid or omitted, an error message will be re
 ```
 
 ## Personal access token
-You ca user a personal access token to authenticate with the API by passing it in either `access_token` parameter or `X-Access-Token` header.
+You can use a personal access token to authenticate with the API by passing it in either `access_token` parameter or `X-Access-Token` header.
 
 Example of using the personal access token in a parameter:
 ```sh
@@ -42,6 +42,8 @@ Example using the personal access token in a header:
 ```sh
 curl --header "X-Access-Token: AheJpvBs5tK9koXpg98e" "https://skywrath.herokuapp.com/api/v1/alerts"
 ```
+
+Use the [`/sessions`](/docs/resources/sessions#login) API to generate a new access token.
 
 ## Session cookie
 when signed in to the main Skywrath application, a `_skywrath_session` cookie is set. The API will use this cookie for authentication if it is present, but using the API to generate a new session cookie is currently not supported.
