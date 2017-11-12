@@ -5,6 +5,7 @@ Skywrath via simple and powerful API.
 Documentation for various API resources can be found separately in the following locations:
 
 * [Alerts](/docs/resources/alerts.md)
+* [Sessions](/docs/resources/sessions.md)
 
 ## Basic usage
 API requests should be prefixed with `api` and the API versión. For example, the root of the v1 API is at `/api/v1`.
