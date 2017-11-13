@@ -10,6 +10,7 @@
     "yarn": ">=1.2.0"
   },
   "dependencies": {
+    "pusher-js": "^4.2.1",
     "timeago.js": "^3.0.2"
   }
 }

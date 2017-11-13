@@ -2,7 +2,11 @@
 //= require turbolinks
 //= require jquery3
 //= require semantic
+//= require pusher-js
 //= require timeago.js/src/timeago.js
 //= require init
+//= require app.config
+//= require app.notifications
 //= require app.timeago
 //= require app.flash
+//= require start
