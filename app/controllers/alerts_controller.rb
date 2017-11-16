@@ -11,6 +11,7 @@ class AlertsController < ApplicationController
 
     if alert.save
       flash.now[:success] = "Alerta enviada."
+      NewAlertJob.perform_later(alert.id)
     else
       flash.now[:error] = "La alerta no se ha podido crear. Intente nuevamente."
     end

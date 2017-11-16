@@ -2,6 +2,9 @@ class App.Notifications
   constructor: ->
     console.log "Connecting to Pusher"
     @pusher = new Pusher @getKey(), @getOptions()
+    @pusher.subscribe("alerts")
+    @pusher.bind "new", (data) ->
+      console.log data
 
   getOptions: ->
     {
