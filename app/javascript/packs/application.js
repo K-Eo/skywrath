@@ -15,9 +15,9 @@ import Rails from "rails-ujs"
 import Turbolinks from "turbolinks"
 import "semantic-ui-css"
 
-import Timeago from "../timeago"
-import Flash from "../flash"
-import Notifications from "../notifications"
+import Timeago from "timeago"
+import Flash from "flash"
+import Notifications from "notifications"
 
 Rails.start()
 debug("Rails UJS UP")
