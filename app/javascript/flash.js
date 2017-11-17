@@ -1,4 +1,4 @@
-const debug = require("debug")("flash")
+const debug = require("debug")("skywrath:flash")
 
 class Flash {
   remove(el) {

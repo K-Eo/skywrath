@@ -15,6 +15,7 @@ module API
       end
 
       class Alert < Grape::Entity
+        expose :id
         expose :created_at
         expose :author, using: BasicUser
       end

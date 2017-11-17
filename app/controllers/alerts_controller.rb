@@ -3,7 +3,6 @@ class AlertsController < ApplicationController
   layout "default"
 
   def index
-    load_alerts
   end
 
   def create

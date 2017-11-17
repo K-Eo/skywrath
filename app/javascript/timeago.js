@@ -1,4 +1,4 @@
-const debug = require("debug")("timeago")
+const debug = require("debug")("skywrath:timeago")
 
 import timeago from "timeago.js/dist/timeago"
 import es from "timeago.js/locales/es"

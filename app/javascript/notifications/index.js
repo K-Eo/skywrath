@@ -1,4 +1,4 @@
-const debug = require("debug")("notifications")
+const debug = require("debug")("skywrath:notifications")
 
 import Settings from "settings.js"
 import Pusher from "pusher-js"
@@ -29,4 +29,3 @@ class Notifications {
 }
 
 export default new Notifications()
-

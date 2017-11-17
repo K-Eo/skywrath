@@ -5,7 +5,7 @@ environment.plugins.set(
   'Define',
   new webpack.DefinePlugin({
     'process.env': {
-      DEBUG: JSON.stringify("*")
+      DEBUG: JSON.stringify("skywrath:*")
     }
   })
 )

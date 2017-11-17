@@ -2,7 +2,6 @@
   "name": "skywrath",
   "private": true,
   "devDependencies": {
-    "semantic-ui": "^2.2.13",
     "webpack-dev-server": "^2.9.4"
   },
   "engines": {
@@ -12,11 +11,16 @@
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
-    "coffeescript": "1.12.7",
+    "babel-preset-react": "^6.24.1",
+    "coffeescript": "^2.0.2",
     "debug": "^3.1.0",
     "jquery": "^3.2.1",
+    "prop-types": "^15.6.0",
     "pusher-js": "^4.2.1",
     "rails-ujs": "^5.1.4",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-timeago": "^3.4.3",
     "semantic-ui-css": "^2.2.12",
     "timeago.js": "^3.0.2",
     "turbolinks": "^5.0.3"
