@@ -1,15 +1,19 @@
-class App.Timeago
-  constructor: (@el) ->
-    @el ||= ".timeago"
+debug = require("debug")("timeago")
+timeago = require("timeago.js")
+
+class Timeago
+  start: (el) ->
+    @el = el || ".timeago"
     @registerLocale()
-    console.log "Initialiazing timeago with tag: #{@el}"
+    debug "Timeago will be rendered on tags with: #{@el}"
     timeago(null, @getLang()).render($(@el))
+    debug "Timeago UP"
 
   getLang: ->
     $("html").attr("lang")
 
   registerLocale: ->
-    console.log "Registering ES locale for timeago"
+    debug "Registering ES locale for timeago"
     timeago.register("es", @locale)
 
   locale: (number, index) ->
@@ -28,3 +32,5 @@ class App.Timeago
       ["hace 1 año", "en 1 año"],
       ["hace %s años", "en %s años"]
     ][index]
+
+export default new Timeago
