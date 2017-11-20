@@ -1,13 +1,21 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
+import { Provider } from "react-redux"
 
-import Watchdog from 'watchdog'
+import { start } from '../push'
+import Watchdog from '../watchdog'
+import configure from "../watchdog/store"
+
+store = configure()
+start(store)
 
 document.addEventListener "DOMContentLoaded", ->
-  $("#watchdog").html()
+  $("content-body").html()
 
   ReactDOM.render(
-    <Watchdog/>,
-    document.getElementById("watchdog"),
+    <Provider store={store}>
+      <Watchdog/>
+    </Provider>,
+    document.getElementById("content-body"),
   )

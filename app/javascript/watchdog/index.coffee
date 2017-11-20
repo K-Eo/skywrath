@@ -1,8 +1,17 @@
 import React from "react"
 
-import AlertList from './alert_list'
+import alerts from "./alerts"
+
+{ AlertList } = alerts.components
 
 App = (props) ->
-  <AlertList/>
+  <div className="ui grid">
+    <div className="sixteen wide column">
+      <button className="ui positive button">
+        Nueva Alerta
+      </button>
+    </div>
+    <AlertList/>
+  </div>
 
 export default App

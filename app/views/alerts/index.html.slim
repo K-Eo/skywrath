@@ -1,4 +1,2 @@
-.sixteen.wide.column id="watchdog"
-  .ui.active.inverted.dimmer style="margin-top: 25px;"
-    .ui.loader
-= javascript_pack_tag "watchdog"
+- content_for :page_javascripts do
+  = javascript_pack_tag "watchdog"

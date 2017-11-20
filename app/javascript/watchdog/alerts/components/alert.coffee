@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import TimeAgo from "react-timeago"
 
-import utils from "./utils"
+import utils from "../../utils"
 
 Alert = (props) ->
   <div className="ui card alert">
@@ -17,4 +17,4 @@ Alert = (props) ->
     </div>
   </div>
 
-export default Alert
+export { Alert }

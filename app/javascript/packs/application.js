@@ -17,7 +17,6 @@ import "semantic-ui-css"
 
 import Timeago from "timeago"
 import Flash from "flash"
-import Notifications from "notifications"
 
 Rails.start()
 debug("Rails UJS UP")
@@ -26,10 +25,6 @@ Turbolinks.start()
 debug("Turbolinks UP")
 
 Flash.start()
-
-$(document).ready(function () {
-  Notifications.start()
-})
 
 $(document).on("turbolinks:load", function () {
   $(".ui.dropdown").dropdown()
