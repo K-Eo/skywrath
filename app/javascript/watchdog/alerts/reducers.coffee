@@ -13,9 +13,9 @@ create = (state = { status: "idle" }, action) ->
     when types.CREATE_REQUEST
       Object.assign {}, state, { status: "requesting" }
     when types.CREATE_SUCCESS
-      Object.assign {}, state, { status: "created" }
+      Object.assign {}, state, { status: "success" }
     when types.CREATE_FAILURE
-      Object.assign {}, state, { status: "failed" }
+      Object.assign {}, state, { status: "failure" }
     when types.CREATE_RESET
       Object.assign {}, state, { status: "idle" }
     else

@@ -44,7 +44,7 @@ createFailure = ->
 createIdle = ->
   type: types.CREATE_RESET
 
-export create = (data) ->
+export create = ->
   (dispatch, getState) ->
     return if getState().control.alerts.create.status == "requesting"
 
@@ -52,6 +52,10 @@ export create = (data) ->
 
     axios.post "/api/v1/alerts"
       .then (response) ->
-        console.log(response)
+        throw Error(response.status) if response.status != 201
+        return response.data
+      .then (data) ->
         dispatch(createSuccess())
-      .catch -> dispatch(createFailure())
+        dispatch(add(data))
+      .catch (error) ->
+        dispatch(createFailure(error.message))
