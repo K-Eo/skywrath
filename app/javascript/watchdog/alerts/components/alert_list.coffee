@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import { Alert } from "./alert"
 import * as actions from "../actions"
-import { selector } from '../selectors'
+import { chunck_selector } from '../selectors'
 
 class AlertList extends Component
   componentDidMount: ->
@@ -25,7 +25,7 @@ class AlertList extends Component
 mapStateToProps = (state) ->
   fetching_status: state.control.alerts.fetching.status
   failure_message: state.control.alerts.fetching.message
-  alerts: selector(state)
+  alerts: chunck_selector(state)
 
 AlertList = connect(mapStateToProps, actions)(AlertList)
 
