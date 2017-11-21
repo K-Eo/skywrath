@@ -3,9 +3,6 @@ nav.ui.borderless.menu#default
     = link_to "Skywrath", dashboard_path, class: "header item", data: { turbolinks: false }
 
     .right.menu
-      = link_to alerts_path, class: "item", title: "Nueva Alerta", method: :post do
-        i.plus.icon
-
       .ui.right.dropdown.pointing.top.user.item#user_links
         = gravatar current_user, class: "ui avatar image"
         i.dropdown.icon
