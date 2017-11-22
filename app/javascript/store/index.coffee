@@ -8,9 +8,9 @@ axios.defaults.baseURL = "/api/v1"
 import push_middleware from "./push_middleware"
 
 import alerts from "../alerts"
-import push from "../../push"
-import channels from "../../channels"
-import users from "../../users"
+import push from "../push"
+import channels from "../channels"
+import users from "../users"
 
 globalState = {}
 

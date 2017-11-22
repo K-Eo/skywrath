@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { Provider } from "react-redux"
 
 import Watchdog from '../watchdog'
-import configure from "../watchdog/store"
+import configure from "../store"
 import push from "../push"
 import channels from "../channels"
 

@@ -1,5 +1,5 @@
 import _ from "lodash"
-import alerts from "../watchdog/alerts"
+import alerts from "../alerts"
 
 export entities = (state = {}, action) ->
   switch action.type

@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import classNames from "classnames"
 
-import alerts from "./alerts"
+import alerts from "../alerts"
 
 { AlertList } = alerts.components
 

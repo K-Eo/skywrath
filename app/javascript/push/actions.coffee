@@ -2,7 +2,7 @@ import _ from "lodash"
 import Pusher from "pusher-js"
 import Settings from "../settings.js"
 import * as types from "./types"
-import alerts from "../watchdog/alerts"
+import alerts from "../alerts"
 
 push = null
 
