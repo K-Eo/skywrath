@@ -3,12 +3,15 @@ import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import { Provider } from "react-redux"
 
-import { start } from '../push'
 import Watchdog from '../watchdog'
 import configure from "../watchdog/store"
+import push from "../push"
+import channels from "../channels"
 
 store = configure()
-start(store)
+
+store.dispatch(push.actions.service())
+store.dispatch(channels.actions.fetch_channels())
 
 document.addEventListener "DOMContentLoaded", ->
   $("content-body").html()

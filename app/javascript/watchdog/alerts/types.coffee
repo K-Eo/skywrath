@@ -1,4 +1,5 @@
 export ADD = "alerts/ADD"
+export ADD_BULK = "alerts/ADD_BULK"
 
 export FETCH_REQUEST = "alerts/FETCH_REQUEST"
 export FETCH_SUCCESS = "alerts/FETCH_SUCCESS"

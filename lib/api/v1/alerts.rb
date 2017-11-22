@@ -16,10 +16,10 @@ module API
         post do
           authenticate!
 
-          alert = Alert.new(author: current_user)
+          alert = ::Alerts::CreateService.new(current_user)
 
-          if alert.save
-            present alert, with: API::V1::Entities::Alert
+          if alert.execute
+            present alert.entity, with: API::V1::Entities::Alert
           else
             api_error!({ error: "422 Unprocessable entity" }, 422)
           end

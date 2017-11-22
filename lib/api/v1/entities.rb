@@ -19,6 +19,23 @@ module API
         expose :created_at
         expose :author, using: BasicUser
       end
+
+      class PSAlert < Grape::Entity
+        expose :data do
+          expose :id
+          expose :created_at
+          expose :author_id, as: :author
+        end
+        expose :meta do
+          expose :action do |instance|
+            "load"
+          end
+          expose :type do |instance|
+            "users"
+          end
+          expose :author_id, as: :entity
+        end
+      end
     end
   end
 end
