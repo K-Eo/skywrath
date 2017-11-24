@@ -18,7 +18,22 @@ spanishStrings =
   year: "1 año",
   years: "%d años"
 
+to_state = (state) ->
+  unless state?
+    return "unknown"
+
+  switch state
+    when "opened"
+      "Activo"
+    when "assisting"
+      "Asistiendo"
+    when "closed"
+      "Cerrado"
+    else
+      "unknown"
+
 utils =
   formatter: buildFormatter(spanishStrings)
+  to_state: to_state
 
 export default utils

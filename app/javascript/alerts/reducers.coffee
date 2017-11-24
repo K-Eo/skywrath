@@ -24,20 +24,25 @@ create = (state = { status: "idle" }, action) ->
     else
       state
 
-fetching = (state = { status: "idle", message: "" }, action) ->
+fetching_state =
+  status: "idle"
+  message: ""
+  next_page: ""
+
+fetching = (state = fetching_state, action) ->
   switch action.type
     when types.FETCH_REQUEST
       _.assign {}, state, { status: "fetching", message: "" }
     when types.FETCH_SUCCESS
-      _.assign {}, state, { status: "success" }
+      _.assign {}, state, { status: "success", next_page: action.data["x-next-page"] }
     when types.FETCH_FAILURE
       _.assign {}, state, { status: "failure", message: action.message }
     else
       state
 
 control = combineReducers {
-  create,
-  fetching,
+  create
+  fetching
 }
 
 export {

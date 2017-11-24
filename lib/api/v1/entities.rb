@@ -15,16 +15,22 @@ module API
       end
 
       class Alert < Grape::Entity
-        expose :id
-        expose :created_at
+        expose :assisting_at
         expose :author, using: BasicUser
+        expose :closed_at
+        expose :created_at
+        expose :id
+        expose :state
       end
 
       class PSAlert < Grape::Entity
         expose :data do
-          expose :id
-          expose :created_at
+          expose :assisting_at
           expose :author_id, as: :author
+          expose :closed_at
+          expose :created_at
+          expose :id
+          expose :state
         end
         expose :meta do
           expose :action do |instance|

@@ -11,14 +11,24 @@ array_selector = createSelector(
 
 order_selector = createSelector(
   array_selector,
-  (alerts) -> _.orderBy(alerts, ["created_at", "id"], ["desc", "desc"]),
+  (alerts) -> _.orderBy(alerts, ["created_at", "id"], ["desc", "desc"])
 )
 
-export chunck_selector = createSelector(
+join_selector = createSelector(
   order_selector,
   users_selector,
-  (alerts, authors) ->
-    items = _.take(alerts, 25)
-    _.map items, (item) ->
-      _.assign {}, item, { author: authors[item.author] }
+  (alerts, users) ->
+    _.map alerts, (alert) ->
+      _.assign {}, alert, { author: users[alert.author] }
+)
+
+export active_selector = createSelector(
+  join_selector,
+  (alerts) -> _.filter(alerts, { state: "opened" })
+)
+
+
+export chunck_selector = createSelector(
+  join_selector,
+  (alerts) -> _.take(alerts, 25)
 )

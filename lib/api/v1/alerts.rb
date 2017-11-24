@@ -8,7 +8,21 @@ module API
         get do
           authenticate!
 
-          alerts = current_user.alerts.newest.includes(:author).page
+          alerts = Alert.newest
+
+          case params[:state].to_s
+          when "active"
+            alerts = alerts.with_states(:opened, :assisting)
+          when "opened"
+            alerts = alerts.with_state(:opened)
+          when "assisting"
+            alerts = alerts.with_state(:assisting)
+          when "closed"
+            alerts = alerts.with_state(:closed)
+          end
+
+          alerts = alerts.includes(:author).page(params[:page])
+
           present paginate(alerts), with: API::V1::Entities::Alert
         end
 

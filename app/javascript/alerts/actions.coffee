@@ -13,25 +13,27 @@ add_bulk = (data) ->
 fetchRequest = ->
   type: types.FETCH_REQUEST
 
-fetchSuccess = ->
+fetchSuccess = (data) ->
   type: types.FETCH_SUCCESS
+  data: data
 
 fetchFailure = (message) ->
   type: types.FETCH_FAILURE
   message: message
 
-export fetching = ->
+export fetching = (page = "1") ->
   (dispatch, getState, axios) ->
     return if getState().control.alerts.fetching.status == "fetching"
+    return unless page
 
     dispatch(fetchRequest())
 
-    axios.get "/alerts"
+    axios.get "/alerts?state=active&page=#{page}"
       .then (response) ->
         throw Error("Can't fetch alerts") if response.status != 200
+        dispatch(fetchSuccess(response.headers))
         response.data
       .then (data) ->
-        dispatch(fetchSuccess())
         dispatch(add_bulk(normalize(data, [ schemas.alert ])))
       .catch (error) ->
         dispatch(fetchFailure(error.message))
