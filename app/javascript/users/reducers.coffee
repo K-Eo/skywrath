@@ -1,9 +1,10 @@
 import _ from "lodash"
-import alerts from "../alerts"
 
 export entities = (state = {}, action) ->
   switch action.type
-    when alerts.types.ADD_BULK
-      _.assign {}, state, action.data.entities.users
+    when "ADD"
+      users = action.data.entities.users
+      return state unless users?
+      _.assign {}, state, users
     else
       state

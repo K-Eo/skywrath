@@ -4,10 +4,10 @@ import * as types from "./types"
 
 entities = (state = {}, action) ->
   switch action.type
-    when types.ADD_BULK
-      _.assign {}, state, action.data.entities.alerts
-    when types.ADD
-      _.assign {}, state, { "#{action.data.id}": action.data }
+    when "ADD"
+      alerts = action.data.entities.alerts
+      return state unless alerts?
+      _.assign {}, state, alerts
     else
       state
 
@@ -40,9 +40,36 @@ fetching = (state = fetching_state, action) ->
     else
       state
 
+state_reducer = (state = { status: "success", message: "" }, action) ->
+  switch action.type
+    when types.STATE_CHANGE_REQUEST
+      _.assign {}, state, { status: "requesting", message: "" }
+    when types.STATE_CHANGE_SUCCESS
+      _.assign {}, state, { status: "success" }
+    when types.STATE_CHANGE_FAILURE
+      _.assign {}, state, { status: "failure", message: action.message }
+    else
+      state
+
+state_change = (state = {}, action) ->
+  switch action.type
+    when "ADD"
+      alerts = action.data.entities.alerts
+      return state unless alerts?
+      items = _.mapValues action.data.entities.alerts, ->
+        { status: "success", message: "" }
+      _.assign {}, state, items
+    when types.STATE_CHANGE_REQUEST, types.STATE_CHANGE_SUCCESS, types.STATE_CHANGE_FAILURE
+      alert = state[action.id]
+      return state unless alert?
+      _.assign {}, state, { "#{action.id}": state_reducer(alert, action) }
+    else
+      state
+
 control = combineReducers {
   create
   fetching
+  state_change
 }
 
 export {

@@ -32,8 +32,13 @@ to_state = (state) ->
     else
       "unknown"
 
+sleep = (ms) ->
+  new Promise (resolve) ->
+    window.setTimeout resolve, ms
+
 utils =
   formatter: buildFormatter(spanishStrings)
   to_state: to_state
+  sleep: sleep
 
 export default utils

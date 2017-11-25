@@ -3,6 +3,7 @@ import _ from "lodash"
 
 alerts_selector = (state) -> state.entities.alerts
 users_selector = (state) -> state.entities.users
+control_selector = (state) -> state.control.alerts.state_change
 
 array_selector = createSelector(
   alerts_selector,
@@ -17,14 +18,17 @@ order_selector = createSelector(
 join_selector = createSelector(
   order_selector,
   users_selector,
-  (alerts, users) ->
+  control_selector,
+  (alerts, users, controls) ->
     _.map alerts, (alert) ->
-      _.assign {}, alert, { author: users[alert.author] }
+      author = { author: users[alert.author] }
+      control = { control: controls[alert.id] }
+      _.assign {}, alert, author, control
 )
 
 export active_selector = createSelector(
   join_selector,
-  (alerts) -> _.filter(alerts, { state: "opened" })
+  (alerts) -> _.filter(alerts, (i) -> i.state == "opened" or i.state == "assisting")
 )
 
 

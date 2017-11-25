@@ -3,11 +3,7 @@ import { normalize, arrayOf } from "normalizr"
 import * as schemas from "./schemas"
 
 add = (data) ->
-  type: types.ADD
-  data: data
-
-add_bulk = (data) ->
-  type: types.ADD_BULK
+  type: "ADD"
   data: data
 
 fetchRequest = ->
@@ -20,6 +16,38 @@ fetchSuccess = (data) ->
 fetchFailure = (message) ->
   type: types.FETCH_FAILURE
   message: message
+
+state_change_request = (id) ->
+  type: types.STATE_CHANGE_REQUEST
+  id: id
+
+state_change_success = (id) ->
+  type: types.STATE_CHANGE_SUCCESS
+  id: id
+
+state_change_failure = (id, message) ->
+  type: types.STATE_CHANGE_FAILURE
+  id: id
+  message: message
+
+export assist = (id) ->
+  (dispatch, getState, axios) ->
+    state = getState().control.alerts.state_change[id]
+    return unless state?
+    return if state.status == "requesting"
+
+    dispatch state_change_request(id)
+
+    axios.post "/assists/#{id}/assist"
+      .then (response) ->
+        throw Error("Can't assist alert") if response.status != 201
+        dispatch state_change_success(id)
+        response.data
+      .then (data) ->
+        dispatch add(normalize(data, schemas.alert))
+      .catch (error) ->
+        dispatch state_change_failure(id, error.message)
+
 
 export fetching = (page = "1") ->
   (dispatch, getState, axios) ->
@@ -34,7 +62,7 @@ export fetching = (page = "1") ->
         dispatch(fetchSuccess(response.headers))
         response.data
       .then (data) ->
-        dispatch(add_bulk(normalize(data, [ schemas.alert ])))
+        dispatch(add(normalize(data, [ schemas.alert ])))
       .catch (error) ->
         dispatch(fetchFailure(error.message))
 
