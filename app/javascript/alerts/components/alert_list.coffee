@@ -14,7 +14,12 @@ class AlertList extends Component
 
     <div className="ui two stackable cards">
       { for i in alerts
-          <Alert key={i.id} {i...} assist={@props.assist}/> }
+          <Alert
+            key={i.id}
+            {i...}
+            assist={@props.assist}
+            close={@props.close}
+          /> }
     </div>
 
 mapStateToProps = (state) ->

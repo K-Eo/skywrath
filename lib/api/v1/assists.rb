@@ -22,11 +22,9 @@ module API
 
           alert = Alert.find(params[:alert_id])
 
-          if alert.close
-            present alert, with: API::V1::Entities::Alert
-          else
-            api_error!({ error: "406 Not Acceptable" }, 406)
-          end
+          alert.close
+
+          present alert, with: API::V1::Entities::Alert
         end
       end
     end

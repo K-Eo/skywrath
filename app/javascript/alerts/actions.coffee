@@ -30,11 +30,13 @@ state_change_failure = (id, message) ->
   id: id
   message: message
 
+can_change_alert_state = (id, getState) ->
+    state = getState().control.alerts.state_change[id]
+    state? and state.status != "requesting"
+
 export assist = (id) ->
   (dispatch, getState, axios) ->
-    state = getState().control.alerts.state_change[id]
-    return unless state?
-    return if state.status == "requesting"
+    return unless can_change_alert_state(id, getState)
 
     dispatch state_change_request(id)
 
@@ -48,6 +50,21 @@ export assist = (id) ->
       .catch (error) ->
         dispatch state_change_failure(id, error.message)
 
+export close = (id) ->
+  (dispatch, getState, axios) ->
+    return unless can_change_alert_state(id, getState)
+
+    dispatch state_change_request(id)
+
+    axios.post "/assists/#{id}/close"
+      .then (response) ->
+        throw Error("Can't close alert") if response.status != 201
+        dispatch state_change_success(id)
+        response.data
+      .then (data) ->
+        dispatch add(normalize(data, schemas.alert))
+      .catch (error) ->
+        dispatch state_change_failure(id, error.message)
 
 export fetching = (page = "1") ->
   (dispatch, getState, axios) ->

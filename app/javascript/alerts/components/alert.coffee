@@ -59,7 +59,12 @@ Alert = (props) ->
               Asistir
             </button>
           else if props.state == "assisting"
-            <button className={close_button_class}>Cerrar</button>
+            <button
+              className={close_button_class}
+              onClick={ -> props.close(props.id) }
+            >
+              Cerrar
+            </button>
           else
             <span>Cerrado</span>
           }

@@ -28,7 +28,9 @@ join_selector = createSelector(
 
 export active_selector = createSelector(
   join_selector,
-  (alerts) -> _.filter(alerts, (i) -> i.state == "opened" or i.state == "assisting")
+  (alerts) ->
+    _.filter alerts, (i) ->
+      i.state == "opened" or i.state == "assisting"
 )
 
 
