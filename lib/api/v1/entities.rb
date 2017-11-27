@@ -21,6 +21,8 @@ module API
         expose :created_at
         expose :id
         expose :state
+        expose :assisted_by, using: BasicUser
+        expose :closed_by, using: BasicUser
       end
 
       class PSAlert < Grape::Entity
@@ -31,6 +33,8 @@ module API
           expose :created_at
           expose :id
           expose :state
+          expose :assisted_by
+          expose :closed_by
         end
         expose :meta do
           expose :action do |instance|

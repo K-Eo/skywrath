@@ -1,5 +1,8 @@
 class Alert < ApplicationRecord
   belongs_to :author, class_name: "User", foreign_key: "author_id"
+  belongs_to :assisted_by, class_name: "User", foreign_key: "assisted_by_id", optional: true
+  belongs_to :closed_by, class_name: "User", foreign_key: "closed_by_id", optional: true
+
   scope :newest, -> { order(created_at: "DESC", id: "DESC") }
 
   state_machine :state, initial: :opened, use_transactions: true do

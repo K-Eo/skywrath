@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user, aliases: [:author] do
+  factory :user do
     confirmed_at Time.zone.now
     email
     name

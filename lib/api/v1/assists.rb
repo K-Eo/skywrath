@@ -11,6 +11,7 @@ module API
 
           alert = Alert.find(params[:alert_id])
 
+          alert.assisted_by = current_user
           alert.assist
 
           present alert, with: API::V1::Entities::Alert
@@ -22,6 +23,7 @@ module API
 
           alert = Alert.find(params[:alert_id])
 
+          alert.closed_by = current_user
           alert.close
 
           present alert, with: API::V1::Entities::Alert

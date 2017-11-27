@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123211407) do
+ActiveRecord::Schema.define(version: 20171126010936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,11 @@ ActiveRecord::Schema.define(version: 20171123211407) do
     t.string "state"
     t.datetime "assisting_at"
     t.datetime "closed_at"
+    t.bigint "assisted_by_id"
+    t.bigint "closed_by_id"
+    t.index ["assisted_by_id"], name: "index_alerts_on_assisted_by_id"
     t.index ["author_id"], name: "index_alerts_on_author_id"
+    t.index ["closed_by_id"], name: "index_alerts_on_closed_by_id"
     t.index ["state"], name: "index_alerts_on_state"
   end
 
@@ -56,5 +60,7 @@ ActiveRecord::Schema.define(version: 20171123211407) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "alerts", "users", column: "assisted_by_id"
   add_foreign_key "alerts", "users", column: "author_id"
+  add_foreign_key "alerts", "users", column: "closed_by_id"
 end

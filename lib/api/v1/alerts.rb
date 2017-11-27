@@ -21,7 +21,9 @@ module API
             alerts = alerts.with_state(:closed)
           end
 
-          alerts = alerts.includes(:author).page(params[:page])
+          alerts = alerts
+                    .includes(:author, :assisted_by, :closed_by)
+                    .page(params[:page])
 
           present paginate(alerts), with: API::V1::Entities::Alert
         end

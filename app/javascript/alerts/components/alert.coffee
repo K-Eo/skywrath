@@ -47,6 +47,33 @@ Alert = (props) ->
         formatter={utils.formatter}
         className="strong"/>
     </div>
+    { if props.events.length > 0
+      <div className="content">
+        <div className="ui feed">
+          {
+            for event in props.events
+              <div className="event" key={event.date}>
+                <div className="label">
+                  <img src={event.avatar}/>
+                </div>
+                <div className="content">
+                  <div className="summary" style={{ fontWeight: "normal" }}>
+                    <span className="user">
+                      {event.actor}
+                    </span> {event.action}
+                    <div className="date">
+                      <TimeAgo
+                        date={event.date}
+                        formatter={utils.formatter}
+                        className="strong"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          }
+        </div>
+      </div>
+    }
     <div className="extra content">
       <div className="author">
         <img className="ui avatar image" src={props.author.avatar}/>
