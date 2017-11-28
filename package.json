@@ -1,9 +1,7 @@
 {
   "name": "skywrath",
   "private": true,
-  "devDependencies": {
-    "semantic-ui": "^2.2.13"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=8.7.0",
     "npm": "5.5.1",

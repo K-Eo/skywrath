@@ -5,4 +5,3 @@ App.init = ->
 
 $(document).on "turbolinks:load", ->
   App.init()
-  new App.Timeago

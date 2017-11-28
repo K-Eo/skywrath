@@ -1,0 +1,19 @@
+.alert {
+  display: flex;
+
+  .state {
+    margin-right: 1em;
+
+    .icon {
+      margin: 0;
+    }
+  }
+
+  .content {
+    flex: 1;
+
+    .meta {
+      color: #999;
+    }
+  }
+}

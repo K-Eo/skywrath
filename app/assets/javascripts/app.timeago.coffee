@@ -1,6 +1,6 @@
 class App.Timeago
   constructor: (@el) ->
-    @el ||= ".timeago"
+    @el ||= "time.timeago"
     @registerLocale()
     console.log "Initialiazing timeago with tag: #{@el}"
     timeago(null, @getLang()).render($(@el))
@@ -28,3 +28,6 @@ class App.Timeago
       ["hace 1 año", "en 1 año"],
       ["hace %s años", "en %s años"]
     ][index]
+
+$(document).on "turbolinks:load", ->
+  new App.Timeago
