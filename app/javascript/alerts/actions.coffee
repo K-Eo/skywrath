@@ -17,54 +17,71 @@ fetchFailure = (message) ->
   type: types.FETCH_FAILURE
   message: message
 
-state_change_request = (id) ->
-  type: types.STATE_CHANGE_REQUEST
+assign_request = (id) ->
+  type: types.ASSIGN_REQUEST
   id: id
 
-state_change_success = (id) ->
-  type: types.STATE_CHANGE_SUCCESS
+assign_success = (id) ->
+  type: types.ASSIGN_SUCCESS
   id: id
 
-state_change_failure = (id, message) ->
-  type: types.STATE_CHANGE_FAILURE
+assign_failure = (id, message) ->
+  type: types.ASSIGN_FAILURE
   id: id
   message: message
 
-can_change_alert_state = (id, getState) ->
-    state = getState().control.alerts.state_change[id]
-    state? and state.status != "requesting"
+can_assign = (id, getState) ->
+  state = getState().control.alerts.assignee[id]
+  state? and state.status != "requesting"
 
-export assist = (id) ->
+export assign = (id) ->
   (dispatch, getState, axios) ->
-    return unless can_change_alert_state(id, getState)
+    return unless can_assign(id, getState)
 
-    dispatch state_change_request(id)
+    dispatch assign_request(id)
 
-    axios.post "/assists/#{id}/assist"
+    axios.post "/alerts/#{id}/assign"
       .then (response) ->
-        throw Error("Can't assist alert") if response.status != 201
-        dispatch state_change_success(id)
+        throw Error("Can't assign to alert") if response.status != 201
+        dispatch assign_success(id)
         response.data
       .then (data) ->
         dispatch add(normalize(data, schemas.alert))
       .catch (error) ->
-        dispatch state_change_failure(id, error.message)
+        dispatch assign_failure(id, error.message)
+
+close_request = (id) ->
+  type: types.CLOSE_REQUEST
+  id: id
+
+close_success = (id) ->
+  type: types.CLOSE_SUCCESS
+  id: id
+
+close_failure = (id, message) ->
+  type: types.CLOSE_FAILURE
+  id: id
+  message: message
+
+can_close = (id, getState) ->
+    state = getState().control.alerts.close[id]
+    state? and state.status != "requesting"
 
 export close = (id) ->
   (dispatch, getState, axios) ->
-    return unless can_change_alert_state(id, getState)
+    return unless can_close(id, getState)
 
-    dispatch state_change_request(id)
+    dispatch close_request(id)
 
-    axios.post "/assists/#{id}/close"
+    axios.patch "/alerts/#{id}/close"
       .then (response) ->
-        throw Error("Can't close alert") if response.status != 201
-        dispatch state_change_success(id)
+        throw Error("Can't close alert") if response.status != 200
+        dispatch close_success(id)
         response.data
       .then (data) ->
         dispatch add(normalize(data, schemas.alert))
       .catch (error) ->
-        dispatch state_change_failure(id, error.message)
+        dispatch close_failure(id, error.message)
 
 export fetching = (page = "1") ->
   (dispatch, getState, axios) ->
@@ -73,7 +90,7 @@ export fetching = (page = "1") ->
 
     dispatch(fetchRequest())
 
-    axios.get "/alerts?state=active&page=#{page}"
+    axios.get "/alerts?state=opened&page=#{page}"
       .then (response) ->
         throw Error("Can't fetch alerts") if response.status != 200
         dispatch(fetchSuccess(response.headers))

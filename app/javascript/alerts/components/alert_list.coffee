@@ -12,12 +12,12 @@ class AlertList extends Component
   render: ->
     { alerts } = @props
 
-    <div className="ui two stackable cards">
+    <div className="ui segments">
       { for i in alerts
           <Alert
             key={i.id}
             {i...}
-            assist={@props.assist}
+            assign={@props.assign}
             close={@props.close}
           /> }
     </div>

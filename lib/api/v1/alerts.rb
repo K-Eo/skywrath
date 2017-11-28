@@ -11,18 +11,14 @@ module API
           alerts = Alert.newest
 
           case params[:state].to_s
-          when "active"
-            alerts = alerts.with_states(:opened, :assisting)
           when "opened"
             alerts = alerts.with_state(:opened)
-          when "assisting"
-            alerts = alerts.with_state(:assisting)
           when "closed"
             alerts = alerts.with_state(:closed)
           end
 
           alerts = alerts
-                    .includes(:author, :assisted_by, :closed_by)
+                    .includes(:author, :assignee)
                     .page(params[:page])
 
           present paginate(alerts), with: API::V1::Entities::Alert
@@ -39,6 +35,32 @@ module API
           else
             api_error!({ error: "422 Unprocessable entity" }, 422)
           end
+        end
+
+        desc "Assigns current user to alert"
+        post "/:alert_id/assign" do
+          authenticate!
+
+          alert = Alert.find(params[:alert_id])
+
+          alert.assignee = current_user
+
+          if alert.save
+            present alert, with: API::V1::Entities::Alert
+          else
+            api_error!({ error: "422 Unprocessable entity" }, 422)
+          end
+        end
+
+        desc "Close an alert"
+        patch "/:alert_id/close" do
+          authenticate!
+
+          alert = Alert.find(params[:alert_id])
+
+          alert.close
+
+          present alert, with: API::V1::Entities::Alert
         end
       end
     end

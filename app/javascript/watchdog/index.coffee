@@ -23,7 +23,9 @@ App = (props) ->
         Nueva Alerta
       </button>
     </div>
-    <AlertList/>
+    <div className="sixteen wide column">
+      <AlertList/>
+    </div>
     <div className="sixteen wide column">
       { if fetching_status == "idle" || fetching_status == "fetching"
           <div className="ui active centered inline loader"/>
