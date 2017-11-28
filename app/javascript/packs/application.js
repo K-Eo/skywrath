@@ -30,5 +30,6 @@ $(document).on("turbolinks:load", function () {
   $(".ui.dropdown").dropdown()
   debug("Semantic dropdown UP")
 
+  debug("Timeago start")
   Timeago.start()
 })
