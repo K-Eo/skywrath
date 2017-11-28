@@ -1,9 +1,0 @@
-.ui.card.alert
-  .content
-    = gravatar alert.author, class: "right floated ui avatar image"
-    .header
-      = alert.author.name
-    .meta
-      ' envío una alerta
-      = timeago(alert.created_at)
-      p = "##{alert.id} "

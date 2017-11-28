@@ -6,3 +6,6 @@
       .four.wide.column
         = render "layouts/sidebar/#{@sidebar}"
     = yield
+
+- if content_for?(:page_javascripts)
+  = yield :page_javascripts

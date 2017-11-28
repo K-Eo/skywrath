@@ -1,2 +1,0 @@
-//= require ./transition
-//= require ./dropdown
