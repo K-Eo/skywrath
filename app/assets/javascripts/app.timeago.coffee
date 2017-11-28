@@ -1,9 +1,15 @@
-class App.Timeago
+class Timeago
   constructor: (@el) ->
     @el ||= "time.timeago"
     @registerLocale()
-    console.log "Initialiazing timeago with tag: #{@el}"
+
+  render: ->
+    console.log "Timeago rendering with tag: #{@el}"
     timeago(null, @getLang()).render($(@el))
+
+  cancel: ->
+    console.log "Cancel timeago rendering"
+    timeago.cancel()
 
   getLang: ->
     $("html").attr("lang")
@@ -29,5 +35,12 @@ class App.Timeago
       ["hace %s años", "en %s años"]
     ][index]
 
+$(document).ready ->
+  App.Timeago = new Timeago
+  App.Timeago.render()
+
+$(document).on "turbolinks:before-visit", ->
+  App.Timeago.cancel()
+
 $(document).on "turbolinks:load", ->
-  new App.Timeago
+  App.Timeago.render() if App.Timeago?
