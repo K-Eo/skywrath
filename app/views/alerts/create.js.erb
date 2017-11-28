@@ -1,4 +1,4 @@
 <% if @alert.save %>
   $("#alerts").prepend("<%= j render(@alert) %>")
-  timeago().render($("#alert_<%= @alert.id %> time.timeago"), "es")
+  $("#alerts").trigger("alert:add", ["<%= @alert.id %>"])
 <% end %>
