@@ -1,0 +1,3 @@
+$("#alert_<%= @alert.id %>")
+  .replaceWith("<%= j render(@alert) %>")
+$("#alerts").trigger("alert:add", ["<%= @alert.id %>"])

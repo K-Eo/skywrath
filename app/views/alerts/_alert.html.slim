@@ -1,7 +1,6 @@
 .ui.segment.alert id="alert_#{alert.id}"
   .state
-    span.ui.green.tiny.circular.label
-      i.warning.icon
+    = alert_icon(alert)
   .content
     strong
       = alert.author.name
@@ -10,3 +9,22 @@
       = "##{alert.id} "
       ' &bull;
       = timeago(alert.created_at)
+
+  .assignee
+    - if alert.assignee.nil?
+      = link_to "asignarme",
+                alert_assignees_path(alert.id),
+                method: :post,
+                remote: true
+    - else
+      = gravatar alert.assignee,
+                class: "ui avatar image",
+                title: "Asignado a #{alert.assignee.name}"
+
+  .close
+    - if alert.assignee.present? && alert.state == "opened"
+      = link_to "Cerrar",
+                close_alert_path(alert.id),
+                class: "ui tiny red button",
+                method: :patch,
+                remote: true

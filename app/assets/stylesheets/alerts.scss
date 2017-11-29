@@ -16,4 +16,18 @@
       color: #999;
     }
   }
+
+  .assignee {
+    align-self: center;
+    margin: 0 1em;
+    min-width: 72px;
+    text-align: center;
+  }
+
+  .close {
+    align-self: center;
+    margin: 0 0 0 1em;
+    min-width: 60px;
+    text-align: center;
+  }
 }

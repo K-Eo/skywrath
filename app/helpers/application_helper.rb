@@ -10,6 +10,22 @@ module ApplicationHelper
     link_to(name, path, options)
   end
 
+  def alert_icon(alert)
+    classes = ["ui", "tiny", "circular", "label"]
+
+    if alert.state == "opened"
+      classes << "green"
+    else
+      classes << "red"
+    end
+
+    classes = classes.join(" ")
+
+    content_tag :span, class: classes do
+      content_tag :i, nil, class: "warning icon"
+    end
+  end
+
   def gravatar(user, args = {})
     return "" if user.nil?
 
