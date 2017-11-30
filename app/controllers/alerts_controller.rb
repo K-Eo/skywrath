@@ -8,7 +8,11 @@ class AlertsController < ApplicationController
 
   def create
     @alert = Alert.new(author: current_user)
-    @alert.save
+
+    if @alert.save
+      NewAlertJob.perform_later(@alert.id, current_user.id)
+    end
+
     respond_to do |format|
       format.js
     end

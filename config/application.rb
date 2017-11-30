@@ -38,7 +38,7 @@ module Skywrath
     config.active_job.queue_adapter = :sidekiq
     config.i18n.default_locale = :es
 
-    config.eager_load_paths.push(*%W[#{config.root}/lib])
+    config.eager_load_paths.push(*%W[#{config.root}/lib #{config.root}/app/services])
 
     # Allow access from other domains
     config.middleware.insert_before Warden::Manager, Rack::Cors do

@@ -15,16 +15,9 @@
       = link_to "asignarme",
                 alert_assignees_path(alert.id),
                 method: :post,
-                remote: true
+                remote: true,
+                data: { disable_with: "espere..." }
     - else
       = gravatar alert.assignee,
                 class: "ui avatar image",
                 title: "Asignado a #{alert.assignee.name}"
-
-  .close
-    - if alert.assignee.present? && alert.state == "opened"
-      = link_to "Cerrar",
-                close_alert_path(alert.id),
-                class: "ui tiny red button",
-                method: :patch,
-                remote: true

@@ -3,7 +3,8 @@
             alerts_path,
             class: "ui right floated green button",
             method: :post,
-            remote: true
+            remote: true,
+            data: { disable_with: "Espere..." }
 
 - if @alerts && @alerts.any?
   .sixteen.wide.column

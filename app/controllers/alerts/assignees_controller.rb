@@ -5,7 +5,10 @@ class Alerts::AssigneesController < ApplicationController
     @alert = Alert.find(params[:alert_id])
 
     @alert.assignee = current_user
-    @alert.save
+
+    if @alert.save
+      NewAssigneeJob.perform_later(@alert.id, current_user.id)
+    end
 
     respond_to do |format|
       format.js
