@@ -15,7 +15,7 @@ jobs:
             - v1-bundle-{{ checksum "Gemfile.lock" }}
       - run: bundle install --path vendor/bundle
       - save_cache:
-          key: - v1-bundle-{{ checksum "Gemfile.lock" }}
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/circleci-skywrath/vendor/bundle
       - persist_to_workspace:
