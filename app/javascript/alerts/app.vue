@@ -81,7 +81,6 @@
         !@has_alerts && !@fetching
     methods:
       new_alert: (data) ->
-        console.log data
         @alerts = _.assign {}, @alerts, { "#{data.id}": data }
 
       fetch_alerts: ->

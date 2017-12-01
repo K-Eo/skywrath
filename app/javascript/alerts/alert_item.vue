@@ -48,9 +48,8 @@
       alert:
         type: Object
         required: true
-    data: -> {
+    data: ->
       requesting: false
-    }
     computed:
       state_label_class: ->
         classNames "ui tiny circular label", {
