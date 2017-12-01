@@ -59,9 +59,11 @@ workflows:
   build-and-test:
     jobs:
       - bundle
+      - yarn
       - rails_test:
           requires:
             - bundle
+            - yarn
 # jobs:
 #   build:
 #     working_directory: ~/circleci-skywrath
