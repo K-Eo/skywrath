@@ -7,7 +7,7 @@ class Alerts::AssigneesController < ApplicationController
     @alert.assignee = current_user
 
     if @alert.save
-      NewAssigneeJob.perform_later(@alert.id, current_user.id)
+      NewAssigneeJob.perform_later(@alert.id)
     end
 
     respond_to do |format|

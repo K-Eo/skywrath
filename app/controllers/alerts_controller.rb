@@ -10,7 +10,7 @@ class AlertsController < ApplicationController
     @alert = Alert.new(author: current_user)
 
     if @alert.save
-      NewAlertJob.perform_later(@alert.id, current_user.id)
+      NewAlertJob.perform_later(@alert.id)
     end
 
     respond_to do |format|

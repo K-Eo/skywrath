@@ -11,13 +11,21 @@
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
+    "axios": "^0.17.1",
+    "classnames": "^2.2.5",
     "coffeescript": "^2.0.3",
     "debug": "^3.1.0",
     "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "pusher-js": "^4.2.1",
     "rails-ujs": "^5.1.4",
     "semantic-ui-css": "^2.2.12",
+    "timeago-vue": "^0.0.1",
     "timeago.js": "^3.0.2",
-    "turbolinks": "^5.0.3"
+    "turbolinks": "^5.0.3",
+    "vue": "^2.5.9",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.9",
+    "vue-timeago": "^3.4.0"
   }
 }

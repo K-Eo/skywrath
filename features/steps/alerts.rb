@@ -8,7 +8,7 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
   end
 
   step "I send one alert" do
-    find("a[title='Nueva Alerta']").click
+    find("#new_alert").click
   end
 
   step "I should see one alert" do
@@ -27,6 +27,14 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
     assert_text "No hay alertas"
   end
 
+  step "I should not see alerts load more" do
+    assert_selector "#alets_load_more", count: 0
+  end
+
+  step "I should see alerts load more" do
+    assert_selector "#alerts_load_more"
+  end
+
   step "I should not see alerts paginator" do
     assert_paginator "#alerts_paginator", false
   end
@@ -39,15 +47,15 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
     create_list(:alert, 30, author: @user)
   end
 
-  step "I should see 24 alerts" do
-    assert_selector ".alert", count: 24
+  step "I should see 25 alerts" do
+    assert_selector ".alert", count: 25
   end
 
-  step "I click on next page" do
-    find("a[title='Siguiente']").click
+  step "I click on load more" do
+    find("#alerts_load_more").click
   end
 
-  step "I should see 6 alerts" do
-    assert_selector ".alert", count: 6
+  step "I should see 30 alerts" do
+    assert_selector ".alert", count: 30
   end
 end

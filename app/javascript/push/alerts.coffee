@@ -58,7 +58,5 @@ class Alerts
 instance = new Alerts(push)
 
 $(document).on "turbolinks:before-visit", ->
-  instance.destroy()
 
 $(document).on "turbolinks:load", ->
-  instance.start()
