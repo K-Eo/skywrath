@@ -7,7 +7,6 @@ getKey = ->
   settings["pusher-key"]
 
 buildSettings = ->
-  cluster: "us2"
   encrypted: true
 
 debug "Starting Pusher with key: %s and settings: %o", getKey(), buildSettings()
