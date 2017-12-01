@@ -8,9 +8,9 @@ getKey = ->
 
 buildSettings = ->
   encrypted: true
+  cluster: "mt1"
 
 debug "Starting Pusher with key: %s and settings: %o", getKey(), buildSettings()
-console.log getKey()
 
 instance = new Pusher getKey(), buildSettings()
 
