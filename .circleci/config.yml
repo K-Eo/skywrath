@@ -36,7 +36,7 @@ jobs:
       - save_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
-            - ~/circleci-skywrath/.yarn-cache
+            - ~/.yarn-cache
       - persist_to_workspace:
           root: .
           paths: .yarn-cache
