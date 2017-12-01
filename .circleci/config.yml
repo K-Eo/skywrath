@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-        at: ~/circleci-skywrath
+          at: ~/circleci-skywrath
       - restore_cache:
           keys:
             - v1-bundle-{{ checksum "Gemfile.lock" }}
