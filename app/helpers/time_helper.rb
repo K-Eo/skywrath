@@ -1,9 +1,8 @@
 module TimeHelper
   def timeago(time, options = nil)
     options ||= {}
-    tag = options.delete(:tag) || :span
-    options[:datetime] = time
-    options[:title] = time
+    tag = options.delete(:tag) || :time
+    options[:title] = options[:datetime] = time.iso8601
     options[:class] = join_classes(options[:class], "timeago")
     content_tag tag, nil, options
   end

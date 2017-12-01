@@ -3,25 +3,28 @@ class AlertsController < ApplicationController
   layout "default"
 
   def index
-    load_alerts
+    @alerts = Alert.newest.includes(:author, :assignee).page(params[:page])
   end
 
   def create
-    alert = Alert.new(author: current_user)
+    @alert = Alert.new(author: current_user)
 
-    if alert.save
-      flash.now[:success] = "Alerta enviada."
-    else
-      flash.now[:error] = "La alerta no se ha podido crear. Intente nuevamente."
+    if @alert.save
+      NewAlertJob.perform_later(@alert.id)
     end
 
-    load_alerts
-    render "index"
+    respond_to do |format|
+      format.js
+    end
   end
 
-private
+  def close
+    @alert = Alert.find(params[:id])
 
-  def load_alerts
-    @alerts = Alert.newest.includes(:author).page(params[:page]).per(24)
+    @alert.close
+
+    respond_to do |format|
+      format.js
+    end
   end
 end

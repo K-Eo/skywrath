@@ -1,9 +1,23 @@
-.ui.card.alert
+.ui.segment.alert id="alert_#{alert.id}"
+  .state
+    = alert_icon(alert)
   .content
-    = gravatar alert.author, class: "right floated ui avatar image"
-    .header
+    strong
       = alert.author.name
-    .meta
-      ' envío una alerta
+    span< envío esta alerta
+    p.meta
+      = "##{alert.id} "
+      ' &bull;
       = timeago(alert.created_at)
-      p = "##{alert.id} "
+
+  .assignee
+    - if alert.assignee.nil?
+      = link_to "asignarme",
+                alert_assignees_path(alert.id),
+                method: :post,
+                remote: true,
+                data: { disable_with: "espere..." }
+    - else
+      = gravatar alert.assignee,
+                class: "ui avatar image",
+                title: "Asignado a #{alert.assignee.name}"

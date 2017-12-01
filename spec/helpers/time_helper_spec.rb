@@ -6,15 +6,15 @@ RSpec.describe TimeHelper, type: :helper do
   subject { helper.timeago(target.created_at, options) }
 
   describe "#timeago" do
-    it { is_expected.to match(/<span .+><\/span>/) }
+    it { is_expected.to match(/<time .+><\/time>/) }
     it { is_expected.to match(/class="timeago"/) }
-    it { is_expected.to match(/datetime="#{target.created_at}"/) }
-    it { is_expected.to match(/title="#{target.created_at}"/) }
+    it { is_expected.to match(/datetime="#{target.created_at.iso8601}"/) }
+    it { is_expected.to match(/title="#{target.created_at.iso8601}"/) }
 
     context "when tag is given" do
       let(:options) { { tag: :div } }
 
-      it { is_expected.to_not match(/<span .+><\/span>/) }
+      it { is_expected.to_not match(/<time .+><\/span>/) }
       it { is_expected.to match(/<div .+><\/div>/) }
     end
 

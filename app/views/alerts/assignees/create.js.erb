@@ -1,0 +1,5 @@
+<% if @alert.assignee.present? %>
+  $("#alert_<%= @alert.id %>")
+    .replaceWith('<%= j render(partial: "alerts/alert", locals: { alert: @alert }) %>')
+  $("#alerts").trigger("alert:add", ["<%= @alert.id %>"])
+<% end %>
