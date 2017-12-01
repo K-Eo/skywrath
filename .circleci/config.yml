@@ -21,6 +21,25 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: vendor/bundle
+  yarn:
+    working_directory: ~/circleci-skywrath
+    docker:
+      - image: circleci/ruby:2.4.2-node      
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/circleci-skywrath
+      - restore_cache:
+          keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/circleci-skywrath/.yarn-cache
+      - persist_to_workspace:
+          root: .
+          paths: .yarn-cache
   rails_test:
     working_directory: ~/circleci-skywrath
     docker:
