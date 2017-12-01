@@ -22,8 +22,8 @@ jobs:
           root: .
           paths: vendor/bundle
   rails_test:
+    working_directory: ~/circleci-skywrath
     docker:
-      working_directory: ~/circleci-skywrath
       - image: circleci/ruby:2.4.2-node
       - image: circleci/postgres:9.6-alpine
     steps:
