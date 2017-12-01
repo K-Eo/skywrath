@@ -1,15 +1,21 @@
+defaults: &defaults
+  working_directory: ~/circleci-skywrath
+  docker:
+      - image: circleci/ruby:2.4.2-node
+      - image: circleci/postgres:9.6-alpine
+
+pre: &pre
+  - checkout
+  - attach_workspace:
+      at: ~/circleci-skywrath
+
 version: 2
 
 jobs:
   bundle:
-    working_directory: ~/circleci-skywrath
-    docker:
-      - image: circleci/ruby:2.4.2-node
-      - image: circleci/postgres:9.6-alpine
+    <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/circleci-skywrath
+      <<: *pre
       - restore_cache:
           keys:
             - v1-bundle-{{ checksum "Gemfile.lock" }}
@@ -21,10 +27,9 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: vendor/bundle
+
   yarn:
-    working_directory: ~/circleci-skywrath
-    docker:
-      - image: circleci/ruby:2.4.2-node      
+    <<: *defaults
     steps:
       - checkout
       - attach_workspace:
