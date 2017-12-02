@@ -57,24 +57,28 @@ jobs:
       - run: bundle --path vendor/bundle
       - run: bundle exec rubocop
 
-  # precompile_assets:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - run: bundle --path vendor/bundle
-  #     - run: yarn install
-  #     - run:
-  #         name: Precompile assets
-  #         command: bundle exec rails assets:precompile
-  #     - save_cache:
-  #         key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
-  #         paths:
-  #           - ~/circleci-skywrath/public/assets
-  #     - persist_to_workspace:
-  #         root: .
-  #         pats: public/assets
-  #
+  precompile_assets:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - v2-yarn-{{ checksum "yarn.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      - run:
+          name: Precompile assets
+          command: bundle exec rails assets:precompile
+      - save_cache:
+          key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/circleci-skywrath/public/assets
+
   # unit_tests:
   #   <<: *defaults
   #   steps:
@@ -116,6 +120,10 @@ workflows:
       - rubocop:
           requires:
             - bundle
+      - precompile_assets:
+          requires:
+            - yarn
+            - rubocop
       # - unit_tests:
       #     requires:
       #       - rubocop
