@@ -73,7 +73,7 @@ jobs:
       - run: yarn install
       - run:
           name: Precompile assets
-          command: bundle exec rails assets:precompile
+          command: bundle exec rake assets:precompile assets:clean
       - save_cache:
           key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
           paths:
