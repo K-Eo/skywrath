@@ -104,7 +104,7 @@ jobs:
           name: Run tests
           command: bundle exec spinach
       - store_artifacts:
-          path: ~/tpm/capybara
+          path: tpm/capybara
 
 workflows:
   version: 2
