@@ -12,9 +12,9 @@ jobs:
     steps:
       - checkout
       - save_cache:
-        key: v1-code-{{ .Environment.CIRCLE_SHA1 }}
-        paths:
-          - ~/circleci-skywrath
+          key: v1-code-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/circleci-skywrath
       - persist_to_workspace:
           root: .
           paths: ./
