@@ -107,7 +107,7 @@ workflows:
           requires:
             - checkout_code
       - yarn:
-          require:
+          requires:
             - checkout_code
       # - rubocop:
       #     requires:
