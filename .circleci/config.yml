@@ -2,7 +2,6 @@ defaults: &defaults
   working_directory: ~/circleci-skywrath
   docker:
       - image: circleci/ruby:2.4.2-node
-      - image: circleci/postgres:9.6-alpine
 
 version: 2
 
@@ -15,27 +14,22 @@ jobs:
           key: v1-code-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/circleci-skywrath
-      - persist_to_workspace:
-          root: .
-          paths: ./
 
-  # bundle:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - restore_cache:
-  #         keys:
-  #           - v1-bundle-{{ checksum "Gemfile.lock" }}
-  #     - run: bundle install --path vendor/bundle
-  #     - save_cache:
-  #         key: v1-bundle-{{ checksum "Gemfile.lock" }}
-  #         paths:
-  #           - ~/circleci-skywrath/vendor/bundle
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths: vendor/bundle
-  #
+  bundle:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/circleci-skywrath/vendor/bundle
+
   # rubocop:
   #   <<: *defaults
   #   steps:
@@ -111,9 +105,9 @@ workflows:
   build-and-test:
     jobs:
       - checkout_code
-      # - bundle:
-      #     requires:
-      #       - checkout_code
+      - bundle:
+          requires:
+            - checkout_code
       # - yarn:
       #     require:
       #       - checkout_code
