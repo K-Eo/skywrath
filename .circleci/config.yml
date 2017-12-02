@@ -30,6 +30,21 @@ jobs:
           paths:
             - ~/circleci-skywrath/vendor/bundle
 
+  yarn:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
   # rubocop:
   #   <<: *defaults
   #   steps:
@@ -37,23 +52,6 @@ jobs:
   #         at: ~/circleci-skywrath
   #     - run: bundle --path vendor/bundle
   #     - run: bundle exec rubocop
-  #
-  # yarn:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - restore_cache:
-  #         keys:
-  #           - v1-yarn-{{ checksum "yarn.lock" }}
-  #     - run: yarn install
-  #     - save_cache:
-  #         key: v1-yarn-{{ checksum "yarn.lock" }}
-  #         paths:
-  #           - ~/.cache/yarn
-  #     - persist_to_workspace:
-  #         root: /home/circleci/
-  #         paths: .cache/yarn
   #
   # precompile_assets:
   #   <<: *defaults
@@ -108,9 +106,9 @@ workflows:
       - bundle:
           requires:
             - checkout_code
-      # - yarn:
-      #     require:
-      #       - checkout_code
+      - yarn:
+          require:
+            - checkout_code
       # - rubocop:
       #     requires:
       #       - bundle
