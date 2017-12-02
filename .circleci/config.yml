@@ -29,8 +29,10 @@ jobs:
           paths: vendor/bundle
 
   rubocop:
-    <<: *anchor
-    - run: bundle exec rubocop
+    <<: *defaults
+    steps:
+      <<: *anchor
+      - run: bundle exec rubocop
 
   yarn:
     <<: *defaults
