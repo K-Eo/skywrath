@@ -65,12 +65,14 @@ jobs:
       - restore_cache:
           keys:
             - v1-code-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
-            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      # - restore_cache:
+      #     keys:
+      #       - v1-bundle-{{ checksum "Gemfile.lock" }}
       - restore_cache:
           keys:
             - v2-yarn-{{ checksum "yarn.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: yarn install
       - run:
           name: Precompile assets
           command: bundle exec rails assets:precompile assets:clean
