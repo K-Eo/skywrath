@@ -1,13 +1,13 @@
 defaults: &defaults
   working_directory: ~/circleci-skywrath
-  docker:
-      - image: circleci/ruby:2.4.2-node
 
 version: 2
 
 jobs:
   checkout_code:
     <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
     steps:
       - checkout
       - save_cache:
@@ -17,6 +17,8 @@ jobs:
 
   bundle:
     <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
     steps:
       - restore_cache:
           keys:
@@ -32,6 +34,8 @@ jobs:
 
   yarn:
     <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
     steps:
       - restore_cache:
           keys:
@@ -47,6 +51,8 @@ jobs:
 
   rubocop:
     <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
     steps:
       - restore_cache:
           keys:
@@ -58,7 +64,7 @@ jobs:
       - run: bundle exec rubocop
 
   unit_tests:
-    working_directory: ~/circleci-skywrath
+    <<: *defaults
     docker:
         - image: circleci/ruby:2.4.2-node
         - image: circleci/postgres:9.6-alpine
@@ -75,20 +81,28 @@ jobs:
           name: Run tests
           command: bundle exec rspec
 
-  # feature_tests:
-  #   working_directory: ~/circleci-skywrath
-  #   docker:
-  #     - image: circleci/ruby:2.4.2-node
-  #     - image: circleci/postgres:9.6-alpine
-  #   steps:
-  #     - checkout
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - run: bundle --path vendor/bundle
-  #     - run: bundle exec rails db:create db:schema:load
-  #     - run:
-  #         name: Run tests
-  #         command: bundle exec rspec
+  feature_tests:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.4.2-node
+      - image: circleci/postgres:9.6-alpine
+      - image: selenium/standalone-chrome:latest
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - v2-yarn-{{ checksum "yarn.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      - run: bundle exec rails db:create db:schema:load
+      - run:
+          name: Run tests
+          command: bundle exec spinach
 
 workflows:
   version: 2
@@ -108,9 +122,10 @@ workflows:
           requires:
             - yarn
             - rubocop
-      # - unit_tests:
-      #     requires:
-      #       - rubocop
+      - feature_tests:
+          requires:
+            - rubocop
+            - yarn
 # jobs:
 #   build:
 #     working_directory: ~/circleci-skywrath
