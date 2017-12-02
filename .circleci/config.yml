@@ -71,11 +71,9 @@ jobs:
       - restore_cache:
           keys:
             - v2-yarn-{{ checksum "yarn.lock" }}
-      - run: bundle --path vendor/bundle
-      - run: yarn install
       - run:
           name: Precompile assets
-          command: bundle exec rake assets:precompile assets:clean
+          command: bundle exec rails assets:precompile assets:clean
       - save_cache:
           key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
           paths:
