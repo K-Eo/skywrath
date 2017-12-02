@@ -1,6 +1,7 @@
 require "capybara-screenshot/spinach"
 
 Capybara.javascript_driver = :selenium
+Capybara.default_max_wait_time = 10
 
 Capybara.register_driver :selenium do |app|
   options = {
