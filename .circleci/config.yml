@@ -7,10 +7,21 @@ defaults: &defaults
 version: 2
 
 jobs:
-  bundle:
+  checkout_code:
     <<: *defaults
     steps:
       - checkout
+      - save_cache:
+        key: v1-code-{{ .Environment.CIRCLE_SHA1 }}
+        paths:
+          - ~/circleci-skywrath
+      - persist_to_workspace:
+          root: .
+          paths: ./
+
+  bundle:
+    <<: *defaults
+    steps:
       - attach_workspace:
           at: ~/circleci-skywrath
       - restore_cache:
@@ -28,7 +39,6 @@ jobs:
   rubocop:
     <<: *defaults
     steps:
-      - checkout
       - attach_workspace:
           at: ~/circleci-skywrath
       - run: bundle --path vendor/bundle
@@ -37,7 +47,6 @@ jobs:
   yarn:
     <<: *defaults
     steps:
-      - checkout
       - attach_workspace:
           at: ~/circleci-skywrath
       - restore_cache:
@@ -51,7 +60,38 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/
           paths: .cache/yarn
-  rails_test:
+
+  precompile_assets:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/circleci-skywrath
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      - run:
+          name: Precompile assets
+          command: bundle exec rails assets:precompile
+      - save_cache:
+          key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/circleci-skywrath/public/assets
+      - persist_to_workspace:
+          root: .
+          pats: public/assets
+
+  unit_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/circleci-skywrath
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rails db:create db:schema:load
+      - run:
+          name: Run tests
+          command: bundle exec rspec
+
+  feature_tests:
     working_directory: ~/circleci-skywrath
     docker:
       - image: circleci/ruby:2.4.2-node
@@ -69,13 +109,18 @@ workflows:
   version: 2
   build-and-test:
     jobs:
-      - bundle
-      - yarn
+      - checkout_code
+      - bundle:
+          requires:
+            - checkout_code
+      - yarn:
+          require:
+            - checkout_code
       - rubocop:
           requires:
             - bundle
             - yarn
-      - rails_test:
+      - unit_tests:
           requires:
             - rubocop
 # jobs:
