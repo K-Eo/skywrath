@@ -71,13 +71,13 @@ workflows:
       - rubocop:
           requires:
             - bundle
-      - yarn
+      - yarn:
           requires:
             - rubocop
       - rails_test:
           requires:
-            - rubocop
             - yarn
+            - rubocop
 # jobs:
 #   build:
 #     working_directory: ~/circleci-skywrath
