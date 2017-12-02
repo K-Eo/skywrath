@@ -1,47 +1,175 @@
+defaults: &defaults
+  working_directory: ~/circleci-skywrath
+
 version: 2
 
 jobs:
-  build:
-    working_directory: ~/circleci-skywrath
+  checkout_code:
+    <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-code-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/circleci-skywrath
+
+  bundle:
+    <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/circleci-skywrath/vendor/bundle
+
+  yarn:
+    <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v2-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v2-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+  rubocop:
+    <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rubocop
+
+  unit_tests:
+    <<: *defaults
+    docker:
+        - image: circleci/ruby:2.4.2-node
+        - image: circleci/postgres:9.6-alpine
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rails db:create db:schema:load
+      - run:
+          name: Run tests
+          command: bundle exec rspec
+
+  feature_tests:
+    <<: *defaults
     docker:
       - image: circleci/ruby:2.4.2-node
       - image: circleci/postgres:9.6-alpine
       - image: selenium/standalone-chrome:latest
-      - image: redis:latest
     steps:
-      - checkout
-
       - restore_cache:
           keys:
-            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-{{ arch }}-{{ .Branch }}
-            - gem-cache
-
-      - run: bundle install --path vendor/bundle
-
-      - save_cache:
-          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           keys:
-            - yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-{{ arch }}-{{ .Branch }}
-            - yarn-cache
-
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - v2-yarn-{{ checksum "yarn.lock" }}
+      - run: bundle --path vendor/bundle
       - run: yarn install
+      - run: bundle exec rails db:create db:schema:load
+      - run:
+          name: Run tests
+          command: bundle exec spinach
+      - store_artifacts:
+          path: tmp/capybara
 
-      - save_cache:
-          key: yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-
-      # Run tests
-      - run: bundle exec rspec
-      - run: bundle exec spinach
-      - run: bundle exec rubocop
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - checkout_code
+      - bundle:
+          requires:
+            - checkout_code
+      - yarn:
+          requires:
+            - checkout_code
+      - rubocop:
+          requires:
+            - bundle
+      - unit_tests:
+          requires:
+            - yarn
+            - rubocop
+      - feature_tests:
+          requires:
+            - rubocop
+            - yarn
+# jobs:
+#   build:
+#     working_directory: ~/circleci-skywrath
+#     docker:
+#       - image: circleci/ruby:2.4.2-node
+#       - image: circleci/postgres:9.6-alpine
+#       - image: selenium/standalone-chrome:latest
+#       - image: redis:latest
+#     steps:
+#       - checkout
+#
+#       - restore_cache:
+#           keys:
+#             - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+#             - gem-cache-{{ arch }}-{{ .Branch }}
+#             - gem-cache
+#
+#       - run: bundle install --path vendor/bundle
+#
+#       - save_cache:
+#           key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+#           paths:
+#             - vendor/bundle
+#
+#       - restore_cache:
+#           keys:
+#             - yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+#             - yarn-cache-{{ arch }}-{{ .Branch }}
+#             - yarn-cache
+#
+#       - run: yarn install
+#
+#       - save_cache:
+#           key: yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+#           paths:
+#             - node_modules
+#
+#       # Database setup
+#       - run: bundle exec rake db:create
+#       - run: bundle exec rake db:schema:load
+#
+#       # Run tests
+#       - run: bundle exec rspec
+#       - run: bundle exec spinach
+#       - run: bundle exec rubocop
