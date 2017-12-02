@@ -59,40 +59,21 @@ jobs:
       - run: bundle --path vendor/bundle
       - run: bundle exec rubocop
 
-  precompile_assets:
+  unit_tests:
     <<: *defaults
     steps:
       - restore_cache:
           keys:
             - v1-code-{{ .Environment.CIRCLE_SHA1 }}
-      # - restore_cache:
-      #     keys:
-      #       - v1-bundle-{{ checksum "Gemfile.lock" }}
       - restore_cache:
           keys:
-            - v2-yarn-{{ checksum "yarn.lock" }}
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
       - run: bundle --path vendor/bundle
-      - run: yarn install
+      - run: bundle exec rails db:create db:schema:load
       - run:
-          name: Precompile assets
-          command: bundle exec rails assets:precompile assets:clean
-      - save_cache:
-          key: v1-assets-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/circleci-skywrath/public/assets
+          name: Run tests
+          command: bundle exec rspec
 
-  # unit_tests:
-  #   <<: *defaults
-  #   steps:
-  #     - checkout
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - run: bundle --path vendor/bundle
-  #     - run: bundle exec rails db:create db:schema:load
-  #     - run:
-  #         name: Run tests
-  #         command: bundle exec rspec
-  #
   # feature_tests:
   #   working_directory: ~/circleci-skywrath
   #   docker:
@@ -122,7 +103,7 @@ workflows:
       - rubocop:
           requires:
             - bundle
-      - precompile_assets:
+      - unit_tests:
           requires:
             - yarn
             - rubocop
