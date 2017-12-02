@@ -38,11 +38,11 @@ jobs:
       - save_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.yarn
+            - ~/.cache/yarn
       - run: ls -a ~/.cache/yarn
       - persist_to_workspace:
           root: /home/circleci/
-          paths: .yarn
+          paths: .cache/yarn
   rails_test:
     working_directory: ~/circleci-skywrath
     docker:
