@@ -41,7 +41,7 @@ jobs:
             - ~/.yarn
       - run: ls -a ~/.yarn
       - persist_to_workspace:
-          root: .
+          root: /home/circleci/
           paths: .yarn
   rails_test:
     working_directory: ~/circleci-skywrath
