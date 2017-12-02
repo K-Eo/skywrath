@@ -38,8 +38,8 @@ jobs:
       - save_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.yarn-cache
-      - run: ls -a ~/
+            - ~/.yarn
+      - run: ls -a ~/.yarn
       - persist_to_workspace:
           root: /home/circleci/
           paths: .yarn-cache
