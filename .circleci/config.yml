@@ -31,6 +31,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/circleci-skywrath
+      - run: bundle --path vendor/bundle
       - run: bundle exec rubocop
 
   yarn:
@@ -69,15 +70,13 @@ workflows:
   build-and-test:
     jobs:
       - bundle
+      - yarn
       - rubocop:
           requires:
             - bundle
-      - yarn:
-          requires:
-            - rubocop
+            - yarn
       - rails_test:
           requires:
-            - yarn
             - rubocop
 # jobs:
 #   build:
