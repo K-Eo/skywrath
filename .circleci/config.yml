@@ -105,24 +105,25 @@ jobs:
       - run:
           name: Run tests
           command: bundle exec rspec
+
 workflows:
   version: 2
   build-and-test:
     jobs:
       - checkout_code
-      - bundle:
-          requires:
-            - checkout_code
-      - yarn:
-          require:
-            - checkout_code
-      - rubocop:
-          requires:
-            - bundle
-            - yarn
-      - unit_tests:
-          requires:
-            - rubocop
+      # - bundle:
+      #     requires:
+      #       - checkout_code
+      # - yarn:
+      #     require:
+      #       - checkout_code
+      # - rubocop:
+      #     requires:
+      #       - bundle
+      #       - yarn
+      # - unit_tests:
+      #     requires:
+      #       - rubocop
 # jobs:
 #   build:
 #     working_directory: ~/circleci-skywrath
