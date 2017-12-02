@@ -45,14 +45,18 @@ jobs:
           paths:
             - ~/.cache/yarn
 
-  # rubocop:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/circleci-skywrath
-  #     - run: bundle --path vendor/bundle
-  #     - run: bundle exec rubocop
-  #
+  rubocop:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rubocop
+
   # precompile_assets:
   #   <<: *defaults
   #   steps:
@@ -109,10 +113,9 @@ workflows:
       - yarn:
           requires:
             - checkout_code
-      # - rubocop:
-      #     requires:
-      #       - bundle
-      #       - yarn
+      - rubocop:
+          requires:
+            - bundle
       # - unit_tests:
       #     requires:
       #       - rubocop
