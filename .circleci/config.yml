@@ -38,10 +38,10 @@ jobs:
             - v1-code-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           keys:
-            - v1-yarn-{{ checksum "yarn.lock" }}
+            - v2-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
-          key: v1-yarn-{{ checksum "yarn.lock" }}
+          key: v2-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
