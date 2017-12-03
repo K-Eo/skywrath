@@ -1,7 +1,7 @@
 debug = require("debug")("skywrath:pusher")
 
 import Pusher from "pusher-js"
-import settings from "./settings.coffee"
+import settings from "./settings"
 
 getKey = ->
   settings["pusher-key"]

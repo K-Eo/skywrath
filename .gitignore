@@ -22,5 +22,5 @@
 /node_modules
 
 # Ignore all env files but example
-.env.*
+.env*
 !.env.example
