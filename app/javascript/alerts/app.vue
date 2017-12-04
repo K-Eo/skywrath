@@ -40,7 +40,7 @@
         <div class="column center aligned">
           <button
             @click="fetch_alerts"
-            class="ui default button"
+            class="ui default basic button"
             id="alerts_load_more"
           >
             Cargar más
