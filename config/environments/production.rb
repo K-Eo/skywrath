@@ -62,7 +62,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "skywrath_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
@@ -76,7 +76,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD'],
-    :domain => 'https://skywrath.herokuapp.com',
+    :domain => "https://#{app_name}.herokuapp.com",
     :address => 'smtp.sendgrid.net',
     :port => 587,
     :authentication => :plain,
