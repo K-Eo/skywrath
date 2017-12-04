@@ -114,10 +114,17 @@ jobs:
       - restore_cache:
           keys:
             - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - run: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
           fingerprints:
             - "a7:c2:55:fd:1d:13:f7:bf:da:8a:67:15:6b:65:6a:f3"
       - run: echo "circleci"
+          name: Deply master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku master
+              heroku restart
+            fi
 
 workflows:
   version: 2
