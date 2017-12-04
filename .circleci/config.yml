@@ -106,6 +106,28 @@ jobs:
       - store_artifacts:
           path: tmp/capybara
 
+  deploy:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.4.2-node
+    steps:
+      - restore_cache:
+          keys:
+            - v1-code-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "a7:c2:55:fd:1d:13:f7:bf:da:8a:67:15:6b:65:6a:f3"
+      - run:
+          name: Deply master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku master
+              heroku restart
+            fi
+
 workflows:
   version: 2
   build-and-test:
@@ -128,48 +150,7 @@ workflows:
           requires:
             - rubocop
             - yarn
-# jobs:
-#   build:
-#     working_directory: ~/circleci-skywrath
-#     docker:
-#       - image: circleci/ruby:2.4.2-node
-#       - image: circleci/postgres:9.6-alpine
-#       - image: selenium/standalone-chrome:latest
-#       - image: redis:latest
-#     steps:
-#       - checkout
-#
-#       - restore_cache:
-#           keys:
-#             - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-#             - gem-cache-{{ arch }}-{{ .Branch }}
-#             - gem-cache
-#
-#       - run: bundle install --path vendor/bundle
-#
-#       - save_cache:
-#           key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-#           paths:
-#             - vendor/bundle
-#
-#       - restore_cache:
-#           keys:
-#             - yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-#             - yarn-cache-{{ arch }}-{{ .Branch }}
-#             - yarn-cache
-#
-#       - run: yarn install
-#
-#       - save_cache:
-#           key: yarn-cache-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-#           paths:
-#             - node_modules
-#
-#       # Database setup
-#       - run: bundle exec rake db:create
-#       - run: bundle exec rake db:schema:load
-#
-#       # Run tests
-#       - run: bundle exec rspec
-#       - run: bundle exec spinach
-#       - run: bundle exec rubocop
+      - deploy:
+          requires:
+            - unit_tests
+            - feature_tests
