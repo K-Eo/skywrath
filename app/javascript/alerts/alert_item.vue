@@ -7,8 +7,10 @@
     </div>
 
     <div class="content">
-      <strong>{{alert.author.name}}</strong>
-      <span>envío esta alerta</span>
+      <a href="#" class="ui black-text">
+        <strong>{{alert.author.name}}</strong>
+        <span>envío esta alerta</span>
+      </a>
       <p class="meta">
         #{{alert.id}} &bull;
         <timeago :since="alert.created_at" :auto-update="30"></timeago>
