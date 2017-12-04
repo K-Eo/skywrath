@@ -15,8 +15,32 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
     assert_selector ".alert", count: 1
   end
 
+  step "I visit alert details" do
+    @alert = @user.alerts.first
+    find("a[href='/dashboard/alerts/#{@alert.id}'").click
+  end
+
+  step "I should see open alert" do
+    assert_selector "h2", text: "##{@alert.id}"
+    assert_text "Activo"
+    assert_text @user.name
+  end
+
   step "I have no alerts" do
     @user.alerts.destroy_all
+  end
+
+  step "I assignee myself" do
+    click_on "asignarme"
+  end
+
+  step "I close the alert" do
+    click_on "Cerrar"
+  end
+
+  step "I should see closed alert" do
+    assert_text "Cerrado"
+    assert_no_selector "a", text: "Cerrar"
   end
 
   step "I should not see alerts" do

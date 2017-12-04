@@ -1,5 +1,5 @@
 <template>
-  <div class="ui segment alert">
+  <div class="ui segment alert" :id="alert_id">
     <div class="state">
       <span :class="state_label_class">
         <i class="warning icon"></i>
@@ -7,7 +7,7 @@
     </div>
 
     <div class="content">
-      <a href="#" class="ui black-text">
+      <a :href="url" class="ui black-text">
         <strong>{{alert.author.name}}</strong>
         <span>envío esta alerta</span>
       </a>
@@ -68,6 +68,10 @@
       has_assignee: ->
         @alert.assignee? &&
         not @requesting
+      url: ->
+        "/dashboard/alerts/#{@alert.id}"
+      alert_id: ->
+        "alert_#{@alert.id}"
     methods:
       assign: ->
         @requesting = true

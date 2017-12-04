@@ -1,0 +1,20 @@
+.twelve.wide.column
+  h2.ui.header = "##{@alert.id}"
+  = alert_label(@alert)
+  strong = @alert.author.name
+  span.text-gray  abrió esta alerta&nbsp;
+  = timeago @alert.created_at, class: "text-gray"
+
+  .ui.divider
+
+  - if @alert.opened? && @alert.assignee.present? && @alert.assignee == current_user
+    = link_to "Cerrar",
+              close_alert_path(@alert),
+              class: "ui red button",
+              method: :patch
+
+.four.wide.column
+  p.strong Asignado
+  - if @alert.assignee.present?
+    = gravatar @alert.assignee, class: "ui avatar image mr-0-5"
+    span.strong.text-small = @alert.assignee.name

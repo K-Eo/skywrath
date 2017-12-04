@@ -1,4 +1,20 @@
 module ApplicationHelper
+  def alert_label(alert)
+    classes = ["ui", "label", "mr-1"]
+    case alert.state
+    when "opened"
+      classes << "green"
+      label = "Activo"
+    when "closed"
+      classes << "red"
+      label = "Cerrado"
+    end
+
+    content_tag :span, class: classes do
+      concat content_tag :i, nil, class: "warning circle icon"
+      concat label
+    end
+  end
   def active_link_to(name, path, options = nil)
     options ||= {}
     controller = options.delete(:controller) || path
