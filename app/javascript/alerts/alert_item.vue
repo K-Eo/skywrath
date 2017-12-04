@@ -34,6 +34,7 @@
 
       <img
         :src="alert.assignee.avatar"
+        :title="assignee_details"
         class="ui avatar image"
         v-if="has_assignee"
       />
@@ -53,6 +54,8 @@
     data: ->
       requesting: false
     computed:
+      assignee_details: ->
+        "Asignado a #{@alert.assignee.name}"
       state_label_class: ->
         classNames "ui tiny circular label", {
           green: @alert.state == "opened"
