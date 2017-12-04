@@ -13,7 +13,7 @@
       </a>
       <p class="meta">
         #{{alert.id}} &bull;
-        <timeago :since="alert.created_at" :auto-update="30"></timeago>
+        <timeago :since="alert.created_at" :auto-update="60"></timeago>
       </p>
     </div>
 
