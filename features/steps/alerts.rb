@@ -8,7 +8,7 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
   end
 
   step "I have one open alert with assignee" do
-    @alert = Alert.create!(author: @user, assignee: @author)
+    @alert = create(:alert)
   end
 
   step "I visit the alert" do

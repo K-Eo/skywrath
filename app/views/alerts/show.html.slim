@@ -10,7 +10,7 @@
 
   .ui.divider
 
-  - if @alert.opened? && @alert.assignee.present? && @alert.assignee == current_user
+  - if @alert.opened? && @alert.assignee.present?
     = link_to "Cerrar",
               close_alert_path(@alert),
               class: "ui red button",
