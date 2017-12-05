@@ -74,3 +74,32 @@ body {
 .auth-links {
   margin-top: 20px !important;
 }
+
+.ui.black-text {
+  color: rgba(0, 0, 0, 0.87);
+
+  &:hover {
+    color: #0068d9;
+    text-decoration: underline;
+  }
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.text-gray {
+  color: #999;
+}
+
+.mr-1 {
+  margin-right: 1rem !important;
+}
+
+.mr-0-5 {
+  margin-right: .5rem !important;
+}
+
+.text-small {
+  font-size: 13px !important;
+}

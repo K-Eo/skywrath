@@ -1,5 +1,5 @@
 <template>
-  <div class="ui segment alert">
+  <div class="ui segment alert" :id="alert_id">
     <div class="state">
       <span :class="state_label_class">
         <i class="warning icon"></i>
@@ -7,11 +7,13 @@
     </div>
 
     <div class="content">
-      <strong>{{alert.author.name}}</strong>
-      <span>envío esta alerta</span>
+      <a :href="url" class="ui black-text">
+        <strong>{{alert.author.name}}</strong>
+        <span>envío esta alerta</span>
+      </a>
       <p class="meta">
         #{{alert.id}} &bull;
-        <timeago :since="alert.created_at" :auto-update="30"></timeago>
+        <timeago :since="alert.created_at" :auto-update="60"></timeago>
       </p>
     </div>
 
@@ -32,6 +34,7 @@
 
       <img
         :src="alert.assignee.avatar"
+        :title="assignee_details"
         class="ui avatar image"
         v-if="has_assignee"
       />
@@ -51,6 +54,8 @@
     data: ->
       requesting: false
     computed:
+      assignee_details: ->
+        "Asignado a #{@alert.assignee.name}"
       state_label_class: ->
         classNames "ui tiny circular label", {
           green: @alert.state == "opened"
@@ -63,6 +68,10 @@
       has_assignee: ->
         @alert.assignee? &&
         not @requesting
+      url: ->
+        "/dashboard/alerts/#{@alert.id}"
+      alert_id: ->
+        "alert_#{@alert.id}"
     methods:
       assign: ->
         @requesting = true

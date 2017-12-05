@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :profile, only: :show, controller: 'users/profile'
 
   scope 'dashboard' do
-    resources :alerts, only: [:index, :create] do
+    resources :alerts, only: [:index, :create, :show] do
       patch 'close', on: :member
       resources :assignees, only: [:create], controller: 'alerts/assignees'
     end
