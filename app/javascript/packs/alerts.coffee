@@ -20,7 +20,7 @@ document.addEventListener "turbolinks:load", ->
   return unless $(".alerts.index").length > 0
 
   app = new Vue {
-    el: "#content-body"
+    el: "#alerts-app"
     template: "<App/>"
     components:
       App: App

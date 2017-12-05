@@ -1,11 +1,11 @@
 <template>
-  <div id="content-body" class="ui container">
+  <div id="alerts-app" class="sixteen wide column">
     <div class="ui one column grid">
 
       <div class="row">
         <div class="column">
-          <new-alert v-on:new-alert="new_alert">
-          </new-alert>
+          <new-alert v-on:new-alert="new_alert"/>
+          <filter-button />
         </div>
       </div>
 
@@ -55,16 +55,19 @@
 <script lang="coffee">
   import _ from "lodash"
   import axios from "axios"
-  import push from "../push"
+  import queryString from "query-string"
 
+  import push from "../push"
   import AlertItem from "./alert_item"
   import NewAlert from "./new_alert"
+  import Filter from "./filter"
 
 
   export default
     components:
       "alert-item": AlertItem
       "new-alert": NewAlert
+      "filter-button": Filter
     data: ->
       fetching: false
       alerts: { }
@@ -86,8 +89,12 @@
       fetch_alerts: ->
         return unless @next_page?
 
+        { state } = queryString.parse(location.search)
+
+        state = "opened" unless state?
+
         @fetching = true
-        axios.get "/api/v1/alerts?page=#{@next_page}"
+        axios.get "/api/v1/alerts?page=#{@next_page}&state=#{state}"
           .then (response) =>
             throw Error(response.statusText) if response.status != 200
             @next_page = response.headers["x-next-page"] || null
