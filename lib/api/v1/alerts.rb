@@ -9,8 +9,17 @@ module API
           authenticate!
 
           alerts = Alert.newest
-                        .includes(:author, :assignee)
-                        .page(params[:page])
+
+          case params[:state].to_s
+          when "opened"
+            alerts = alerts.with_state(:opened)
+          when "closed"
+            alerts = alerts.with_state(:closed)
+          end
+
+          alerts = alerts.includes(:author, :assignee)
+                         .page(params[:page])
+
           present paginate(alerts), with: API::V1::Entities::Alert
         end
 
