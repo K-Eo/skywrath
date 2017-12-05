@@ -4,7 +4,7 @@
     <span class="text">Filtrar</span>
     <div class="menu">
       <div class="header">
-        <i class="tags icon"></i>
+        <i class="warning circle icon"></i>
         Filtrar por estado
       </div>
       <div class="divider"></div>
