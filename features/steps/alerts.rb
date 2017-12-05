@@ -7,8 +7,21 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
     @user.alerts.create!
   end
 
+  step "I have one open alert with assignee" do
+    @alert = Alert.create!(author: @user, assignee: @author)
+  end
+
+  step "I visit the alert" do
+    visit alert_path(@alert)
+  end
+
+  step "I click on close alert button" do
+    click_on "Cerrar"
+  end
+
   step "I send one alert" do
     find("#new_alert").click
+    sleep 4
   end
 
   step "I should see one alert" do
@@ -21,8 +34,8 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
   end
 
   step "I should see open alert" do
-    assert_selector "h2", text: "##{@alert.id}"
     assert_text "Activo"
+    assert_selector "strong", text: "##{@alert.id}"
     assert_text @user.name
   end
 
@@ -81,5 +94,9 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
 
   step "I should see 30 alerts" do
     assert_selector ".alert", count: 30
+  end
+
+  step "I click on alerts nav" do
+    click_on "Alertas"
   end
 end

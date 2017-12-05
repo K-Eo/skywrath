@@ -1,8 +1,9 @@
 = render "nav"
 
 .twelve.wide.column
-  h2.ui.header = "##{@alert.id}"
   = alert_label(@alert)
+  strong = "##{@alert.id}"
+  == " &bull; "
   strong = @alert.author.name
   span.text-gray  abrió esta alerta&nbsp;
   = timeago @alert.created_at, class: "text-gray"
