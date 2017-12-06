@@ -12,6 +12,7 @@
       <div class="row" v-if="has_alerts">
         <div class="column">
           <div class="ui segments">
+            <alert-table-header/>
             <alert-item
               :alert="alert"
               :key="alert.id"
@@ -61,13 +62,14 @@
   import AlertItem from "./alert_item"
   import NewAlert from "./new_alert"
   import Filter from "./filter"
-
+  import AlertTableHeader from './alert_table_header'
 
   export default
     components:
       "alert-item": AlertItem
       "new-alert": NewAlert
       "filter-button": Filter
+      "alert-table-header": AlertTableHeader
     data: ->
       fetching: false
       alerts: { }

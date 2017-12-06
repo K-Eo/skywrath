@@ -1,33 +1,27 @@
-.alert {
-  display: flex;
+.alerts {
+  .header {
+    color: #999;
+    font-weight: normal;
+  }
 
-  .state {
-    margin-right: 1em;
+  .alert, .header {
+    display: flex;
+    align-items: center;
 
-    .icon {
-      margin: 0;
+    &-state {
+      width: 120px;
     }
-  }
 
-  .content {
-    flex: 1;
-
-    .meta {
-      color: #999;
+    &-by {
+      flex: 1;
     }
-  }
 
-  .assignee {
-    align-self: center;
-    margin: 0 1em;
-    min-width: 72px;
-    text-align: center;
-  }
+    &-date {
+      width: 200px;
+    }
 
-  .close {
-    align-self: center;
-    margin: 0 0 0 1em;
-    min-width: 60px;
-    text-align: center;
+    &-assignee {
+      width: 100px;
+    }
   }
 }
