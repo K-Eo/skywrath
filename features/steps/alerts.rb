@@ -30,7 +30,7 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
 
   step "I visit alert details" do
     @alert = @user.alerts.first
-    find("a[href='/dashboard/alerts/#{@alert.id}'").click
+    find(".alert-state a").click
   end
 
   step "I should see open alert" do

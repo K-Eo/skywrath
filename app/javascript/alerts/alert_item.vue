@@ -1,23 +1,33 @@
 <template>
   <div class="ui segment alert" :id="alert_id">
-    <div class="state">
-      <span :class="state_label_class">
-        <i class="warning icon"></i>
-      </span>
-    </div>
-
-    <div class="content">
-      <a :href="url" class="ui black-text">
-        <strong>{{alert.author.name}}</strong>
-        <span>envío esta alerta</span>
+    <div class="alert-state">
+      <a
+        :class="state_label_class"
+        :href="url"
+      >
+        <i class="warning circle icon"></i>
+        {{ state_label_text }}
       </a>
-      <p class="meta">
-        #{{alert.id}} &bull;
-        <timeago :since="alert.created_at" :auto-update="60"></timeago>
-      </p>
     </div>
 
-    <div class="assignee">
+    <div class="alert-by">
+      <a :href="url" class="ui black-text">
+        <strong>#{{alert.id}}</strong>
+        por
+        <img
+          :src="alert.author.avatar"
+          :title="alert.author.name"
+          class="ui avatar image"
+        />
+        <strong>{{alert.author.name}}</strong>
+      </a>
+    </div>
+
+    <div class="alert-date">
+      <timeago :since="alert.created_at" :auto-update="60"></timeago>
+    </div>
+
+    <div class="alert-assignee">
       <a
         @click.prevent="assign"
         href="#"
@@ -34,7 +44,7 @@
 
       <img
         :src="alert.assignee.avatar"
-        :title="assignee_details"
+        :title="alert.assignee.name"
         class="ui avatar image"
         v-if="has_assignee"
       />
@@ -54,13 +64,19 @@
     data: ->
       requesting: false
     computed:
-      assignee_details: ->
-        "Asignado a #{@alert.assignee.name}"
       state_label_class: ->
-        classNames "ui tiny circular label", {
+        classNames "ui basic label", {
           green: @alert.state == "opened"
           red: @alert.state == "closed"
         }
+      state_label_text: ->
+        switch @alert.state
+          when "opened"
+            "Activo"
+          when "closed"
+            "Cerrado"
+          else
+            "Desconocido"
       can_assign: ->
         @alert.state == "opened" &&
         not @alert.assignee? &&
