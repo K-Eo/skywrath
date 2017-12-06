@@ -9,6 +9,7 @@ head
   = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   = javascript_pack_tag 'alerts', 'data-turbolinks-track': 'reload'
+  script src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_KEY']}">
 
   - if content_for?(:page_stylesheets)
     = yield :page_stylesheets

@@ -1,20 +1,23 @@
 = render "nav"
 
 .twelve.wide.column
-  = alert_label(@alert)
-  strong = "##{@alert.id}"
-  == " &bull; "
-  strong = @alert.author.name
-  span.text-gray  abrió esta alerta&nbsp;
-  = timeago @alert.created_at, class: "text-gray"
+  .ui.vertical.segment style="padding-top: 0;"
+    = alert_label(@alert)
+    strong = "##{@alert.id}"
+    == " &bull; "
+    strong = @alert.author.name
+    span.text-gray  abrió esta alerta&nbsp;
+    = timeago @alert.created_at, class: "text-gray"
 
-  .ui.divider
+  .ui.vertical.segment
+    #live-map style="width: 100%; height: 200px;"
 
-  - if @alert.opened? && @alert.assignee.present?
-    = link_to "Cerrar",
-              close_alert_path(@alert),
-              class: "ui red button",
-              method: :patch
+  .ui.vertical.segment
+    - if @alert.opened? && @alert.assignee.present?
+      = link_to "Cerrar",
+                close_alert_path(@alert),
+                class: "ui red button",
+                method: :patch
 
 .four.wide.column
   p.strong Asignado
