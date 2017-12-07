@@ -1,2 +1,23 @@
-= render "nav"
-#alerts-app
+.sixteen.wide.column
+  .ui.floating.labeled.icon.dropdown.button
+    i.filter.icon
+    span.text Filtrar
+    .menu
+      .header
+        | Filtrar por estado
+      .divider
+      .item Activo
+      .item Cerrado
+
+.sixteen.wide.column
+  .ui.segments.alerts
+    .ui.segment.header
+      .alert-state Estado
+      .alert-by Alerta
+      .alert-date
+      .alert-assignee Asignado
+
+    = render @alerts
+
+.sixteen.wide.column.text.center.mb-1
+  = paginate @alerts

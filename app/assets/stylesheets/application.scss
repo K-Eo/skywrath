@@ -96,10 +96,22 @@ body {
   margin-right: 1rem !important;
 }
 
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
 .mr-0-5 {
   margin-right: .5rem !important;
 }
 
 .text-small {
   font-size: 13px !important;
+}
+
+.text.strong {
+  font-weight: bold !important;
+}
+
+.text.center {
+  text-align: center;
 }

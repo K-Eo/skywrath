@@ -1,23 +1,18 @@
 .ui.segment.alert id="alert_#{alert.id}"
-  .state
-    = alert_icon(alert)
-  .content
-    strong
-      = alert.author.name
-    span< envío esta alerta
-    p.meta
-      = "##{alert.id} "
-      ' &bull;
-      = timeago(alert.created_at)
+  .alert-state
+    = link_to alert_path(alert), class: state_class(alert) do
+      i.circle.warning.icon
+      = alert.humanize_state
+  .alert-by
+    = link_to "##{alert.id}", alert_path(alert)
+    = " por "
+    = gravatar alert.author, class: "ui mini avatar image mr-0-5"
+    span = alert.author.name
+  .alert-date
+    = timeago(alert.created_at)
 
-  .assignee
-    - if alert.assignee.nil?
-      = link_to "asignarme",
-                alert_assignees_path(alert.id),
-                method: :post,
-                remote: true,
-                data: { disable_with: "espere..." }
-    - else
+  .alert-assignee
+    - if alert.assignee.present?
       = gravatar alert.assignee,
-                class: "ui avatar image",
+                class: "ui mini avatar image",
                 title: "Asignado a #{alert.assignee.name}"

@@ -16,4 +16,15 @@ class Alert < ApplicationRecord
       alert.closed_at = Time.zone.now
     end
   end
+
+  def humanize_state
+    case self.state
+    when "opened"
+      "Activo"
+    when "closed"
+      "Cerrado"
+    else
+      "Desconocido"
+    end
+  end
 end
