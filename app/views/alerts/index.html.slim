@@ -17,7 +17,14 @@
       .alert-date
       .alert-assignee Asignado
 
-    = render @alerts
+    - if @alerts.total_count > 0
+      = render @alerts
+    - else
+      .ui.segment.blank.slate
+        h3.ui.center.aligned.icon.header
+          i.send.icon
+          | No hay alertas
 
-.sixteen.wide.column.text.center.mb-1
-  = paginate @alerts
+- if @alerts.total_pages > 1
+  .sixteen.wide.column.text.center.mb-1 id="alerts-paginator"
+    = paginate @alerts

@@ -15,7 +15,7 @@ class AlertsController < ApplicationController
     end
 
     @alerts = @alerts.includes(:author, :assignee)
-                   .page(params[:page])
+                   .page(params[:page]).per(20)
   end
 
   def show

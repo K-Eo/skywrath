@@ -9,7 +9,7 @@ module Shared
     end
 
     def user_menu(parent, header, avatar)
-      user_dropdown = "#{parent} .ui.right.dropdown.pointing.top.user.item#user_links"
+      user_dropdown = "#{parent} .ui.right.dropdown.pointing.top.user.item#js-user-links"
       menu = "div.menu"
 
       assert_selector "#{user_dropdown}"
@@ -50,17 +50,6 @@ module Shared
     def avatar(email)
       hash = Digest::MD5.hexdigest(email)
       "https://www.gravatar.com/avatar/#{hash}"
-    end
-
-    def assert_paginator(id, present = true)
-      selector = "nav.ui.pagination.menu"
-      within(id) do
-        if present
-          assert_selector selector
-        else
-          assert_no_selector selector
-        end
-      end
     end
 
     def profile_card(name, email, phone, new_user = false)
