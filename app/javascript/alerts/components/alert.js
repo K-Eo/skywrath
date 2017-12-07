@@ -5,28 +5,6 @@ import classNames from 'classnames'
 import utils from '../../utils'
 
 export class Alert extends Component {
-  renderAssignee () {
-    const { assignee } = this.props
-
-    if (!assignee) {
-      return null
-    }
-
-    return (
-      <div className='js-alert-block'>
-        <p>
-          <img
-            className='ui mini avatar image'
-            src={assignee.avatar}
-          />
-          <span className='text-gray'>
-            {assignee.name} &bull;
-          </span> fue asignado a esta alerta
-        </p>
-      </div>
-    )
-  }
-
   renderAuthor () {
     const { author, id, state, assignee, created_at: createdAt } = this.props
     const alertURL = `/dashboard/alerts/${id}`
@@ -40,7 +18,7 @@ export class Alert extends Component {
       <div className='js-alert-block'>
         <p>
           <img
-            className='ui mini avatar image'
+            className='ui mini avatar image mr-0-5'
             src={author.avatar}
           />
           <span className='text-gray'>
@@ -65,6 +43,28 @@ export class Alert extends Component {
             <button className='ui small basic button'>Asignarme</button>
           </p>
         }
+      </div>
+    )
+  }
+
+  renderAssignee () {
+    const { assignee } = this.props
+
+    if (!assignee) {
+      return null
+    }
+
+    return (
+      <div className='js-alert-block'>
+        <p>
+          <img
+            className='ui mini avatar image mr-0-5'
+            src={assignee.avatar}
+          />
+          <span className='text-gray'>
+            {assignee.name} &bull;
+          </span> fue asignado a esta alerta
+        </p>
       </div>
     )
   }
