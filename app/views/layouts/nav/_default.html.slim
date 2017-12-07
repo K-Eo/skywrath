@@ -3,7 +3,7 @@ nav.ui.borderless.menu#default
     = link_to "Skywrath", dashboard_path, class: "header item"
 
     .right.menu
-      .ui.right.dropdown.pointing.top.user.item#user_links
+      .ui.right.dropdown.pointing.top.user.item id="js-user-links"
         = gravatar current_user, class: "ui avatar image"
         i.dropdown.icon
         .menu

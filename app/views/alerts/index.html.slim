@@ -1,13 +1,13 @@
 .sixteen.wide.column
-  .ui.floating.labeled.icon.dropdown.button
+  .ui.floating.labeled.icon.dropdown.button id="js-alerts-filter"
     i.filter.icon
     span.text Filtrar
     .menu
       .header
         | Filtrar por estado
       .divider
-      .item Activo
-      .item Cerrado
+      .item data-state="opened" Activo
+      .item data-state="closed" Cerrado
 
 .sixteen.wide.column
   .ui.segments.alerts
