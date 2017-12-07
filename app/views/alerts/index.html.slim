@@ -1,2 +1,30 @@
-= render "nav"
-#alerts-app
+.sixteen.wide.column
+  .ui.floating.labeled.icon.dropdown.button id="js-alerts-filter"
+    i.filter.icon
+    span.text Filtrar
+    .menu
+      .header
+        | Filtrar por estado
+      .divider
+      .item data-state="opened" Activo
+      .item data-state="closed" Cerrado
+
+.sixteen.wide.column
+  .ui.segments.alerts
+    .ui.segment.header
+      .alert-state Estado
+      .alert-by Alerta
+      .alert-date
+      .alert-assignee Asignado
+
+    - if @alerts.total_count > 0
+      = render @alerts
+    - else
+      .ui.segment.blank.slate
+        h3.ui.center.aligned.icon.header
+          i.send.icon
+          | No hay alertas
+
+- if @alerts.total_pages > 1
+  .sixteen.wide.column.text.center.mb-1 id="alerts-paginator"
+    = paginate @alerts

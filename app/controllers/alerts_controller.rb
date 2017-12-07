@@ -5,7 +5,17 @@ class AlertsController < ApplicationController
   before_action :set_alert, only: [:close, :show]
 
   def index
-    @alerts = Alert.newest.includes(:author, :assignee).page(params[:page])
+    @alerts = Alert.newest
+
+    case params[:state].to_s
+    when "opened"
+      @alerts = @alerts.with_state(:opened)
+    when "closed"
+      @alerts = @alerts.with_state(:closed)
+    end
+
+    @alerts = @alerts.includes(:author, :assignee)
+                   .page(params[:page]).per(20)
   end
 
   def show
@@ -29,6 +39,9 @@ class AlertsController < ApplicationController
       format.js
       format.html { redirect_to @alert }
     end
+  end
+
+  def monitor
   end
 
 private
