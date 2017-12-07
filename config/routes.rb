@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   scope 'dashboard' do
     resources :alerts, only: [:index, :create, :show] do
       patch 'close', on: :member
+      get 'monitor', on: :collection
       resources :assignees, only: [:create], controller: 'alerts/assignees'
     end
   end

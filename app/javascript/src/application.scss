@@ -1,0 +1,45 @@
+.ui.mini.avatar.image {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  margin-right: 0.25em;
+  display: inline-block !important;
+}
+
+.ui.green.left.segment {
+  border-top: 1px solid rgba(34, 36, 38, 0.15) !important;
+  border-left: 3px solid #2fcb53;
+}
+
+.ui.blue.left.segment {
+  border-top: 1px solid rgba(34, 36, 38, 0.15) !important;
+  border-left: 3px solid #007aff;
+}
+
+.js-alert {
+  .js-alert-block {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    time {
+      display: block;
+      margin-bottom: 0.45em;
+      margin-top: -0.25em;
+    }
+
+    p {
+      margin-bottom: 0.25em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.js-entry-loader {
+  margin-top: 200px !important;
+}

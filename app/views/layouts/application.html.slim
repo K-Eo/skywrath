@@ -5,3 +5,6 @@ html lang=I18n.locale
     - if defined?(@nav) && @nav
       = render "layouts/nav/#{@nav}"
     = render "layouts/page"
+
+    - if content_for?(:page_javascripts)
+      = yield :page_javascripts

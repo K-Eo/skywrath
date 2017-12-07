@@ -31,6 +31,9 @@ class AlertsController < ApplicationController
     end
   end
 
+  def monitor
+  end
+
 private
 
   def set_alert
