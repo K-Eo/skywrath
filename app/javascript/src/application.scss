@@ -25,7 +25,6 @@
     }
 
     time {
-      display: block;
       margin-bottom: 0.45em;
       margin-top: -0.25em;
     }
@@ -42,4 +41,8 @@
 
 .js-entry-loader {
   margin-top: 200px !important;
+}
+
+.js-loader-space {
+  height: 400px;
 }

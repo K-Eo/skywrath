@@ -1,21 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-const MOUNT_NODE = "content-body"
+import configure from '../store'
+import Monitor from '../monitor/app'
 
-import Monitor from "../monitor/app"
+const MOUNT_NODE = 'content-body'
+const store = configure()
 
-document.addEventListener("turbolinks:load", () => {
-  if (document.getElementsByClassName('alerts monitor').length == 0) {
+document.addEventListener('turbolinks:load', () => {
+  if (document.getElementsByClassName('alerts monitor').length === 0) {
     return
   }
 
   ReactDOM.render(
-    <Monitor/>,
+    <Provider store={store}>
+      <Monitor />
+    </Provider>,
     document.getElementById(MOUNT_NODE))
 })
 
-document.addEventListener("turbolinks:before-cache", () => {
+document.addEventListener('turbolinks:before-cache', () => {
   ReactDOM.unmountComponentAtNode(
     document.getElementById(MOUNT_NODE)
   )
