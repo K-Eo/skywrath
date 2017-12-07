@@ -19,7 +19,7 @@ class Spinach::Features::Alerts < Spinach::FeatureSteps
   end
 
   Then "I should not see alerts paginator" do
-    assert_no_selector '#alerts-paginator'
+    assert_no_selector "#alerts-paginator"
   end
 
   Then "I should see alerts paginator" do
