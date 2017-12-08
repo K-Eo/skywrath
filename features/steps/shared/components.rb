@@ -3,9 +3,9 @@ module Shared
     include Spinach::DSL
 
     step "I should see default nav" do
-      assert_selector "nav#default"
-      assert_selector "nav#default .header.item[href='/dashboard']"
-      user_menu("nav#default", @user.name, @user.email)
+      assert_selector "nav#main-nav"
+      assert_selector "nav#main-nav .header.item[href='/dashboard']"
+      user_menu("nav#main-nav", @user.name, @user.email)
     end
 
     def user_menu(parent, header, avatar)
