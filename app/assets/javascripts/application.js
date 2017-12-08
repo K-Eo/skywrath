@@ -1,4 +1,4 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery
-//= require semantic-ui-css/semantic.js
+//= require bootstrap/dist/js/bootstrap.bundle.js
