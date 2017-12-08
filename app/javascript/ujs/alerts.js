@@ -38,16 +38,10 @@ class Filter {
       default:
         return
     }
-
-    $(el).dropdown('set selected', filter)
   }
 
   start () {
     this.postVisit()
-
-    $(el).dropdown({
-      onChange: this.onChange.bind(this)
-    })
   }
 }
 

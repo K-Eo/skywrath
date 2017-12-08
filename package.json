@@ -33,7 +33,6 @@
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "semantic-ui-css": "^2.2.12",
     "timeago.js": "^3.0.2"
   }
 }
