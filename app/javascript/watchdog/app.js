@@ -16,7 +16,7 @@ const MapComponent = withGoogleMap((props) =>
 
 const { AlertList } = alerts.components
 
-class Monitor extends Component {
+class Watchdog extends Component {
   render () {
     return (
       <div className='ui grid'>
@@ -35,4 +35,4 @@ class Monitor extends Component {
   }
 }
 
-export default Monitor
+export default Watchdog

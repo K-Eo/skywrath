@@ -41,7 +41,7 @@ class AlertsController < ApplicationController
     end
   end
 
-  def monitor
+  def watchdog
   end
 
 private
