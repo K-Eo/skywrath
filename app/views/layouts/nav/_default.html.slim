@@ -1,8 +1,14 @@
-nav.ui.borderless.menu#default
+nav.ui.borderless.menu id="main-nav"
   .ui.container
     = link_to "Skywrath", dashboard_path, class: "header item"
 
     .right.menu
+      .item.icon
+        = link_to watchdog_alerts_path, title: "Monitor" do
+          i.compass.icon
+      .item.icon
+        = link_to alerts_path, remote: true, method: :post, title: "Nueva Alerta" do
+          i.plus.icon
       .ui.right.dropdown.pointing.top.user.item id="js-user-links"
         = gravatar current_user, class: "ui avatar image"
         i.dropdown.icon

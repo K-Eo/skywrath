@@ -66,7 +66,7 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step "I should see user menu with email" do
-    user_menu("nav#default", @user.email, @user.email)
+    user_menu("nav#main-nav", @user.email, @user.email)
   end
 
   step "I change my email" do

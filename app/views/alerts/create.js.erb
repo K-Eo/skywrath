@@ -1,4 +1,3 @@
 <% if @alert.persisted? %>
-  $("#alerts").prepend("<%= j render(@alert) %>")
-  $("#alerts").trigger("alert:add", ["<%= @alert.id %>"])
+  Turbolinks.visit('<%= alerts_url %>')
 <% end %>
