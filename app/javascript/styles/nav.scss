@@ -1,6 +1,11 @@
 #main-nav {
   margin: 0;
 
+  .item.icon {
+    padding-left: .5em !important;
+    padding-right: .5em !important;
+  }
+
   .header.item {
     padding-left: 0 !important;
   }
@@ -15,8 +20,6 @@
   }
 
   .header.item, .user.item {
-    padding-left: 0 !important;
-
     &:hover, &:active, &:focus {
       background-color: white;
       outline: none;
