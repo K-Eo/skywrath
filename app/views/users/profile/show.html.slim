@@ -1,7 +1,9 @@
-.eleven.wide.column
-  .ui.secondary.pointing.menu
-    = link_to 'Actividad', dashboard_path, class: 'active item'
-    = link_to 'Noticias', dashboard_path, class: 'item'
+.col-8
+  ul.nav.nav-tabs
+    li.nav-item
+      = link_to "Actividad", dashboard_path, class: "active nav-link"
+    li.nav-item
+      = link_to "Noticias", dashboard_path, class: "nav-link"
 
-.five.wide.column
-  = render 'profile/profile'
+.col-4
+  = render "profile/profile"
