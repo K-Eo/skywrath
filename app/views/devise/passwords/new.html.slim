@@ -1,11 +1,6 @@
-= render partial: "devise/title",
-         object: "Recuperar contraseña"
+- content_for :devise_title, "Recuperar contraseña"
 
-.ui.segment
-  = bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
 
-    = f.email_field :email, autofocus: true
-    = f.submit t("devise.passwords.submit_new"), fluid: true
-
-  .auth-links
-    = render "devise/shared/links"
+  = f.email_field :email, autofocus: true
+  = f.submit t("devise.passwords.submit_new"), block: true
