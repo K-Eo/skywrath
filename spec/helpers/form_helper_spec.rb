@@ -80,7 +80,7 @@ RSpec.describe FormHelper, type: :helper do
 
     describe "tags" do
       it { is_expected.to match(%{<div class="form-check">}) }
-      it { is_expected.to match(%q{input class="form-check-input"}) }
+      it { is_expected.to match(/input class="form-check-input"/) }
       it { is_expected.to match(%{label class="form-check-label" for="bootstrap_tos"}) }
     end
   end
