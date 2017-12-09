@@ -21,10 +21,8 @@
     - if @alerts.total_count > 0
       = render @alerts
     - else
-      .ui.segment.blank.slate
-        h3.ui.center.aligned.icon.header
-          i.send.icon
-          | No hay alertas
+      .list-group-item.text-center
+        h5 No hay alertas
 
 - if @alerts.total_pages > 1
   .col-12.text-center id="alerts-paginator"
