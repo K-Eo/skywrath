@@ -27,8 +27,8 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step "I should see profile error messages" do
-    assert_selector "span.error.block", text: "no puede estar en blanco"
-    assert_selector "span.error.block", text: "es demasiado largo (24 caracteres máximo)"
+    assert_selector "div.invalid-feedback", text: "no puede estar en blanco"
+    assert_selector "div.invalid-feedback", text: "es demasiado largo (24 caracteres máximo)"
   end
 
   step "I should see my new profile card" do
@@ -60,13 +60,9 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
   end
 
   step "I should see a password error message" do
-    assert_selector "span.error.block", text: "no es válido"
-    assert_selector "span.error.block", text: "es demasiado corto (6 caracteres mínimo)"
-    assert_selector "span.error.block", text: "no coincide"
-  end
-
-  step "I should see user menu with email" do
-    user_menu("nav#main-nav", @user.email, @user.email)
+    assert_selector "div.invalid-feedback", text: "no es válido"
+    assert_selector "div.invalid-feedback", text: "es demasiado corto (6 caracteres mínimo)"
+    assert_selector "div.invalid-feedback", text: "no coincide"
   end
 
   step "I change my email" do
@@ -95,7 +91,7 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
 
   step "I should see email error message" do
     within "#edit_user_#{@user.id}" do
-      assert_selector "span.error.block", text: "no puede estar en blanco"
+      assert_selector "div.invalid-feedback", text: "no puede estar en blanco"
     end
   end
 
@@ -103,5 +99,13 @@ class Spinach::Features::Profile < Spinach::FeatureSteps
     accept_confirm do
       click_on "Eliminar mi cuenta"
     end
+  end
+
+  step "I should see my profile card" do
+    profile_card(@user.name, @user.email, @user.phone)
+  end
+
+  step "I should see my minimal profile card" do
+    profile_card(@user.name, @user.email, @user.phone, true)
   end
 end

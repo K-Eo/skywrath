@@ -6,7 +6,6 @@ Feature: Profile
     When I visit profile page
     Then I should see my minimal profile card
     And I should see default nav
-    And I should see user menu with email
 
   Scenario: I edit my profile
     Given I visit profile settings page
