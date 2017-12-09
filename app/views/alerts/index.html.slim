@@ -1,17 +1,18 @@
-.sixteen.wide.column
-  .ui.floating.labeled.icon.dropdown.button id="js-alerts-filter"
-    i.filter.icon
-    span.text Filtrar
-    .menu
-      .header
-        | Filtrar por estado
-      .divider
-      .item data-state="opened" Activo
-      .item data-state="closed" Cerrado
+.col-12
+  .dropdown
+    button [class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="js-alerts-filter"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"] Filtrar
+    .dropdown-menu aria-labelledby="js-alerts-filter"
+      button.dropdown-item data-state="opened" Activo
+      button.dropdown-item data-state="closed" Cerrado
 
-.sixteen.wide.column
-  .ui.segments.alerts
-    .ui.segment.header
+.col-12.mt-3
+  .list-group
+    .list-group-item.header
       .alert-state Estado
       .alert-by Alerta
       .alert-date
@@ -26,5 +27,5 @@
           | No hay alertas
 
 - if @alerts.total_pages > 1
-  .sixteen.wide.column.text.center.mb-1 id="alerts-paginator"
+  .col-12.text-center id="alerts-paginator"
     = paginate @alerts

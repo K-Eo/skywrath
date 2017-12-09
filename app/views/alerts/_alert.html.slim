@@ -1,7 +1,6 @@
-.ui.segment.alert id="alert_#{alert.id}"
+.list-group-item.alert id="alert_#{alert.id}"
   .alert-state
     = link_to alert_path(alert), class: state_class(alert) do
-      i.circle.warning.icon
       = alert.humanize_state
   .alert-by
     = link_to "##{alert.id}", alert_path(alert)

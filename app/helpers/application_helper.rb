@@ -2,14 +2,14 @@ module ApplicationHelper
   def state_class(alert)
     case alert.state
     when "opened"
-      state = "green"
+      state = "success"
     when "closed"
-      state = "red"
+      state = "danger"
     else
-      state = "yellow"
+      state = "warning"
     end
 
-    "ui #{state} basic label"
+    "badge badge-#{state}"
   end
 
   def active_link_to(name, path, options = nil)

@@ -1,2 +1,2 @@
-= link_to url, title: t('views.pagination.last').html_safe, class: 'item', remote: remote do
-  i.angle.double.right.icon
+li.page-item
+  = link_to_unless current_page.last?, raw(t 'views.pagination.last'), url, remote: remote, class: 'page-link'
