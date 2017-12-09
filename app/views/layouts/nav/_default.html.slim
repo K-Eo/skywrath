@@ -13,16 +13,17 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark id="main-nav"
     .collapse.navbar-collapse id="main-nav-content"
       ul.navbar-nav.ml-auto
         li.nav-item
-          = link_to "Monitor", watchdog_alerts_path,
-                    class: "nav-link",
-                    title: "Monitor"
+          = link_to watchdog_alerts_path,
+                    class: "nav-link mr-1",
+                    title: "Monitor" do
+            = octicon "radio-tower"
         li.nav-item
-          = link_to "Nueva Alerta",
-                    alerts_path,
-                    class: "nav-link",
+          = link_to alerts_path,
+                    class: "nav-link ml-0 mr-1",
                     method: :post,
                     remote: true,
-                    title: "Nueva Alerta"
+                    title: "Nueva Alerta" do
+            = octicon "plus"
         li.nav-item.dropdown
           a [aria-expanded="false"
              aria-haspopup="true"
