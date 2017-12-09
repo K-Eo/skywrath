@@ -26,13 +26,16 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark id="main-nav"
         li.nav-item.dropdown
           a [aria-expanded="false"
              aria-haspopup="true"
-             class="nav-link dropdown-toggle"
+             class="nav-link dropdown-toggle pr-0"
              data-toggle="dropdown"
              href="#"
              id="js-user-links"
              role="buton"]
+            = gravatar current_user, size: "20", class: "rounded mr-1"
+          .dropdown-menu.dropdown-menu-right aria-labelledby="js-user-links"
+            h6.dropdown-header
              = current_user.name || current_user.email
-          .dropdown-menu aria-labelledby="js-user-links"
+            .dropdown-divider
             = link_to "Perfil",
                       profile_path,
                       class: "dropdown-item"
