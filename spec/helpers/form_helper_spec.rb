@@ -1,6 +1,6 @@
 require "rails_helper"
 
-class SemanticModelTest
+class BootstrapModelTest
   include ActiveModel::Model
   attr_accessor :name
   attr_accessor :tos
@@ -8,27 +8,23 @@ class SemanticModelTest
   validates :name, presence: true
 
   def self.model_name
-    ActiveModel::Name.new(self, nil, "Semantic")
+    ActiveModel::Name.new(self, nil, "Bootstrap")
   end
 end
 
 RSpec.describe FormHelper, type: :helper do
   let(:html) { nil }
-  let(:resource) { SemanticModelTest.new }
+  let(:resource) { BootstrapModelTest.new }
   let(:options) { { url: root_path, html: html } }
   subject do
-    helper.semantic_form_for(resource, options) {}
+    helper.bootstrap_form_for(resource, options) {}
   end
 
   describe "classes" do
-    context "adds semantic styling" do
-      it { is_expected.to match(/class="ui form"/) }
-    end
-
     context "adds additional styling" do
       let(:html) { { class: "foo bar" } }
 
-      it { is_expected.to match(/class="ui form foo bar"/) }
+      it { is_expected.to match(/class="foo bar"/) }
     end
   end
 
@@ -38,37 +34,37 @@ RSpec.describe FormHelper, type: :helper do
     let(:validate) { false }
     before do
       resource.valid? if validate
-      helper.semantic_form_for(resource, options) do |f|
+      helper.bootstrap_form_for(resource, options) do |f|
         @field = f.text_field :name, args
       end
     end
 
     describe "tags" do
-      it { is_expected.to match(%{<div class="field">}) }
-      it { is_expected.to match(%{<label for="semantic_name">Name</label>}) }
-      it { is_expected.to match(%q{<input type="text" name="semantic\[name\]" id="semantic_name" />}) }
+      it { is_expected.to match(%{<div class="form-group">}) }
+      it { is_expected.to match(%{<label for="bootstrap_name">Name</label>}) }
+      it { is_expected.to match(%q{<input class="form-control" type="text" name="bootstrap\[name\]" id="bootstrap_name" />}) }
       it { is_expected.to match(%{</div>}) }
     end
 
     describe "helper" do
       let(:args) { { helper: "Some helper text" } }
 
-      it { is_expected.to match(%{<span class="helper block">Some helper text</span>}) }
+      it { is_expected.to match(%{<small class="form-text text-muted">Some helper text</small>}) }
     end
 
     describe "label" do
       let(:args) { { label: "Label text" } }
 
-      it { is_expected.to match(%{<label for="semantic_name">Label text</label>}) }
+      it { is_expected.to match(%{<label for="bootstrap_name">Label text</label>}) }
     end
 
     describe "error" do
       let(:validate) { true }
       let(:args) { { helper: "Some helper text" } }
 
-      it { is_expected.to match(%{<div class="field error">}) }
-      it { is_expected.to match(%{<span class="error block">no puede estar en blanco</span>}) }
-      it { is_expected.to_not match(%{<span class="helper block">Some helper text</span>}) }
+      it { is_expected.to match(%{<div class="form-group">}) }
+      it { is_expected.to match(%{<div class="invalid-feedback">no puede estar en blanco</div>}) }
+      it { is_expected.to_not match(%{<small class="form-text text-muted">Some helper text</small>}) }
     end
   end
 
@@ -77,16 +73,15 @@ RSpec.describe FormHelper, type: :helper do
     let(:args) { {} }
 
     before do
-      helper.semantic_form_for(resource, options) do |f|
+      helper.bootstrap_form_for(resource, options) do |f|
         @field = f.check_box :tos, args
       end
     end
 
     describe "tags" do
-      it { is_expected.to match(%{<div class="field">}) }
-      it { is_expected.to match(%{<div class="ui checkbox">}) }
-      it { is_expected.to match(%q{input name="semantic\[tos\]"}) }
-      it { is_expected.to match(%{label for="semantic_tos"}) }
+      it { is_expected.to match(%{<div class="form-check">}) }
+      it { is_expected.to match(/input class="form-check-input"/) }
+      it { is_expected.to match(%{label class="form-check-label" for="bootstrap_tos"}) }
     end
   end
 
@@ -95,22 +90,22 @@ RSpec.describe FormHelper, type: :helper do
     let(:args) { {} }
 
     before do
-      helper.semantic_form_for(resource, options) do |f|
+      helper.bootstrap_form_for(resource, options) do |f|
         @field = f.submit args
       end
     end
 
     describe "tags" do
-      it { is_expected.to match(%{<div class="field">}) }
+      it { is_expected.to match(%{<div class="form-group">}) }
       it { is_expected.to match(%{input type="submit"}) }
-      it { is_expected.to match(%{class="ui positive button"}) }
-      it { is_expected.to_not match(%{fluid="}) }
+      it { is_expected.to match(%{class="btn btn-primary"}) }
+      it { is_expected.to_not match(%{block="}) }
 
-      context "fluid" do
-        let(:args) { { fluid: true } }
+      context "block" do
+        let(:args) { { block: true } }
 
-        it { is_expected.to match(%{class="ui positive button fluid"}) }
-        it { is_expected.to_not match(%{fluid="}) }
+        it { is_expected.to match(%{class="btn btn-primary btn-block"}) }
+        it { is_expected.to_not match(%{block="}) }
       end
     end
   end

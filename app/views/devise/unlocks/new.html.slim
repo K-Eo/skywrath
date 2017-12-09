@@ -1,12 +1,7 @@
-= render partial: "devise/title",
-         object: "Desbloquear mi cuenta"
+- content_for :devise_title, "Desbloquear mi cuenta"
 
-.ui.segment
-  = semantic_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+= bootstrap_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
 
-    = f.email_field :email, autofocus: true
+  = f.email_field :email, autofocus: true
 
-    = f.submit t("devise.unlocks.submit"), fluid: true
-
-  .auth-links
-    = render "devise/shared/links"
+  = f.submit t("devise.unlocks.submit"), block: true

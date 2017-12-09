@@ -1,23 +1,16 @@
-.ui.card
-  .image
-    = gravatar current_user, size: 300
-  .content
-    .header = current_user.has_name? ? current_user.name : current_user.email
-    .meta
-      span.date Se unío
-      = timeago current_user.created_at, class: "date"
-    .description
+.card
+  = gravatar current_user, size: 300, class: "card-img-top img-fluid"
+  .card-body
+    h5.card-title.mb-0
+      = current_user.has_name? ? current_user.name : current_user.email
+    p.card-text
+      small.text-muted
+        span> Se unío
+        = timeago current_user.created_at
+    dl.card-text
       - if current_user.has_name?
-        p
-          i.at.icon
+        dd
           = current_user.email
-
       - if current_user.phone.present?
-        p
-          i.phone.icon
-          span = current_user.phone
-
-      p
-        i.suitcase.icon
-        = link_to dashboard_path do
-          span Skywrath, Inc.
+        dd.mb-0
+          = current_user.phone

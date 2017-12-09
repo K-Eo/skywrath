@@ -1,9 +1,15 @@
-.home
-  .content
-    .hero Skywrath Project
-    .actions
-      = link_to "Iniciar sesión", new_user_session_path, class: "ui large green button"
-      = link_to "Crear cuenta", new_user_registration_path, class: "ui large blue button"
+.main
+  section.jumbotron.text-center
+    .container
+      h1.jumbotron-heading Skywrath Project
+      p.lead.text-muted Alpha
+      p
+        = link_to "Crear cuenta",
+                  new_user_registration_path,
+                  class: "btn btn-primary mr-2"
 
-    .footer
-      p &copy; 2017 Skywrath, Inc.
+        = link_to "Iniciar sesión",
+                  new_user_session_path,
+                  class: "btn btn-secondary ml-2"
+
+      p.text-muted &copy; 2017 Skywrath, Inc.

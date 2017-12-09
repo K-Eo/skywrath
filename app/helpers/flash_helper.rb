@@ -1,26 +1,26 @@
 module FlashHelper
   def normalize_flash(key)
     if key.nil?
-      return "info"
+      return "alert-info"
     end
 
     if key.is_a?(String)
       key = key.to_sym
     elsif !key.is_a?(Symbol)
-      return "info"
+      return "alert-info"
     end
 
     case key
     when :notice
-      return "success"
+      return "alert-success"
     when :success
-      return "success"
+      return "alert-success"
     when :alert
-      return "error"
+      return "alert-danger"
     when :error
-      return "error"
+      return "alert-danger"
     else
-      return key.to_s
+      return "alert-#{key.to_s}"
     end
   end
 end

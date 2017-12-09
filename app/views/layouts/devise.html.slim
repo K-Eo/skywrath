@@ -3,11 +3,18 @@ html lang=I18n.locale
   = render "layouts/head"
   body
     - flash.each do |key, value|
-      .ui.message class=normalize_flash(key)
-        .ui.container
-          p = value
+      .alert.js-closeable class=normalize_flash(key)
+        .container = value
 
-    .ui.container
-      .ui.three.column.centered.grid
-        .column
-          = yield
+    .container.auth-content
+      .row.justify-content-center
+        .col-5
+          .text-center
+            h2 = link_to "Skywrath", root_path, class: "text-dark"
+            h4.font-weight-light.mt-3 = yield :devise_title
+          .card.mt-4
+            .card-body
+              .card-text
+                = yield
+              p.card-text.mb-0
+                = render "devise/shared/links"

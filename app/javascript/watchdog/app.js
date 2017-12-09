@@ -19,15 +19,17 @@ const { AlertList } = alerts.components
 class Watchdog extends Component {
   render () {
     return (
-      <div className='ui grid'>
+      <div className='row'>
         <AlertList />
 
-        <div className='eleven wide column'>
-          <div className='ui segment'>
-            <MapComponent
-              containerElement={<div style={{height: 400}} />}
-              mapElement={<div style={{height: '100%'}} />}
-            />
+        <div className='col-8'>
+          <div className='card'>
+            <div className='card-img-top'>
+              <MapComponent
+                containerElement={<div style={{height: 400}} />}
+                mapElement={<div style={{height: '100%'}} />}
+              />
+            </div>
           </div>
         </div>
       </div>

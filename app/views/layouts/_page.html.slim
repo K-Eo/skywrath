@@ -1,8 +1,8 @@
 - if defined?(@flash) && @flash
   = render "layouts/flash"
-.ui.container#content-body
-  .ui.grid
+.container.mt-3#content-body
+  .row
     - if defined?(@sidebar) && @sidebar
-      .four.wide.column
+      .col
         = render "layouts/sidebar/#{@sidebar}"
     = yield

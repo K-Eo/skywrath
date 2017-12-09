@@ -3,48 +3,60 @@ import TimeAgo from 'react-timeago'
 import classNames from 'classnames'
 
 import utils from '../../utils'
+import Octicon from '../../octicon'
 
 export class Alert extends Component {
   renderAuthor () {
-    const { author, id, state, assignee, created_at: createdAt } = this.props
+    const { author } = this.props
+
+    return (
+      <p className='mb-1'>
+        <img
+          className='rounded img-mini-avatar mr-2'
+          src={author.avatar}
+        />
+        <span className='align-middle'>{author.name}</span>
+      </p>
+    )
+  }
+
+  renderAction () {
+    const { id, state, assignee, created_at: createdAt } = this.props
     const alertURL = `/dashboard/alerts/${id}`
-    const badgeClass = classNames('ui small circle icon', {
-      green: state === 'opened' && assignee === null,
-      yellow: state === 'opened' && assignee !== null,
-      red: state === 'closed'
+    const iconClass = classNames('mr-2', {
+      'text-success': state === 'opened' && assignee === null,
+      'text-warning': state === 'opened' && assignee !== null,
+      'text-red': state === 'closed'
     })
 
     return (
-      <div className='js-alert-block'>
-        <p>
-          <img
-            className='ui mini avatar image mr-0-5'
-            src={author.avatar}
-          />
-          <span className='text-gray'>
-            {author.name}
-          </span>
-        </p>
-
-        <p>
-          <i className={badgeClass} title={utils.humanizeState(state, assignee)} />
+      <p className='mb-2'>
+        <Octicon icon='issue-opened' class={iconClass} />
+        <span className='align-middle'>
           Envío una alerta <a href={alertURL}>#{id}</a>
-          <span className='text-gray text-small'> &bull; </span>
-          <TimeAgo
-            className='text-gray text-small'
-            date={createdAt}
-            formatter={utils.timeFormatter}
-          />
-        </p>
-
-        {
-          (state === 'opened' && assignee === null) &&
-          <p>
-            <button className='ui small basic button'>Asignarme</button>
-          </p>
-        }
-      </div>
+          <small className='text-secondary'>
+            &nbsp;&bull;&nbsp;
+            <TimeAgo
+              className='text-secondary'
+              date={createdAt}
+              formatter={utils.timeFormatter}
+            />
+          </small>
+        </span>
+      </p>
     )
+  }
+
+  renderAssigneeButton () {
+    const { state, assignee } = this.props
+
+    if (state === 'opened' && assignee === null) {
+      return (
+        <p className='mb-1'>
+          <button className='btn btn-outline-primary btn-sm'>Asignarme</button>
+        </p>
+      )
+    }
   }
 
   renderAssignee () {
@@ -71,10 +83,12 @@ export class Alert extends Component {
 
   render () {
     return (
-      <div className='ui segment js-alert'>
+      <li className='list-group-item js-alert'>
         {this.renderAuthor()}
+        {this.renderAction()}
+        {this.renderAssigneeButton()}
         {this.renderAssignee()}
-      </div>
+      </li>
     )
   }
 }

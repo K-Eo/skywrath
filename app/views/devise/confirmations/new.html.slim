@@ -1,12 +1,7 @@
-= render partial: "devise/title",
-         object: "Confirmar mi cuenta"
+- content_for :devise_title, "Confirmar mi cuenta"
 
-.ui.segment
-  = semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
 
-    = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+  = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
 
-    = f.submit t("devise.confirmations.submit"), fluid: true
-
-  .auth-links
-    = render "devise/shared/links"
+  = f.submit t("devise.confirmations.submit"), block: true

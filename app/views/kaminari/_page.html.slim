@@ -1,6 +1,6 @@
 - if page.current?
-  = link_to url, title: page, class: 'item active', remote: remote do
-    = page
+  li.page-item.active
+    = content_tag :a, page, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link'
 - else
-  = link_to url, title: page, class: 'item', remote: remote do
-    = page
+  li.page-item
+    = link_to page, url, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link'

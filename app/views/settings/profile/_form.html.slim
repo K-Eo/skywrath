@@ -1,8 +1,9 @@
-= semantic_form_for(@user, url: settings_profile_path) do |f|
+= bootstrap_form_for(@user, url: settings_profile_path) do |f|
   = f.text_field :name,
                  autofocus: true,
                  helper: t("user.forms.helpers.name")
 
-  = f.phone_field :phone, helper: t("user.forms.helpers.phone")
+  = f.phone_field :phone,
+                  helper: t("user.forms.helpers.phone")
 
   = f.submit t("user.forms.update_profile")
