@@ -1,13 +1,6 @@
 module FormHelper
-  def semantic_form_for(object, options = {}, &block)
-    options[:builder] = SemanticFormBuilder
-    options[:html] ||= {}
-    classes = options[:html][:class] || ""
-
-    options[:html][:class] = classes.split(" ")
-                                    .unshift("ui", "form")
-                                    .join(" ")
-
+  def bootstrap_form_for(object, options = {}, &block)
+    options[:builder] = BootstrapFormBuilder
     form_for(object, options, &block)
   end
 end

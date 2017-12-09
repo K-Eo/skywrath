@@ -1,11 +1,12 @@
-class SemanticFormBuilder < ActionView::Helpers::FormBuilder
+class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
   delegate :content_tag, :concat, to: :@template
 
   %w[text_field text_area password_field email_field phone_field].each do |method_name|
     define_method(method_name) do |name, *args|
-      content_tag :div, class: field_classes(name) do
+      input_args = append_input_classes(name, *args)
+      content_tag :div, class: "form-group" do
         concat field_label(name, *args)
-        concat super(name, *args)
+        concat super(name, *input_args)
         concat helper_label(name, *args)
         concat errors(name)
       end
@@ -13,43 +14,49 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def check_box(name, *args)
-    content_tag :div, class: "field" do
-      content_tag :div, class: "ui checkbox" do
-        concat super(name)
-        concat label(name)
+    content_tag :div, class: "form-check" do
+      label(name, class: "form-check-label") do
+        concat super(name, class: "form-check-input")
+        concat name.to_s.humanize
       end
     end
   end
 
   def submit(*args)
     options = args.extract_options!
-    fluid = options.delete(:fluid) || false
+    block = options.delete(:block) || false
     classes = options[:class] || ""
 
     classes = classes.split(" ")
-    classes.push("ui", "positive", "button")
-    classes.push("fluid") if fluid
+    classes.push("btn", "btn-primary")
+    classes.push("btn-block") if block
     options[:class] = classes.join(" ")
 
     args.push(options)
-    content_tag :div, class: "field" do
+    content_tag :div, class: "form-group" do
       super(*args)
     end
   end
 
 private
 
-  def field_classes(name)
-    classes = ["field"]
-    classes << "error" if has_error?(name)
-    classes.join(" ")
+  def append_input_classes(name, *args)
+    options = args.extract_options!
+    classes = options[:class] || ""
+
+    classes = classes.split(" ")
+                     .push("form-control")
+
+    classes << "is-invalid" if has_error?(name)
+    options[:class] = classes.join(" ")
+    args.push(options)
   end
 
   def errors(name)
     if has_error?(name)
-      content_tag :span,
+      content_tag :div,
                   @object.errors[name].last,
-                  class: "error block"
+                  class: "invalid-feedback"
     end
   end
 
@@ -60,7 +67,7 @@ private
   def helper_label(name, *args)
     options = args.extract_options!
     if options[:helper].present? && !has_error?(name)
-      content_tag :span, options[:helper], class: "helper block"
+      content_tag :small, options[:helper], class: "form-text text-muted"
     end
   end
 
@@ -70,6 +77,6 @@ private
   end
 
   def objectify_options(options)
-    super.except(:label, :helper, :fluid)
+    super.except(:label, :helper, :block)
   end
 end

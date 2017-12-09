@@ -1,25 +1,26 @@
-.twelve.wide.column
+.col-9
+  h2 Cambiar contraseña
+  hr
 
-  h2.ui.header.form Cambiar contraseña
-  .ui.divider
+  = bootstrap_form_for(@user, url: settings_account_path) do |f|
+    = f.password_field :current_password,
+                       autofocus: true
 
-  = semantic_form_for(@user, url: settings_account_path) do |f|
-    = f.password_field :current_password
-
-    = f.password_field :password, label: t("user.model.new_password")
+    = f.password_field :password,
+                       label: t("user.model.new_password")
 
     = f.password_field :password_confirmation,
                        label: t("user.model.new_password_confirmation")
 
     = f.submit t("user.forms.update_password")
 
-  h2.ui.header.form Eliminar cuenta
-  .ui.divider
+  h2 Eliminar cuenta
+  hr
 
   p = t("user.helpers.account_destroy")
 
   = button_to t("user.forms.account_destroy"),
               settings_account_path,
-              class: "ui button negative",
+              class: "btn btn-danger",
               data: { confirm: "¿Eliminar?" },
               method: :delete

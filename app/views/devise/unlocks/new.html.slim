@@ -2,7 +2,7 @@
          object: "Desbloquear mi cuenta"
 
 .ui.segment
-  = semantic_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+  = bootstrap_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
 
     = f.email_field :email, autofocus: true
 

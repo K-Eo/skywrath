@@ -1,5 +1,5 @@
 .flash.messages
   - flash.each do |key, value|
-    .ui.message.closeable class=normalize_flash(key)
-      .ui.container
-        p = value
+    .alert.js-closeable class=normalize_flash(key)
+      .container
+        = value
