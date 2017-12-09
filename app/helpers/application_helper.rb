@@ -9,7 +9,7 @@ module ApplicationHelper
       state = "warning"
     end
 
-    "badge badge-#{state}"
+    "text-#{state}"
   end
 
   def active_link_to(name, path, options = nil)

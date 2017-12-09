@@ -1,7 +1,6 @@
 .list-group-item.alert id="alert_#{alert.id}"
   .alert-state
-    = link_to alert_path(alert), class: state_class(alert) do
-      = alert.humanize_state
+    = octicon "issue-opened", width: 18, class: state_class(alert)
   .alert-by
     = link_to "##{alert.id}", alert_path(alert)
     = " por "
