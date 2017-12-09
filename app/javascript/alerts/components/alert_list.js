@@ -36,10 +36,10 @@ class AlertListComponent extends Component {
 
   render () {
     return (
-      <div className='five wide column'>
-        <div className='ui segments'>
+      <div className='col'>
+        <ul className='list-group'>
           { this.renderContent() }
-        </div>
+        </ul>
       </div>
     )
   }

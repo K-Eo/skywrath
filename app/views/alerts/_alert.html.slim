@@ -5,7 +5,7 @@
   .alert-by
     = link_to "##{alert.id}", alert_path(alert)
     = " por "
-    = gravatar alert.author, class: "ui mini avatar image mr-0-5"
+    = gravatar alert.author, class: "rounded img-mini-avatar mr-2"
     span = alert.author.name
   .alert-date
     = timeago(alert.created_at)
@@ -13,5 +13,5 @@
   .alert-assignee
     - if alert.assignee.present?
       = gravatar alert.assignee,
-                class: "ui mini avatar image",
+                class: "rounded img-mini-avatar mr-2",
                 title: "Asignado a #{alert.assignee.name}"
