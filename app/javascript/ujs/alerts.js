@@ -19,29 +19,13 @@ class Filter {
     return `${origin}${pathname}?${nextQuery}`
   }
 
-  onChange (value, text, $selectedItem) {
-    const state = $selectedItem.data('state')
+  onChange (e) {
+    const state = $(e.currentTarget).data('state')
     Turbolinks.visit(this.buildURL(state))
   }
 
-  postVisit () {
-    const query = this.getQuery()
-    let filter = ''
-
-    switch (query.state) {
-      case 'opened':
-        filter = 'Activo'
-        break
-      case 'closed':
-        filter = 'Cerrado'
-        break
-      default:
-        return
-    }
-  }
-
   start () {
-    this.postVisit()
+    $(`${el} .dropdown-item`).on('click', this.onChange.bind(this))
   }
 }
 
