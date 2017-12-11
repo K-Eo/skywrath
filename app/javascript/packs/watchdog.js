@@ -4,11 +4,14 @@ import { Provider } from 'react-redux'
 
 import configure from '../store'
 import Watchdog from '../watchdog/app'
+import alertsPush from '../alerts/push'
 
 const debug = require('debug')('skywrath:watchdog')
 const MOUNT_NODE = 'content-body'
 
 const store = configure()
+
+alertsPush(store)
 
 const unmountWatchdog = () => {
   debug('unmounting watchdog react app')

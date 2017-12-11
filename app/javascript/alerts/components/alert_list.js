@@ -30,7 +30,7 @@ class AlertListComponent extends Component {
     }
 
     return alerts.map(alert => (
-      <Alert key={alert.id} {...alert} />
+      <Alert key={alert.id} {...alert} assign={this.props.assign} />
     ))
   }
 

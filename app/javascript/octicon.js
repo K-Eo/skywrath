@@ -11,7 +11,7 @@ const createMarkup = (props = {}) => {
 }
 
 const Octicon = (props = {}) => {
-  let classes = props.class || ''
+  let classes = props.className || ''
   return (
     <span
       className={classes}

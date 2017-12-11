@@ -38,14 +38,65 @@ export const fetch = () => {
         throw Error(response.statusText)
       })
       .then(data => {
+        const normalizeData = normalize(data, [ schemas.alert ])
+
         dispatch({
           type: 'ADD',
-          data: normalize(data, [ schemas.alert ])
+          entities: normalizeData.entities
         })
+
         return dispatch(fetchSuccess())
       })
       .catch(error => {
         return dispatch(fetchFailure(error.message))
+      })
+  }
+}
+
+const assignRequest = (id) => ({
+  type: types.ASSIGN_REQUEST,
+  id: id
+})
+
+const assignSuccess = (id) => ({
+  type: types.ASSIGN_SUCCESS,
+  id: id
+})
+
+const assignFailure = (id, message) => ({
+  type: types.ASSIGN_FAILURE,
+  id: id,
+  message: message
+})
+
+export const assign = (id) => {
+  return (dispatch, getState, axios) => {
+    if (getState().control.alerts.assign[id] === 'requesting') {
+      return Promise.resolve()
+    }
+
+    dispatch(assignRequest(id))
+
+    axios.post(`/alerts/${id}/assign`)
+      .then(response => {
+        if (response.status === 201) {
+          return response.data
+        }
+
+        throw Error(response.statusText)
+      })
+      .then(data => {
+        const normalizeData = normalize(data, schemas.alert)
+
+        dispatch({
+          type: 'ADD',
+          entities: normalizeData.entities
+        })
+
+        return dispatch(assignSuccess(id))
+      })
+      .catch(error => {
+        return dispatch(assignFailure(id, error.message))
       })
   }
 }

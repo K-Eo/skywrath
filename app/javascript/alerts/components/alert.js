@@ -5,23 +5,44 @@ import classNames from 'classnames'
 import utils from '../../utils'
 import Octicon from '../../octicon'
 
+const Block = ({ children, avatar, actor, datetime }) => (
+  <div className='d-flex'>
+    <img
+      className='rounded mr-3'
+      width="32"
+      height="32"
+      src={avatar}
+    />
+    <div>
+      <BlockAction>
+        <strong>{actor}</strong>
+        {
+          datetime && (
+            <span className='text-muted'>
+              <span className='mx-2'>&bull;</span>
+              <TimeAgo
+                className='text-secondary'
+                date={datetime}
+                formatter={utils.timeFormatter}
+              />
+            </span>
+          )
+        }
+      </BlockAction>
+      {children}
+    </div>
+  </div>
+)
+
+const BlockAction = ({ children }) => (
+  <div className='mb-2'>
+   {children}
+  </div>
+)
+
 export class Alert extends Component {
   renderAuthor () {
-    const { author } = this.props
-
-    return (
-      <p className='mb-1'>
-        <img
-          className='rounded img-mini-avatar mr-2'
-          src={author.avatar}
-        />
-        <span className='align-middle'>{author.name}</span>
-      </p>
-    )
-  }
-
-  renderAction () {
-    const { id, state, assignee, created_at: createdAt } = this.props
+    const { assignee, author, control, created_at: createdAt, id, state } = this.props
     const alertURL = `/dashboard/alerts/${id}`
     const iconClass = classNames('mr-2', {
       'text-success': state === 'opened' && assignee === null,
@@ -30,33 +51,34 @@ export class Alert extends Component {
     })
 
     return (
-      <p className='mb-2'>
-        <Octicon icon='issue-opened' class={iconClass} />
-        <span className='align-middle'>
-          Envío una alerta <a href={alertURL}>#{id}</a>
-          <small className='text-secondary'>
-            &nbsp;&bull;&nbsp;
-            <TimeAgo
-              className='text-secondary'
-              date={createdAt}
-              formatter={utils.timeFormatter}
-            />
-          </small>
-        </span>
-      </p>
+      <Block avatar={author.avatar} actor={author.name} datetime={createdAt}>
+        <BlockAction>
+          <Octicon icon='issue-opened' className={iconClass} />
+          <span className='align-middle'>
+            Envío una alerta <a href={alertURL}>#{id}</a>
+          </span>
+        </BlockAction>
+        {
+          (state === 'opened' && assignee === null) && (
+            <BlockAction>
+              <button
+                className='btn btn-outline-primary btn-sm'
+                disabled={control.assign.status === 'requesting'}
+                onClick={this.handleAssignee.bind(this)}
+              >
+                Asignarme
+              </button>
+            </BlockAction>
+          )
+        }
+      </Block>
     )
   }
 
-  renderAssigneeButton () {
-    const { state, assignee } = this.props
+  handleAssignee () {
+    const { id } = this.props
 
-    if (state === 'opened' && assignee === null) {
-      return (
-        <p className='mb-1'>
-          <button className='btn btn-outline-primary btn-sm'>Asignarme</button>
-        </p>
-      )
-    }
+    this.props.assign(id)
   }
 
   renderAssignee () {
@@ -67,17 +89,17 @@ export class Alert extends Component {
     }
 
     return (
-      <div className='js-alert-block'>
-        <p>
-          <img
-            className='ui mini avatar image mr-0-5'
-            src={assignee.avatar}
-          />
-          <span className='text-gray'>
-            {assignee.name} &bull;
-          </span> fue asignado a esta alerta
-        </p>
-      </div>
+      <Block
+        avatar={assignee.avatar}
+        actor={assignee.name}
+      >
+        <BlockAction>
+          <Octicon icon='organization' className='mr-2 text-muted' />
+          <span className='align-middle'>
+            Fue asignado a esta alerta
+          </span>
+        </BlockAction>
+      </Block>
     )
   }
 
@@ -85,8 +107,6 @@ export class Alert extends Component {
     return (
       <li className='list-group-item js-alert'>
         {this.renderAuthor()}
-        {this.renderAction()}
-        {this.renderAssigneeButton()}
         {this.renderAssignee()}
       </li>
     )
