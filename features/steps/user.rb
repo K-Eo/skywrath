@@ -4,10 +4,10 @@ class Spinach::Features::User < Spinach::FeatureSteps
   include Shared::Pages
 
   step "Sidebar profile item should be active" do
-    assert_selector "#settings-sidebar .nav-link.active", text: "Perfil"
+    assert_selector "#settings-sidebar .list-group-item.active", text: "Perfil"
   end
 
   step "Sidebar account item should be active" do
-    assert_selector "#settings-sidebar .nav-link.active", text: "Cuenta"
+    assert_selector "#settings-sidebar .list-group-item.active", text: "Cuenta"
   end
 end
