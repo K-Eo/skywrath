@@ -38,10 +38,13 @@ export const fetch = () => {
         throw Error(response.statusText)
       })
       .then(data => {
+        const normalizeData = normalize(data, [ schemas.alert ])
+
         dispatch({
           type: 'ADD',
-          data: normalize(data, [ schemas.alert ])
+          entities: normalizeData.entities
         })
+
         return dispatch(fetchSuccess())
       })
       .catch(error => {

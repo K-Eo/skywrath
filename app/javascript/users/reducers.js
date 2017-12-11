@@ -3,13 +3,11 @@ import _ from 'lodash'
 export const entities = (state = {}, action) => {
   switch (action.type) {
     case 'ADD':
-      let users = action.data.entities.users
-
-      if (users === null && users === undefined) {
-        return state
+      if (action.entities && action.entities.users) {
+        return _.assign({}, state, action.entities.users)
       }
 
-      return _.assign({}, state, users)
+      return state
     default:
       return state
   }

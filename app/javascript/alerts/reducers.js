@@ -5,13 +5,11 @@ import * as types from './types'
 export const entities = (state = {}, action) => {
   switch (action.type) {
     case 'ADD':
-      let alerts = action.data.entities.alerts
-
-      if (alerts === null && alerts === undefined) {
-        return state
+      if (action.entities && action.entities.alerts) {
+        return _.assign({}, state, action.entities.alerts)
       }
 
-      return _.assign({}, state, alerts)
+      return state
     default:
       return state
   }
