@@ -8,11 +8,11 @@ module Shared
 
     step "I should see settings sidebar" do
       assert_selector "#settings-sidebar"
-      assert_selector "#settings-sidebar .nav-link[href='#{settings_profile_path}']",
+      assert_selector "#settings-sidebar .list-group-item[href='#{settings_profile_path}']",
                       text: "Perfil"
-      assert_selector "#settings-sidebar .nav-link[href='#{settings_account_path}']",
+      assert_selector "#settings-sidebar .list-group-item[href='#{settings_account_path}']",
                       text: "Cuenta"
-      assert_selector "#settings-sidebar .nav-link[href='#{settings_email_path}']",
+      assert_selector "#settings-sidebar .list-group-item[href='#{settings_email_path}']",
                       text: "Email"
     end
 
