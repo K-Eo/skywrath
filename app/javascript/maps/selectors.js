@@ -4,8 +4,16 @@ import { createSelector } from 'reselect'
 const usersSelector = (state) => state.entities.users
 const selectionSelector = (state) => state.control.maps.selection
 
-export const usersLocations = createSelector(
+export const locationSelector = createSelector(
   usersSelector,
+  (users) => _.filter(
+    users,
+    ({ lat, lng }) => (_.isNumber(lat) && _.isNumber(lng))
+  )
+)
+
+export const usersLocations = createSelector(
+  locationSelector,
   (users) => _.map(users, (user) => ({ id: user.id, lat: user.lat, lng: user.lng }))
 )
 
