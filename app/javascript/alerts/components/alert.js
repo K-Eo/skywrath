@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TimeAgo from 'react-timeago'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import utils from '../../utils'
 import Octicon from '../../octicon'
@@ -50,6 +51,8 @@ export class Alert extends Component {
       'text-red': state === 'closed'
     })
 
+    const hasLocation = _.isNumber(author.lat) && _.isNumber(author.lng)
+
     return (
       <Block avatar={author.avatar} actor={author.name} datetime={createdAt}>
         <BlockAction>
@@ -57,12 +60,15 @@ export class Alert extends Component {
           <span className='align-middle'>
             Envío una alerta <a href={alertURL}>#{id}</a>
           </span>
-          <a
-            href="#"
-            className="ml-3"
-            onClick={this.handleSelect.bind(this)}>
-              <Octicon icon='location' />
-          </a>
+          {
+            hasLocation &&
+            <a
+              href="#"
+              className="ml-3"
+              onClick={this.handleSelect.bind(this)}>
+                <Octicon icon='location' />
+            </a>
+          }
         </BlockAction>
         {
           (state === 'opened' && assignee === null) && (
