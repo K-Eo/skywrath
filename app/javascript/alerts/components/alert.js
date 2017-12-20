@@ -86,9 +86,9 @@ export class Alert extends Component {
       e.preventDefault()
     }
 
-    const { id } = this.props
+    const { author } = this.props
 
-    this.props.select(id)
+    this.props.select(author.id)
   }
 
   handleAssignee () {
