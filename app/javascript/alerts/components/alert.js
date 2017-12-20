@@ -121,7 +121,7 @@ export class Alert extends Component {
 
   render () {
     return (
-      <li className='list-group-item js-alert'>
+      <li className='list-group-item js-alert mr-1'>
         {this.renderAuthor()}
         {this.renderAssignee()}
       </li>

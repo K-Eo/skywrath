@@ -5,22 +5,24 @@ import Map from '../maps/components/map'
 
 const { AlertList } = alerts.components
 
+const styles = {
+  height: 'calc(100vh - 72px)',
+  top: 0,
+  position: 'absolute',
+  right: 0,
+  width: 'calc(100% - 320px - 22px)'
+}
+
 class Watchdog extends Component {
   render () {
     return (
-      <div className='row'>
+      <div style={{ position: 'relative' }}>
         <AlertList />
 
-        <div className='col-8'>
-          <div className='card'>
-            <div className='card-img-top'>
-              <Map
-                containerElement={<div style={{height: 400}} />}
-                mapElement={<div style={{height: '100%'}} />}
-              />
-            </div>
-          </div>
-        </div>
+        <Map
+          containerElement={<div style={styles} />}
+          mapElement={<div style={{height: '100%'}} />}
+        />
       </div>
     )
   }

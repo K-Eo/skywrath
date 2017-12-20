@@ -6,6 +6,15 @@ import { defaultSelector } from '../selectors'
 import { fetch, assign } from '../actions'
 import maps from '../../maps'
 
+const styles = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  overflowY: 'scroll',
+  width: 320,
+  height: 'calc(100vh - 72px)'
+}
+
 class AlertListComponent extends Component {
   componentDidMount () {
     this.props.fetch()
@@ -42,7 +51,7 @@ class AlertListComponent extends Component {
 
   render () {
     return (
-      <div className='col'>
+      <div className='alerts-scroll' style={styles}>
         <ul className='list-group'>
           { this.renderContent() }
         </ul>
