@@ -27,7 +27,7 @@
     },
     "GOOGLE_MAPS_KEY": {
       "required": true
-    },
+    }
   },
   "formation": {
     "web": {
