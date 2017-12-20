@@ -24,7 +24,10 @@
     },
     "HEROKU_APP_NAME": {
       "required": true
-    }
+    },
+    "GOOGLE_MAPS_KEY": {
+      "required": true
+    },
   },
   "formation": {
     "web": {
