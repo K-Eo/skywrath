@@ -5,7 +5,6 @@ import { GoogleMap, Marker, withGoogleMap, InfoWindow } from 'react-google-maps'
 import { usersLocations, focusSelector } from '../selectors'
 
 const MapComponent = withGoogleMap(props => {
-  console.log(props)
   return (
     <GoogleMap
       defaultZoom={15}
