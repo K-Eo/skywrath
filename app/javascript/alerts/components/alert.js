@@ -57,6 +57,12 @@ export class Alert extends Component {
           <span className='align-middle'>
             Envío una alerta <a href={alertURL}>#{id}</a>
           </span>
+          <a
+            href="#"
+            className="ml-3"
+            onClick={this.handleSelect.bind(this)}>
+              <Octicon icon='location' />
+          </a>
         </BlockAction>
         {
           (state === 'opened' && assignee === null) && (
@@ -73,6 +79,16 @@ export class Alert extends Component {
         }
       </Block>
     )
+  }
+
+  handleSelect (e) {
+    if (e && e.preventDefault) {
+      e.preventDefault()
+    }
+
+    const { id } = this.props
+
+    this.props.select(id)
   }
 
   handleAssignee () {

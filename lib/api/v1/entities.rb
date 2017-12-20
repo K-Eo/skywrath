@@ -8,6 +8,8 @@ module API
         expose :avatar do |instance|
           avatar(instance.email)
         end
+        expose :lat
+        expose :lng
       end
 
       class AccessToken < Grape::Entity

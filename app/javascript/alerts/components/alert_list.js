@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 
 import Alert from './alert'
 import { defaultSelector } from '../selectors'
-import * as actions from '../actions'
+import { fetch, assign } from '../actions'
+import maps from '../../maps'
 
 class AlertListComponent extends Component {
   componentDidMount () {
@@ -30,7 +31,12 @@ class AlertListComponent extends Component {
     }
 
     return alerts.map(alert => (
-      <Alert key={alert.id} {...alert} assign={this.props.assign} />
+      <Alert
+        assign={this.props.assign}
+        key={alert.id}
+        select={this.props.select}
+        {...alert}
+      />
     ))
   }
 
@@ -50,4 +56,13 @@ const mapStateToProps = (state) => ({
   fetching: state.control.alerts.fetching
 })
 
-export const AlertList = connect(mapStateToProps, actions)(AlertListComponent)
+const mapDispatchToProps = {
+  fetch,
+  assign,
+  select: maps.actions.select
+}
+
+export const AlertList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AlertListComponent)

@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import alerts from '../alerts'
 import users from '../users'
+import maps from '../maps'
 
 axios.defaults.baseURL = '/api/v1'
 
@@ -27,7 +28,8 @@ export const configure = (initialState = globalState) => {
   })
 
   const control = redux.combineReducers({
-    alerts: alerts.reducers.control
+    alerts: alerts.reducers.control,
+    maps: maps.reducers.control
   })
 
   const reducer = redux.combineReducers({
