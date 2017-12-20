@@ -86,9 +86,9 @@ export class Alert extends Component {
       e.preventDefault()
     }
 
-    const { id } = this.props
+    const { author } = this.props
 
-    this.props.select(id)
+    this.props.select(author.id)
   }
 
   handleAssignee () {
@@ -121,7 +121,7 @@ export class Alert extends Component {
 
   render () {
     return (
-      <li className='list-group-item js-alert'>
+      <li className='list-group-item js-alert mr-1'>
         {this.renderAuthor()}
         {this.renderAssignee()}
       </li>

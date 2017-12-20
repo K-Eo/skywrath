@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux'
 import * as types from './types'
 
-export const selection = (state = null, action) => {
+export const selection = (state = { target: null, date: null }, action) => {
   switch (action.type) {
     case types.SELECT:
-      return action.id
+      return {
+        target: action.id,
+        date: Date.now()
+      }
     default:
       return state
   }

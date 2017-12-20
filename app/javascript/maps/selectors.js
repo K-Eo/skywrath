@@ -12,19 +12,19 @@ export const usersLocations = createSelector(
 export const focusSelector = createSelector(
   selectionSelector,
   usersSelector,
-  (id, users) => {
+  ({ target }, users) => {
     const defaultLocation = { lat: 17.2687499, lng: -97.6971386 }
 
-    if (!id) {
+    if (!target) {
       return defaultLocation
     }
 
-    const user = users[id]
+    const user = users[target]
 
     if (user && user.lat && user.lng) {
       return {
-        lat: users[id].lat,
-        lng: users[id].lng
+        lat: user.lat,
+        lng: user.lng
       }
     }
 
