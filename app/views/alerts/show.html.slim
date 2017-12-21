@@ -1,26 +1,24 @@
 = render "nav"
 
-.twelve.wide.column
-  .ui.vertical.segment style="padding-top: 0;"
-    = alert_label(@alert)
+.col-12.mt-2
+
+.col-9
+  div
     strong = "##{@alert.id}"
     == " &bull; "
     strong = @alert.author.name
     span.text-gray  abrió esta alerta&nbsp;
     = timeago @alert.created_at, class: "text-gray"
 
-  .ui.vertical.segment
-    #live-map style="width: 100%; height: 200px;"
-
-  .ui.vertical.segment
+  div
     - if @alert.opened? && @alert.assignee.present?
       = link_to "Cerrar",
                 close_alert_path(@alert),
-                class: "ui red button",
+                class: "btn btn-danger",
                 method: :patch
 
-.four.wide.column
-  p.strong Asignado
+.col-3
+  p Asignado
   - if @alert.assignee.present?
-    = gravatar @alert.assignee, class: "ui avatar image mr-0-5"
+    = gravatar @alert.assignee, class: "rounded img-mini-avatar mr-2"
     span.strong.text-small = @alert.assignee.name
